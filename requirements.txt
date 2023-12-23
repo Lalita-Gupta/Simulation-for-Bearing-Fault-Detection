@@ -1,0 +1,10 @@
+matplotlib
+numpy
+opencv_contrib_python
+opencv_python
+opencv_python_headless
+pandas
+Pillow
+plotly
+streamlit
+streamlit_drawable_canvas
