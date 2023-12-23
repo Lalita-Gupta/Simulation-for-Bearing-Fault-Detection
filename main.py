@@ -205,7 +205,7 @@ def rms(image):
 
 def table():
 
-    if choice4 == "HUE Coloration":
+    if choice4 == "HUE Coloration" or choice2 == "Canny Edge Detection" or choice2 == "Otsu Edge Detection":
         # dictionary of lists 
         dict = {"Mean": avg_total, "STD": std_total, "Var": var_total, "RMS": rms_total} # "MSE": mse_total
         df = pd.DataFrame(dict)
