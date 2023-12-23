@@ -302,21 +302,21 @@ if choice_img != "Select one":
     # Image sets
     if choice_img == "ImageSet1":
         with col1: 
-            img1 = cv2.imread("Experiment12/Noload/004.bmp")
+            img1 = cv2.imread("Noload/004.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             st.subheader("No Load Image1")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("Experiment12/A30/134.bmp")
+            img2 = cv2.imread("A30/134.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image1")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
-            img3 = cv2.imread("Experiment12/A50/257.bmp")
+            img3 = cv2.imread("A50/257.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             st.subheader("50% Load Image1")
             st.image(img3, caption = "50% LOAD Image")
@@ -324,21 +324,21 @@ if choice_img != "Select one":
 
     if choice_img == "ImageSet2":
         with col1:
-            img1 = cv2.imread("Experiment12/Noload/005.bmp")
+            img1 = cv2.imread("Noload/005.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             st.subheader("No Load Image2")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("Experiment12/A30/135.bmp")
+            img2 = cv2.imread("A30/135.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image2")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
         
         with col3:
-            img3 = cv2.imread("Experiment12/A50/258.bmp")
+            img3 = cv2.imread("A50/258.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             st.subheader("50% Load Image2")
             st.image(img3, caption = "50% LOAD Image")
@@ -346,21 +346,21 @@ if choice_img != "Select one":
 
     if choice_img == "ImageSet3":
         with col1:
-            img1 = cv2.imread("Experiment12/Noload/006.bmp")
+            img1 = cv2.imread("Noload/006.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             st.subheader("No Load Image3")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("Experiment12/A30/136.bmp")
+            img2 = cv2.imread("A30/136.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image3")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
-            img3 = cv2.imread("Experiment12/A50/259.bmp")
+            img3 = cv2.imread("A50/259.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             st.subheader("50% Load Image3")
             st.image(img3, caption = "50% LOAD Image")
@@ -368,21 +368,21 @@ if choice_img != "Select one":
 
     if choice_img == "ImageSet4":
         with col1:
-            img1 = cv2.imread("Experiment12/Noload/007.bmp")
+            img1 = cv2.imread("Noload/007.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             st.subheader("No Load Image4")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("Experiment12/A30/137.bmp")
+            img2 = cv2.imread("A30/137.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image4")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
-            img3 = cv2.imread("Experiment12/A50/260.bmp")
+            img3 = cv2.imread("A50/260.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             st.subheader("50% Load Image4")
             st.image(img3, caption = "50% LOAD Image")
@@ -390,21 +390,21 @@ if choice_img != "Select one":
 
     if choice_img == "ImageSet5":
         with col1:
-            img1 = cv2.imread("Experiment12/Noload/008.bmp")
+            img1 = cv2.imread("Noload/008.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             st.subheader("No Load Image5")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("Experiment12/A30/138.bmp")
+            img2 = cv2.imread("A30/138.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image5")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
-            img3 = cv2.imread("Experiment12/A50/261.bmp")
+            img3 = cv2.imread("A50/261.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             st.subheader("50% Load Image5")
             st.image(img3, caption = "50% LOAD Image")
