@@ -242,7 +242,7 @@ def robert(image):
 
 # **************************************************************************************************************************************
 # title
-st.title("Run Simulation for Bearing Fault Detection")
+st.title("Simulation for Bearing Fault Detection")
 
 # sidebar
 with st.sidebar:
