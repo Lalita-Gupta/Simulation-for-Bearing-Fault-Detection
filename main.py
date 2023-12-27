@@ -70,7 +70,7 @@ def std(image):
 
     st.subheader("Standard Deviation Line Chart")
     
-    if choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
+    if choice4 != "HUE Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
         std_total_chart = pd.DataFrame(std_total,columns=["Blue", "Green", "Red"])
     else:
         std_total_chart = pd.DataFrame(std_total)
@@ -110,7 +110,7 @@ def var(image):
     
     st.subheader("Variance Line Chart")
 
-    if choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
+    if choice4 != "HUE Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
         var_total_chart = pd.DataFrame(var_total,columns=["Blue", "Green", "Red"])
     else:
         var_total_chart = pd.DataFrame(var_total)
@@ -150,7 +150,7 @@ def rms(image):
 
     st.subheader("Root Mean Square Line Chart")
     
-    if choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
+    if choice4 != "HUE Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
         # # dictionary of lists 
         # dict = {"Blue": rms_total[0], "Green": rms_total[1], "Red": rms_total} 
         # rms_total_chart = pd.DataFrame(dict)
