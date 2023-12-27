@@ -250,13 +250,33 @@ with st.sidebar:
     choice_img = st.selectbox("Image set", ["Select one", "ImageSet1", "ImageSet2", "ImageSet3", "ImageSet4", "ImageSet5"])
 
     if choice_img != "Select one":
-        choice4 = st.selectbox("Image Coloration", ["Select one", "Original Image", "HUE Coloration", "Pseudo Coloration"])
+        choice6 = st.selectbox("Image Coloration", ["Select one", "No Transformation", "Log Transformation", "Inverse Log Transformation"])
 
-        if choice4 != "Select one":
-            if choice4 == "Pseudo Coloration":
-                choice5 = st.selectbox("Types of Pseudo Coloration", ["Select one", "Spring", "Hot", "Cool", "Rainbow", "HSV", "JET"])
+        if choice6 != "Select one":
+            choice4 = st.selectbox("Image Coloration", ["Select one", "No Coloration Image", "HUE Coloration", "Pseudo Coloration"])
 
-                if choice5 != "Select one":
+            if choice4 != "Select one":
+                if choice4 == "Pseudo Coloration":
+                    choice5 = st.selectbox("Types of Pseudo Coloration", ["Select one", "Spring", "Hot", "Cool", "Rainbow", "HSV", "JET"])
+
+                    if choice5 != "Select one":
+                        choice1 = st.selectbox("Bearing Fault Detection", ["Select one", "Edge Detection", "Edge Detection with filters"])
+                        
+                        if choice1 == "Edge Detection":
+                            if choice4 == "HUE Coloration":
+                                choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
+                            else:
+                                choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
+
+                        if choice1 == "Edge Detection with filters":
+                            if choice4 == "HUE Coloration":
+                                choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
+                                choice3 = st.selectbox("Filters", ["Select one", "Adaptive", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
+                            else:
+                                choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
+                                choice3 = st.selectbox("Filters", ["Select one", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
+
+                if choice4 != "Pseudo Coloration":
                     choice1 = st.selectbox("Bearing Fault Detection", ["Select one", "Edge Detection", "Edge Detection with filters"])
                     
                     if choice1 == "Edge Detection":
@@ -271,24 +291,7 @@ with st.sidebar:
                             choice3 = st.selectbox("Filters", ["Select one", "Adaptive", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
                         else:
                             choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                            choice3 = st.selectbox("Filters", ["Select one", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
-
-            if choice4 != "Pseudo Coloration":
-                choice1 = st.selectbox("Bearing Fault Detection", ["Select one", "Edge Detection", "Edge Detection with filters"])
-                
-                if choice1 == "Edge Detection":
-                    if choice4 == "HUE Coloration":
-                        choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                    else:
-                        choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-
-                if choice1 == "Edge Detection with filters":
-                    if choice4 == "HUE Coloration":
-                        choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                        choice3 = st.selectbox("Filters", ["Select one", "Adaptive", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
-                    else:
-                        choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                        choice3 = st.selectbox("Filters", ["Select one", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])    
+                            choice3 = st.selectbox("Filters", ["Select one", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])    
 
         
 #creating of columns
@@ -411,274 +414,466 @@ if choice_img != "Select one":
             st.write("Image dimensions:", img3.shape)
 
     # ***************************************************************************************************************************************
-    if choice4 == "Original Image":
+    
+    if choice6 != "Select one":
 
-        with col1:
-
-            # Display the hue image
-            st.subheader("Original - No Load Image")
-            st.image(img1, caption = "ORIGINAL NO LOAD Image")
-            st.write("Image dimensions:", img1.shape)
-            apply_image1 = img1
-
-        with col2:
-
-            # Display the hue image
-            st.subheader("Original - 30% Load Image")
-            st.image(img2, caption = "ORIGINAL 30% LOAD Image")
-            st.write("Image dimensions:", img2.shape)
-            apply_image2 = img2
-
-        with col3:
-
-            # Display the hue image
-            st.subheader("Original - 50% Load Image")
-            st.image(img3, caption = "ORIGINAL 50% LOAD Image")
-            st.write("Image dimensions:", img3.shape)
-            apply_image3 = img3
-
-    #for HUE Coloration
-    if choice4 == "HUE Coloration":
-            
-        with col1:
-
-            # Convert BGR image to HSV
-            hsv_image1 = cv2.cvtColor(img1, cv2.COLOR_RGB2HSV)
-
-            # Extract the hue channel
-            hue_image1 = hsv_image1[:, :, 0]  # Hue channel is the first channel in HSV
-
-            # Display the hue image
-            st.subheader("HUE Coloration - No Load Image")
-            st.image(hue_image1, caption = "HUE NO LOAD Image")
-            st.write("Image dimensions:", hue_image1.shape)
-            apply_image1 = hue_image1
-
-        with col2:
-
-            # Convert BGR image to HSV
-            hsv_image2 = cv2.cvtColor(img2, cv2.COLOR_RGB2HSV)
-
-            # Extract the hue channel
-            hue_image2 = hsv_image2[:, :, 0]  # Hue channel is the first channel in HSV
-
-            # Display the hue image
-            st.subheader("HUE Coloration - 30% Load Image")
-            st.image(hue_image2, caption = "HUE 30% LOAD Image")
-            st.write("Image dimensions:", hue_image2.shape)
-            apply_image2 = hue_image2
-
-        with col3:
-        
-            # Convert BGR image to HSV
-            hsv_image3 = cv2.cvtColor(img3, cv2.COLOR_RGB2HSV)
-
-            # Extract the hue channel
-            hue_image3 = hsv_image3[:, :, 0]  # Hue channel is the first channel in HSV
-
-            # Display the hue image
-            st.subheader("HUE Coloration - 50% Load Image")
-            st.image(hue_image3, caption = "HUE 50% LOAD Image")
-            st.write("Image dimensions:", hue_image3.shape)
-            apply_image3 = hue_image3
-
-        #for HUE Coloration
-    if choice4 == "Pseudo Coloration":
-
-        if choice5 == "Spring":
-
+        if choice6 == "No Transformation":
             with col1:
 
-                pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_SPRING)
-
                 # Display the hue image
-                st.subheader("Pesudo Spring Coloration Image")
-                st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                st.write("Image dimensions:", pesudo_image1.shape)
-                apply_image1 = pesudo_image1
+                st.subheader("No Transformation - No Load Image")
+                st.image(img1, caption = "No Transformation NO LOAD Image")
+                st.write("Image dimensions:", img1.shape)
+                apply_image1 = img1
 
             with col2:
 
-                pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_SPRING)
-
                 # Display the hue image
-                st.subheader("Pesudo Spring Coloration Image")
-                st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                st.write("Image dimensions:", pesudo_image2.shape)
-                apply_image2 = pesudo_image2
+                st.subheader("No Transformation - 30% Load Image")
+                st.image(img2, caption = "No Transformation 30% LOAD Image")
+                st.write("Image dimensions:", img2.shape)
+                apply_image2 = img2
 
             with col3:
-            
-                pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_SPRING)
 
                 # Display the hue image
-                st.subheader("Pesudo Spring Coloration Image")
-                st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                st.write("Image dimensions:", pesudo_image3.shape)
-                apply_image3 = pesudo_image3
+                st.subheader("No Transformation - 50% Load Image")
+                st.image(img3, caption = "No Transformation 50% LOAD Image")
+                st.write("Image dimensions:", img3.shape)
+                apply_image3 = img3
 
-        if choice5 == "Hot":
+        if choice6 == "Log Transformation":
+
+            with col1:
+                # Split the image into its color channels
+                b, g, r = cv2.split(img1)
+
+                # Apply log transformation to each color channel
+                c = 1  # Constant value to avoid log(0)
+                log_transformed_b = c * np.log1p(b.astype(np.float32))
+                log_transformed_g = c * np.log1p(g.astype(np.float32))
+                log_transformed_r = c * np.log1p(r.astype(np.float32))
+
+                # Scale the values to 0-255 range
+                log_transformed_b = cv2.normalize(log_transformed_b, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                log_transformed_g = cv2.normalize(log_transformed_g, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                log_transformed_r = cv2.normalize(log_transformed_r, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+
+                # Merge the log-transformed color channels back into an image
+                log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
+
+                # Display the hue image
+                st.subheader("After Log Transformation - No Load Image")
+                st.image(log_transformed_image, caption = "Log Transformation - No LOAD Image")
+                st.write("Image dimensions:", log_transformed_image.shape)
+                img1 = log_transformed_image
+
+            with col2:
+                # Split the image into its color channels
+                b, g, r = cv2.split(img2)
+
+                # Apply log transformation to each color channel
+                c = 1  # Constant value to avoid log(0)
+                log_transformed_b = c * np.log1p(b.astype(np.float32))
+                log_transformed_g = c * np.log1p(g.astype(np.float32))
+                log_transformed_r = c * np.log1p(r.astype(np.float32))
+
+                # Scale the values to 0-255 range
+                log_transformed_b = cv2.normalize(log_transformed_b, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                log_transformed_g = cv2.normalize(log_transformed_g, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                log_transformed_r = cv2.normalize(log_transformed_r, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+
+                # Merge the log-transformed color channels back into an image
+                log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
+
+                # Display the hue image
+                st.subheader("After Log Transformation - 30% Load Image")
+                st.image(log_transformed_image, caption = "Log Transformation - 30% LOAD Image")
+                st.write("Image dimensions:", log_transformed_image.shape)
+                img2 = log_transformed_image
+
+            with col3:
+                # Split the image into its color channels
+                b, g, r = cv2.split(img3)
+
+                # Apply log transformation to each color channel
+                c = 1  # Constant value to avoid log(0)
+                log_transformed_b = c * np.log1p(b.astype(np.float32))
+                log_transformed_g = c * np.log1p(g.astype(np.float32))
+                log_transformed_r = c * np.log1p(r.astype(np.float32))
+
+                # Scale the values to 0-255 range
+                log_transformed_b = cv2.normalize(log_transformed_b, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                log_transformed_g = cv2.normalize(log_transformed_g, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                log_transformed_r = cv2.normalize(log_transformed_r, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+
+                # Merge the log-transformed color channels back into an image
+                log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
+
+                # Display the hue image
+                st.subheader("After Log Transformation - 50% Load Image")
+                st.image(log_transformed_image, caption = "Log Transformation - 50% LOAD Image")
+                st.write("Image dimensions:", log_transformed_image.shape)
+                img3 = log_transformed_image
+
+        if choice6 == "Inverse Log Transformation":
+            
+            with col1:
+                # Split the original image into its color channels
+                b, g, r = cv2.split(img1)
+
+                # Apply log transformation to each color channel
+                c = 1  # Constant value to avoid log(0)
+                log_transformed_b = c * np.log1p(b.astype(np.float32))
+                log_transformed_g = c * np.log1p(g.astype(np.float32))
+                log_transformed_r = c * np.log1p(r.astype(np.float32))
+
+                # Apply inverse log transformation to each color channel
+                inv_log_transformed_b = np.expm1(log_transformed_b)
+                inv_log_transformed_g = np.expm1(log_transformed_g)
+                inv_log_transformed_r = np.expm1(log_transformed_r)
+
+                # Scale the values to 0-255 range
+                inv_log_transformed_b = cv2.normalize(inv_log_transformed_b, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                inv_log_transformed_g = cv2.normalize(inv_log_transformed_g, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                inv_log_transformed_r = cv2.normalize(inv_log_transformed_r, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+
+                # Merge the inverse log-transformed color channels back into an image
+                inv_log_transformed_image = cv2.merge((inv_log_transformed_b, inv_log_transformed_g, inv_log_transformed_r))
+
+                # Display the image
+                st.subheader("After Inverse Log Transformation - No Load Image")
+                st.image(inv_log_transformed_image, caption = "Inverse Log Transformation - No LOAD Image")
+                st.write("Image dimensions:", inv_log_transformed_image.shape)
+                img1 = inv_log_transformed_image
+
+            with col2:
+                # Split the original image into its color channels
+                b, g, r = cv2.split(img2)
+
+                # Apply log transformation to each color channel
+                c = 1  # Constant value to avoid log(0)
+                log_transformed_b = c * np.log1p(b.astype(np.float32))
+                log_transformed_g = c * np.log1p(g.astype(np.float32))
+                log_transformed_r = c * np.log1p(r.astype(np.float32))
+
+                # Apply inverse log transformation to each color channel
+                inv_log_transformed_b = np.expm1(log_transformed_b)
+                inv_log_transformed_g = np.expm1(log_transformed_g)
+                inv_log_transformed_r = np.expm1(log_transformed_r)
+
+                # Scale the values to 0-255 range
+                inv_log_transformed_b = cv2.normalize(inv_log_transformed_b, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                inv_log_transformed_g = cv2.normalize(inv_log_transformed_g, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                inv_log_transformed_r = cv2.normalize(inv_log_transformed_r, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+
+                # Merge the inverse log-transformed color channels back into an image
+                inv_log_transformed_image = cv2.merge((inv_log_transformed_b, inv_log_transformed_g, inv_log_transformed_r))
+
+                # Display the image
+                st.subheader("After Inverse Log Transformation - 30% Load Image")
+                st.image(inv_log_transformed_image, caption = "Inverse Log Transformation - 30% LOAD Image")
+                st.write("Image dimensions:", inv_log_transformed_image.shape)
+                img2 = inv_log_transformed_image
+
+            with col3:
+                # Split the original image into its color channels
+                b, g, r = cv2.split(img3)
+
+                # Apply log transformation to each color channel
+                c = 1  # Constant value to avoid log(0)
+                log_transformed_b = c * np.log1p(b.astype(np.float32))
+                log_transformed_g = c * np.log1p(g.astype(np.float32))
+                log_transformed_r = c * np.log1p(r.astype(np.float32))
+
+                # Apply inverse log transformation to each color channel
+                inv_log_transformed_b = np.expm1(log_transformed_b)
+                inv_log_transformed_g = np.expm1(log_transformed_g)
+                inv_log_transformed_r = np.expm1(log_transformed_r)
+
+                # Scale the values to 0-255 range
+                inv_log_transformed_b = cv2.normalize(inv_log_transformed_b, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                inv_log_transformed_g = cv2.normalize(inv_log_transformed_g, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+                inv_log_transformed_r = cv2.normalize(inv_log_transformed_r, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+
+                # Merge the inverse log-transformed color channels back into an image
+                inv_log_transformed_image = cv2.merge((inv_log_transformed_b, inv_log_transformed_g, inv_log_transformed_r))
+
+                # Display the image
+                st.subheader("After Inverse Log Transformation - 50% Load Image")
+                st.image(inv_log_transformed_image, caption = "Inverse Log Transformation - 50% LOAD Image")
+                st.write("Image dimensions:", inv_log_transformed_image.shape)
+                img3 = inv_log_transformed_image
+
+
+        if choice4 == "No Coloration Image":
 
             with col1:
 
-                pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_HOT)
-
                 # Display the hue image
-                st.subheader("Pesudo Hot Coloration Image")
-                st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                st.write("Image dimensions:", pesudo_image1.shape)
-                apply_image1 = pesudo_image1
+                st.subheader("No Coloration - No Load Image")
+                st.image(img1, caption = "No Coloration - NO LOAD Image")
+                st.write("Image dimensions:", img1.shape)
+                apply_image1 = img1
 
             with col2:
 
-                pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_HOT)
-
                 # Display the hue image
-                st.subheader("Pesudo Hot Coloration Image")
-                st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                st.write("Image dimensions:", pesudo_image2.shape)
-                apply_image2 = pesudo_image2
+                st.subheader("No Coloration - 30% Load Image")
+                st.image(img2, caption = "No Coloration - 30% LOAD Image")
+                st.write("Image dimensions:", img2.shape)
+                apply_image2 = img2
 
             with col3:
-            
-                pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_HOT)
 
                 # Display the hue image
-                st.subheader("Pesudo Hot Coloration Image")
-                st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                st.write("Image dimensions:", pesudo_image3.shape)
-                apply_image3 = pesudo_image3
+                st.subheader("No Coloration - 50% Load Image")
+                st.image(img3, caption = "No Coloration - 50% LOAD Image")
+                st.write("Image dimensions:", img3.shape)
+                apply_image3 = img3
 
-        if choice5 == "Cool":
 
+        if choice4 == "HUE Coloration":
+                
             with col1:
 
-                pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_COOL)
+                # Convert BGR image to HSV
+                hsv_image1 = cv2.cvtColor(img1, cv2.COLOR_RGB2HSV)
+
+                # Extract the hue channel
+                hue_image1 = hsv_image1[:, :, 0]  # Hue channel is the first channel in HSV
 
                 # Display the hue image
-                st.subheader("Pesudo Cool Coloration Image")
-                st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                st.write("Image dimensions:", pesudo_image1.shape)
-                apply_image1 = pesudo_image1
+                st.subheader("HUE Coloration - No Load Image")
+                st.image(hue_image1, caption = "HUE NO LOAD Image")
+                st.write("Image dimensions:", hue_image1.shape)
+                apply_image1 = hue_image1
 
             with col2:
 
-                pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_COOL)
+                # Convert BGR image to HSV
+                hsv_image2 = cv2.cvtColor(img2, cv2.COLOR_RGB2HSV)
+
+                # Extract the hue channel
+                hue_image2 = hsv_image2[:, :, 0]  # Hue channel is the first channel in HSV
 
                 # Display the hue image
-                st.subheader("Pesudo Cool Coloration Image")
-                st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                st.write("Image dimensions:", pesudo_image2.shape)
-                apply_image2 = pesudo_image2
+                st.subheader("HUE Coloration - 30% Load Image")
+                st.image(hue_image2, caption = "HUE 30% LOAD Image")
+                st.write("Image dimensions:", hue_image2.shape)
+                apply_image2 = hue_image2
 
             with col3:
             
-                pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_COOL)
+                # Convert BGR image to HSV
+                hsv_image3 = cv2.cvtColor(img3, cv2.COLOR_RGB2HSV)
+
+                # Extract the hue channel
+                hue_image3 = hsv_image3[:, :, 0]  # Hue channel is the first channel in HSV
 
                 # Display the hue image
-                st.subheader("Pesudo Cool Coloration Image")
-                st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                st.write("Image dimensions:", pesudo_image3.shape)
-                apply_image3 = pesudo_image3
+                st.subheader("HUE Coloration - 50% Load Image")
+                st.image(hue_image3, caption = "HUE 50% LOAD Image")
+                st.write("Image dimensions:", hue_image3.shape)
+                apply_image3 = hue_image3
 
-        if choice5 == "Rainbow":
 
-            with col1:
+        if choice4 == "Pseudo Coloration":
 
-                pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_RAINBOW)
+            if choice5 == "Spring":
 
-                # Display the hue image
-                st.subheader("Pesudo Rainbow Coloration Image")
-                st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                st.write("Image dimensions:", pesudo_image1.shape)
-                apply_image1 = pesudo_image1
+                with col1:
 
-            with col2:
+                    pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_SPRING)
 
-                pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_RAINBOW)
+                    # Display the hue image
+                    st.subheader("Pesudo Spring Coloration Image")
+                    st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
+                    st.write("Image dimensions:", pesudo_image1.shape)
+                    apply_image1 = pesudo_image1
 
-                # Display the hue image
-                st.subheader("Pesudo Rainbow Coloration Image")
-                st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                st.write("Image dimensions:", pesudo_image2.shape)
-                apply_image2 = pesudo_image2
+                with col2:
 
-            with col3:
-            
-                pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_RAINBOW)
+                    pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_SPRING)
 
-                # Display the hue image
-                st.subheader("Pesudo Rainbow Coloration Image")
-                st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                st.write("Image dimensions:", pesudo_image3.shape)
-                apply_image3 = pesudo_image3
+                    # Display the hue image
+                    st.subheader("Pesudo Spring Coloration Image")
+                    st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image2.shape)
+                    apply_image2 = pesudo_image2
 
-        if choice5 == "HSV":
-            
-            with col1:
+                with col3:
+                
+                    pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_SPRING)
 
-                pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_HSV)
+                    # Display the hue image
+                    st.subheader("Pesudo Spring Coloration Image")
+                    st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image3.shape)
+                    apply_image3 = pesudo_image3
 
-                # Display the hue image
-                st.subheader("Pesudo HSV Coloration Image")
-                st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                st.write("Image dimensions:", pesudo_image1.shape)
-                apply_image1 = pesudo_image1
+            if choice5 == "Hot":
 
-            with col2:
+                with col1:
 
-                pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_HSV)
+                    pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_HOT)
 
-                # Display the hue image
-                st.subheader("Pesudo HSV Coloration Image")
-                st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                st.write("Image dimensions:", pesudo_image2.shape)
-                apply_image2 = pesudo_image2
+                    # Display the hue image
+                    st.subheader("Pesudo Hot Coloration Image")
+                    st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
+                    st.write("Image dimensions:", pesudo_image1.shape)
+                    apply_image1 = pesudo_image1
 
-            with col3:
-            
-                pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_HSV)
+                with col2:
 
-                # Display the hue image
-                st.subheader("Pesudo HSV Coloration Image")
-                st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                st.write("Image dimensions:", pesudo_image3.shape)
-                apply_image3 = pesudo_image3
+                    pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_HOT)
 
-        if choice5 == "JET":
+                    # Display the hue image
+                    st.subheader("Pesudo Hot Coloration Image")
+                    st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image2.shape)
+                    apply_image2 = pesudo_image2
 
-            with col1:
+                with col3:
+                
+                    pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_HOT)
 
-                pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_JET)
+                    # Display the hue image
+                    st.subheader("Pesudo Hot Coloration Image")
+                    st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image3.shape)
+                    apply_image3 = pesudo_image3
 
-                # Display the hue image
-                st.subheader("Pesudo JET Coloration Image")
-                st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                st.write("Image dimensions:", pesudo_image1.shape)
-                apply_image1 = pesudo_image1
+            if choice5 == "Cool":
 
-            with col2:
+                with col1:
 
-                pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_JET)
+                    pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_COOL)
 
-                # Display the hue image
-                st.subheader("Pesudo JET Coloration Image")
-                st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                st.write("Image dimensions:", pesudo_image2.shape)
-                apply_image2 = pesudo_image2
+                    # Display the hue image
+                    st.subheader("Pesudo Cool Coloration Image")
+                    st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
+                    st.write("Image dimensions:", pesudo_image1.shape)
+                    apply_image1 = pesudo_image1
 
-            with col3:
-            
-                pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_JET)
+                with col2:
 
-                # Display the hue image
-                st.subheader("Pesudo JET Coloration Image")
-                st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                st.write("Image dimensions:", pesudo_image3.shape)
-                apply_image3 = pesudo_image3
+                    pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_COOL)
+
+                    # Display the hue image
+                    st.subheader("Pesudo Cool Coloration Image")
+                    st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image2.shape)
+                    apply_image2 = pesudo_image2
+
+                with col3:
+                
+                    pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_COOL)
+
+                    # Display the hue image
+                    st.subheader("Pesudo Cool Coloration Image")
+                    st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image3.shape)
+                    apply_image3 = pesudo_image3
+
+            if choice5 == "Rainbow":
+
+                with col1:
+
+                    pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_RAINBOW)
+
+                    # Display the hue image
+                    st.subheader("Pesudo Rainbow Coloration Image")
+                    st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
+                    st.write("Image dimensions:", pesudo_image1.shape)
+                    apply_image1 = pesudo_image1
+
+                with col2:
+
+                    pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_RAINBOW)
+
+                    # Display the hue image
+                    st.subheader("Pesudo Rainbow Coloration Image")
+                    st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image2.shape)
+                    apply_image2 = pesudo_image2
+
+                with col3:
+                
+                    pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_RAINBOW)
+
+                    # Display the hue image
+                    st.subheader("Pesudo Rainbow Coloration Image")
+                    st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image3.shape)
+                    apply_image3 = pesudo_image3
+
+            if choice5 == "HSV":
+                
+                with col1:
+
+                    pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_HSV)
+
+                    # Display the hue image
+                    st.subheader("Pesudo HSV Coloration Image")
+                    st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
+                    st.write("Image dimensions:", pesudo_image1.shape)
+                    apply_image1 = pesudo_image1
+
+                with col2:
+
+                    pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_HSV)
+
+                    # Display the hue image
+                    st.subheader("Pesudo HSV Coloration Image")
+                    st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image2.shape)
+                    apply_image2 = pesudo_image2
+
+                with col3:
+                
+                    pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_HSV)
+
+                    # Display the hue image
+                    st.subheader("Pesudo HSV Coloration Image")
+                    st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image3.shape)
+                    apply_image3 = pesudo_image3
+
+            if choice5 == "JET":
+
+                with col1:
+
+                    pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_JET)
+
+                    # Display the hue image
+                    st.subheader("Pesudo JET Coloration Image")
+                    st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
+                    st.write("Image dimensions:", pesudo_image1.shape)
+                    apply_image1 = pesudo_image1
+
+                with col2:
+
+                    pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_JET)
+
+                    # Display the hue image
+                    st.subheader("Pesudo JET Coloration Image")
+                    st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image2.shape)
+                    apply_image2 = pesudo_image2
+
+                with col3:
+                
+                    pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_JET)
+
+                    # Display the hue image
+                    st.subheader("Pesudo JET Coloration Image")
+                    st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
+                    st.write("Image dimensions:", pesudo_image3.shape)
+                    apply_image3 = pesudo_image3
 
     # ****************************************************************************************************************************************
-    if choice_img != "Select one" and choice4 != "Select one":
+    if choice_img != "Select one" and choice6 != "Select one" and choice4 != "Select one":
 
         if choice4 == "Pseudo Coloration" and choice5 == "Select one":
             pass 
