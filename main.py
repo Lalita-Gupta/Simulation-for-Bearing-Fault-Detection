@@ -203,7 +203,7 @@ def robert(image):
 # **************************************************************************************************************************************************************
 
 # Title
-st.title("Run Simulation for Bearing Fault Detection")
+st.title("Simulation for Bearing Fault Detection")
 
 # Sidebar
 with st.sidebar:
