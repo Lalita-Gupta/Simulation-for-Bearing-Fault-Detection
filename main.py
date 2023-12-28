@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st 
 import csv
-import pywt
+# import pywt
 
 # All Feature Matrics Functions
 # **************************************************************************************************************************************************************
