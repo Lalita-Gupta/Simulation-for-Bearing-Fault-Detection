@@ -1,15 +1,14 @@
-# Paper 
-
 # Importing Packages
+# **************************************************************************************************************************************************************
 import cv2 
 import matplotlib.pyplot as plt 
 import numpy as np 
 import pandas as pd
 import streamlit as st 
 import csv
-# import pywt
+import pywt
 
-# All feature matrics functions
+# All Feature Matrics Functions
 # **************************************************************************************************************************************************************
 def mean(image):
     mask_size = 2
@@ -69,8 +68,8 @@ def std(image):
         #     writer.writerow(std)
 
     st.subheader("Standard Deviation Line Chart")
-    
-    if choice4 != "HUE Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
+
+    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
         std_total_chart = pd.DataFrame(std_total,columns=["Blue", "Green", "Red"])
     else:
         std_total_chart = pd.DataFrame(std_total)
@@ -110,7 +109,7 @@ def var(image):
     
     st.subheader("Variance Line Chart")
 
-    if choice4 != "HUE Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
+    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
         var_total_chart = pd.DataFrame(var_total,columns=["Blue", "Green", "Red"])
     else:
         var_total_chart = pd.DataFrame(var_total)
@@ -150,10 +149,7 @@ def rms(image):
 
     st.subheader("Root Mean Square Line Chart")
     
-    if choice4 != "HUE Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
-        # # dictionary of lists 
-        # dict = {"Blue": rms_total[0], "Green": rms_total[1], "Red": rms_total} 
-        # rms_total_chart = pd.DataFrame(dict)
+    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
         rms_total_chart = pd.DataFrame(rms_total,columns=["Blue", "Green", "Red"])
     else:
         rms_total_chart = pd.DataFrame(rms_total)
@@ -161,50 +157,13 @@ def rms(image):
     st.line_chart(rms_total_chart)
     return rms_total
 
-# def mse(image):
-#     mask_size = 2
-#     mse_total = []
-
-#     for c in range (0,image.shape[1]-mask_size+1):
-#         # mse = []
-#         total = 0
-#         count = 0
-#         for r in range (0,image.shape[0]-mask_size+1):
-#             s = np.sum(image[r:r+mask_size,c:c+mask_size])
-#             d = mask_size * mask_size
-#             avg = s/d
-#             temp2 = 0
-#             for i in range(0,mask_size):
-#                 for j in range(0,mask_size): 
-#                     #pixel_b, pixel_g, pixel_r = image[r+i][c+j]
-#                     #t = (pixel_b + pixel_g + pixel_r) / 3
-#                     t = image[r+i][c+j]
-#                     temp2 = temp2 + (t-avg)**2
-#             temp = temp2/d
-#             total = total + temp
-#             count = count + 1
-#             # mse.append(temp)
-#         total = total / count
-#         mse_total.append(total) 
-#         # mse.append(total)
-#         # with open("mse.csv", 'a', newline='') as file:
-#         #     writer = csv.writer(file)
-#         #     writer.writerow(mse)
-
-#     st.write("Mean Square Error Line Chart")
-#     mse_total_chart = pd.DataFrame(mse_total)
-
-    # if type(mse_total) == list:
-    #         mse_total_chart = pd.DataFrame(mse_total,columns=["Blue", "Green", "Red"])
-    #     else:
-    #         mse_total_chart = pd.DataFrame(mse_total)
-
-    # st.line_chart(mse_total_chart)
-
-#     return mse_total
+def histogram(image):
+    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+        st.subheader("Histogram")
+        hist = cv2.calcHist([image],[2],None,[256],[0,500])
+        st.line_chart(hist)
 
 def table():
-
     if choice4 == "HUE Coloration" or choice2 == "Canny Edge Detection" or choice2 == "Otsu Edge Detection":
         # dictionary of lists 
         dict = {"Mean": avg_total, "STD": std_total, "Var": var_total, "RMS": rms_total} # "MSE": mse_total
@@ -214,8 +173,8 @@ def table():
         st.subheader("Combined Graph")
         st.line_chart(df)
 
-# **************************************************************************************************************************************
-# All Edge Detection
+# All Edge Detection Functions
+# **************************************************************************************************************************************************************
 def canny(image):
     edges = cv2.Canny(image,100,200)
     return edges
@@ -240,20 +199,21 @@ def robert(image):
     edges = cv2.addWeighted(img_robertx, 0.5, img_roberty, 0.5, 0)
     return edges
 
-# **************************************************************************************************************************************
-# title
-st.title("Simulation for Bearing Fault Detection")
+# Streamlit Simulation
+# **************************************************************************************************************************************************************
 
-# sidebar
+# Title
+st.title("Run Simulation for Bearing Fault Detection")
+
+# Sidebar
 with st.sidebar:
-
     choice_img = st.selectbox("Image set", ["Select one", "ImageSet1", "ImageSet2", "ImageSet3", "ImageSet4", "ImageSet5"])
 
     if choice_img != "Select one":
         choice6 = st.selectbox("Image Transformation", ["Select one", "No Transformation", "Log Transformation", "Inverse Log Transformation"])
 
         if choice6 != "Select one":
-            choice4 = st.selectbox("Image Coloration", ["Select one", "No Coloration Image", "HUE Coloration", "Pseudo Coloration"])
+            choice4 = st.selectbox("Image Coloration", ["Select one", "No Coloration Image", "Gray Coloration", "HUE Coloration", "Pseudo Coloration"])
 
             if choice4 != "Select one":
                 if choice4 == "Pseudo Coloration":
@@ -294,10 +254,12 @@ with st.sidebar:
                             choice3 = st.selectbox("Filters", ["Select one", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])    
 
         
-#creating of columns
+# Creating of Columns
 col1, col2, col3 = st.columns([1,1,1])
 
-# ***************************************************************************************************************************************
+# All Options 
+# **************************************************************************************************************************************************************
+
 if choice_img != "Select one":
 
     st.header('', divider='rainbow')
@@ -312,14 +274,14 @@ if choice_img != "Select one":
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("A30/134.bmp")
+            img2 = cv2.imread("A&C30/175.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image1")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
-            img3 = cv2.imread("A50/257.bmp")
+            img3 = cv2.imread("A50/256.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             st.subheader("50% Load Image1")
             st.image(img3, caption = "50% LOAD Image")
@@ -334,7 +296,7 @@ if choice_img != "Select one":
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("A30/135.bmp")
+            img2 = cv2.imread("A&C30/177.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image2")
             st.image(img2, caption = "30% LOAD Image")
@@ -356,7 +318,7 @@ if choice_img != "Select one":
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("A30/136.bmp")
+            img2 = cv2.imread("A&C30/178.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image3")
             st.image(img2, caption = "30% LOAD Image")
@@ -378,7 +340,7 @@ if choice_img != "Select one":
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("A30/137.bmp")
+            img2 = cv2.imread("A&C30/179.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image4")
             st.image(img2, caption = "30% LOAD Image")
@@ -400,7 +362,7 @@ if choice_img != "Select one":
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("A30/138.bmp")
+            img2 = cv2.imread("A&C30/180.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             st.subheader("30% Load Image5")
             st.image(img2, caption = "30% LOAD Image")
@@ -413,8 +375,8 @@ if choice_img != "Select one":
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
 
-    # ***************************************************************************************************************************************
-    
+    # Image Transformation and Coloration
+    # **************************************************************************************************************************************************************
     if choice6 != "Select one":
 
         if choice6 == "No Transformation":
@@ -463,8 +425,8 @@ if choice_img != "Select one":
                 log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
 
                 # Display the hue image
-                st.subheader("After Log Transformation - No Load Image")
-                st.image(log_transformed_image, caption = "Log Transformation - No LOAD Image")
+                st.subheader("Log Transformation - No Load Image")
+                st.image(log_transformed_image, caption = "Log Transformation -- NO LOAD Image")
                 st.write("Image dimensions:", log_transformed_image.shape)
                 img1 = log_transformed_image
 
@@ -487,7 +449,7 @@ if choice_img != "Select one":
                 log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
 
                 # Display the hue image
-                st.subheader("After Log Transformation - 30% Load Image")
+                st.subheader("Log Transformation - 30% Load Image")
                 st.image(log_transformed_image, caption = "Log Transformation - 30% LOAD Image")
                 st.write("Image dimensions:", log_transformed_image.shape)
                 img2 = log_transformed_image
@@ -511,7 +473,7 @@ if choice_img != "Select one":
                 log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
 
                 # Display the hue image
-                st.subheader("After Log Transformation - 50% Load Image")
+                st.subheader("Log Transformation - 50% Load Image")
                 st.image(log_transformed_image, caption = "Log Transformation - 50% LOAD Image")
                 st.write("Image dimensions:", log_transformed_image.shape)
                 img3 = log_transformed_image
@@ -542,7 +504,7 @@ if choice_img != "Select one":
                 inv_log_transformed_image = cv2.merge((inv_log_transformed_b, inv_log_transformed_g, inv_log_transformed_r))
 
                 # Display the image
-                st.subheader("After Inverse Log Transformation - No Load Image")
+                st.subheader("Inverse Log Transformation - No Load Image")
                 st.image(inv_log_transformed_image, caption = "Inverse Log Transformation - No LOAD Image")
                 st.write("Image dimensions:", inv_log_transformed_image.shape)
                 img1 = inv_log_transformed_image
@@ -571,7 +533,7 @@ if choice_img != "Select one":
                 inv_log_transformed_image = cv2.merge((inv_log_transformed_b, inv_log_transformed_g, inv_log_transformed_r))
 
                 # Display the image
-                st.subheader("After Inverse Log Transformation - 30% Load Image")
+                st.subheader("Inverse Log Transformation - 30% Load Image")
                 st.image(inv_log_transformed_image, caption = "Inverse Log Transformation - 30% LOAD Image")
                 st.write("Image dimensions:", inv_log_transformed_image.shape)
                 img2 = inv_log_transformed_image
@@ -600,7 +562,7 @@ if choice_img != "Select one":
                 inv_log_transformed_image = cv2.merge((inv_log_transformed_b, inv_log_transformed_g, inv_log_transformed_r))
 
                 # Display the image
-                st.subheader("After Inverse Log Transformation - 50% Load Image")
+                st.subheader("Inverse Log Transformation - 50% Load Image")
                 st.image(inv_log_transformed_image, caption = "Inverse Log Transformation - 50% LOAD Image")
                 st.write("Image dimensions:", inv_log_transformed_image.shape)
                 img3 = inv_log_transformed_image
@@ -610,7 +572,6 @@ if choice_img != "Select one":
 
             with col1:
 
-                # Display the hue image
                 st.subheader("No Coloration - No Load Image")
                 st.image(img1, caption = "No Coloration - NO LOAD Image")
                 st.write("Image dimensions:", img1.shape)
@@ -618,7 +579,6 @@ if choice_img != "Select one":
 
             with col2:
 
-                # Display the hue image
                 st.subheader("No Coloration - 30% Load Image")
                 st.image(img2, caption = "No Coloration - 30% LOAD Image")
                 st.write("Image dimensions:", img2.shape)
@@ -626,12 +586,39 @@ if choice_img != "Select one":
 
             with col3:
 
-                # Display the hue image
                 st.subheader("No Coloration - 50% Load Image")
                 st.image(img3, caption = "No Coloration - 50% LOAD Image")
                 st.write("Image dimensions:", img3.shape)
                 apply_image3 = img3
 
+        if choice4 == "Gray Coloration":
+
+            with col1:
+
+                gray_image1 = cv2.cvtColor(img1, cv2.COLOR_RGB2GRAY)
+
+                st.subheader("Gray Coloration - No Load Image")
+                st.image(gray_image1, caption = "Gray Coloration - NO LOAD Image")
+                st.write("Image dimensions:", gray_image1.shape)
+                apply_image1 = gray_image1
+
+            with col2:
+
+                gray_image2 = cv2.cvtColor(img2, cv2.COLOR_RGB2GRAY)
+
+                st.subheader("Gray Coloration - 30% Load Image")
+                st.image(gray_image2, caption = "Gray Coloration - 30% LOAD Image")
+                st.write("Image dimensions:", gray_image2.shape)
+                apply_image2 = gray_image2
+
+            with col3:
+
+                gray_image3 = cv2.cvtColor(img3, cv2.COLOR_RGB2GRAY)
+
+                st.subheader("Gray Coloration - 50% Load Image")
+                st.image(gray_image3, caption = "Gray Coloration - 50% LOAD Image")
+                st.write("Image dimensions:", gray_image3.shape)
+                apply_image3 = gray_image3
 
         if choice4 == "HUE Coloration":
                 
@@ -677,7 +664,6 @@ if choice_img != "Select one":
                 st.write("Image dimensions:", hue_image3.shape)
                 apply_image3 = hue_image3
 
-
         if choice4 == "Pseudo Coloration":
 
             if choice5 == "Spring":
@@ -686,7 +672,6 @@ if choice_img != "Select one":
 
                     pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_SPRING)
 
-                    # Display the hue image
                     st.subheader("Pesudo Spring Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
                     st.write("Image dimensions:", pesudo_image1.shape)
@@ -696,7 +681,6 @@ if choice_img != "Select one":
 
                     pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_SPRING)
 
-                    # Display the hue image
                     st.subheader("Pesudo Spring Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
                     st.write("Image dimensions:", pesudo_image2.shape)
@@ -706,7 +690,6 @@ if choice_img != "Select one":
                 
                     pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_SPRING)
 
-                    # Display the hue image
                     st.subheader("Pesudo Spring Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
                     st.write("Image dimensions:", pesudo_image3.shape)
@@ -718,7 +701,6 @@ if choice_img != "Select one":
 
                     pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_HOT)
 
-                    # Display the hue image
                     st.subheader("Pesudo Hot Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
                     st.write("Image dimensions:", pesudo_image1.shape)
@@ -728,7 +710,6 @@ if choice_img != "Select one":
 
                     pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_HOT)
 
-                    # Display the hue image
                     st.subheader("Pesudo Hot Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
                     st.write("Image dimensions:", pesudo_image2.shape)
@@ -738,7 +719,6 @@ if choice_img != "Select one":
                 
                     pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_HOT)
 
-                    # Display the hue image
                     st.subheader("Pesudo Hot Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
                     st.write("Image dimensions:", pesudo_image3.shape)
@@ -750,7 +730,6 @@ if choice_img != "Select one":
 
                     pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_COOL)
 
-                    # Display the hue image
                     st.subheader("Pesudo Cool Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
                     st.write("Image dimensions:", pesudo_image1.shape)
@@ -760,7 +739,6 @@ if choice_img != "Select one":
 
                     pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_COOL)
 
-                    # Display the hue image
                     st.subheader("Pesudo Cool Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
                     st.write("Image dimensions:", pesudo_image2.shape)
@@ -770,7 +748,6 @@ if choice_img != "Select one":
                 
                     pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_COOL)
 
-                    # Display the hue image
                     st.subheader("Pesudo Cool Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
                     st.write("Image dimensions:", pesudo_image3.shape)
@@ -782,7 +759,6 @@ if choice_img != "Select one":
 
                     pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_RAINBOW)
 
-                    # Display the hue image
                     st.subheader("Pesudo Rainbow Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
                     st.write("Image dimensions:", pesudo_image1.shape)
@@ -792,7 +768,6 @@ if choice_img != "Select one":
 
                     pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_RAINBOW)
 
-                    # Display the hue image
                     st.subheader("Pesudo Rainbow Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
                     st.write("Image dimensions:", pesudo_image2.shape)
@@ -802,7 +777,6 @@ if choice_img != "Select one":
                 
                     pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_RAINBOW)
 
-                    # Display the hue image
                     st.subheader("Pesudo Rainbow Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
                     st.write("Image dimensions:", pesudo_image3.shape)
@@ -814,7 +788,6 @@ if choice_img != "Select one":
 
                     pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_HSV)
 
-                    # Display the hue image
                     st.subheader("Pesudo HSV Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
                     st.write("Image dimensions:", pesudo_image1.shape)
@@ -824,7 +797,6 @@ if choice_img != "Select one":
 
                     pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_HSV)
 
-                    # Display the hue image
                     st.subheader("Pesudo HSV Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
                     st.write("Image dimensions:", pesudo_image2.shape)
@@ -834,7 +806,6 @@ if choice_img != "Select one":
                 
                     pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_HSV)
 
-                    # Display the hue image
                     st.subheader("Pesudo HSV Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
                     st.write("Image dimensions:", pesudo_image3.shape)
@@ -846,7 +817,6 @@ if choice_img != "Select one":
 
                     pesudo_image1 = cv2.applyColorMap(img1, cv2.COLORMAP_JET)
 
-                    # Display the hue image
                     st.subheader("Pesudo JET Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
                     st.write("Image dimensions:", pesudo_image1.shape)
@@ -856,7 +826,6 @@ if choice_img != "Select one":
 
                     pesudo_image2 = cv2.applyColorMap(img2, cv2.COLORMAP_JET)
 
-                    # Display the hue image
                     st.subheader("Pesudo JET Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
                     st.write("Image dimensions:", pesudo_image2.shape)
@@ -866,13 +835,13 @@ if choice_img != "Select one":
                 
                     pesudo_image3 = cv2.applyColorMap(img3, cv2.COLORMAP_JET)
 
-                    # Display the hue image
                     st.subheader("Pesudo JET Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
                     st.write("Image dimensions:", pesudo_image3.shape)
                     apply_image3 = pesudo_image3
 
-    # ****************************************************************************************************************************************
+    # After Image Transformation and Coloration
+    # **************************************************************************************************************************************************************
     if choice_img != "Select one" and choice6 != "Select one" and choice4 != "Select one":
 
         if choice4 == "Pseudo Coloration" and choice5 == "Select one":
@@ -881,21 +850,18 @@ if choice_img != "Select one":
         else:
 
             # Edge Detection 
+            # **************************************************************************************************************************************************************
             if choice1 == "Edge Detection":
 
-                #for Canny
+                # for Canny
                 if choice2 == "Canny Edge Detection":
 
                     with col1:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist1 = cv2.calcHist([apply_image1],[2],None,[256],[0,500])
-                            st.line_chart(hist1)
+                        histogram(apply_image1)
 
                         edges1 = canny(apply_image1)
 
-                        # Display the hue image
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges1, caption = "CANNY EDGES NO LOAD Image")
                         st.write("Image dimensions:", edges1.shape)
@@ -909,14 +875,10 @@ if choice_img != "Select one":
                         
                     with col2:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist2 = cv2.calcHist([apply_image2],[2],None,[256],[0,500])
-                            st.line_chart(hist2)
+                        histogram(apply_image2)
 
                         edges2 = canny(apply_image2)
 
-                        # Display the hue image
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges2, caption = "CANNY EDGES 30% LOAD Image")
                         st.write("Image dimensions:", edges2.shape)
@@ -931,14 +893,10 @@ if choice_img != "Select one":
 
                     with col3:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist3 = cv2.calcHist([apply_image3],[2],None,[256],[0,500])
-                            st.line_chart(hist3)
+                        histogram(apply_image3)
 
                         edges3 = canny(apply_image3)
 
-                        # Display the hue image
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges3, caption = "CANNY EDGES 50% LOAD Image")
                         st.write("Image dimensions:", edges3.shape)
@@ -950,7 +908,7 @@ if choice_img != "Select one":
                         # mse_total = mse(edges3)
                         table()
 
-                #for otsu
+                # for otsu
                 if choice2 == "Otsu Edge Detection":
 
                     #creating of columns
@@ -958,14 +916,10 @@ if choice_img != "Select one":
                     
                     with col1:
                         
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist1 = cv2.calcHist([apply_image1],[2],None,[256],[0,500])
-                            st.line_chart(hist1)
+                        histogram(apply_image1)
 
                         edges1 = otsu(apply_image1)
 
-                        # Display the hue image
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges1, caption = "OTSU EDGES NO LOAD Image")
                         st.write("Image dimensions:", edges1.shape)
@@ -979,14 +933,10 @@ if choice_img != "Select one":
                         
                     with col2:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist2 = cv2.calcHist([apply_image2],[2],None,[256],[0,500])
-                            st.line_chart(hist2)
+                        histogram(apply_image2)
 
                         edges2 = otsu(apply_image2)
 
-                        # Display the hue image
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges2, caption = "OTSU EDGES 30% LOAD Image")
                         st.write("Image dimensions:", edges2.shape)
@@ -1001,14 +951,10 @@ if choice_img != "Select one":
 
                     with col3:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist3 = cv2.calcHist([apply_image3],[2],None,[256],[0,500])
-                            st.line_chart(hist3)
+                        histogram(apply_image3)
 
                         edges3 = otsu(apply_image3)
 
-                        # Display the hue image
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges3, caption = "OTSU EDGES 50% LOAD Image")
                         st.write("Image dimensions:", edges3.shape)
@@ -1020,7 +966,7 @@ if choice_img != "Select one":
                         # mse_total = mse(edges3)
                         table()
                     
-                #for prewitt
+                # for prewitt
                 if choice2 == "Prewitt Edge Detection":
 
                     #creating of columns
@@ -1028,14 +974,10 @@ if choice_img != "Select one":
                     
                     with col1:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist1 = cv2.calcHist([apply_image1],[2],None,[256],[0,500])
-                            st.line_chart(hist1)
+                        histogram(apply_image1)
 
                         edges1 = prewitt(apply_image1)
                        
-                        # Display the hue image
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges1, caption = "PREWITT EDGES NO LOAD Image")
                         st.write("Image dimensions:", edges1.shape)
@@ -1049,14 +991,10 @@ if choice_img != "Select one":
                         
                     with col2:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist2 = cv2.calcHist([apply_image2],[2],None,[256],[0,500])
-                            st.line_chart(hist2)
+                        histogram(apply_image2)
 
                         edges2 = prewitt(apply_image2)
 
-                        # Display the hue image
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges2, caption = "PREWITT EDGES 30% LOAD Image")
                         st.write("Image dimensions:", edges2.shape)
@@ -1070,14 +1008,10 @@ if choice_img != "Select one":
 
                     with col3:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist3 = cv2.calcHist([apply_image3],[2],None,[256],[0,500])
-                            st.line_chart(hist3)
+                        histogram(apply_image3)
 
                         edges3 = prewitt(apply_image3)
 
-                        # Display the hue image
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges3, caption = "PREWITT EDGES 50% LOAD Image")
                         st.write("Image dimensions:", edges3.shape)
@@ -1089,7 +1023,7 @@ if choice_img != "Select one":
                         # mse_total = mse(edges3)
                         table()
                 
-                #for robert
+                # for robert
                 if choice2 == "Robert Edge Detection":
 
                     #creating of columns
@@ -1097,14 +1031,10 @@ if choice_img != "Select one":
                     
                     with col1:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist1 = cv2.calcHist([apply_image1],[2],None,[256],[0,500])
-                            st.line_chart(hist1)
+                        histogram(apply_image1)
 
                         edges1 = robert(apply_image1)
 
-                        # Display the hue image
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges1, caption = "ROBERT EDGES NO LOAD Image")
                         st.write("Image dimensions:", edges1.shape)
@@ -1118,14 +1048,10 @@ if choice_img != "Select one":
                         
                     with col2:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist2 = cv2.calcHist([apply_image2],[2],None,[256],[0,500])
-                            st.line_chart(hist2)
+                        histogram(apply_image2)
 
                         edges2 = robert(apply_image2)
 
-                        # Display the hue image
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges2, caption = "ROBERT EDGES 30% LOAD Image")
                         st.write("Image dimensions:", edges2.shape)
@@ -1140,14 +1066,10 @@ if choice_img != "Select one":
 
                     with col3:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist3 = cv2.calcHist([apply_image3],[2],None,[256],[0,500])
-                            st.line_chart(hist3)
+                        histogram(apply_image3)
 
                         edges3 = robert(apply_image3)
 
-                        # Display the hue image
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges3, caption = "ROBERT EDGES 50% LOAD Image")
                         st.write("Image dimensions:", edges3.shape)
@@ -1159,19 +1081,16 @@ if choice_img != "Select one":
                         # mse_total = mse(edges3)
                         table()
 
-            # ***************************************************************************************************************************************
-            # Edge Detection 
+            # Edge Detection with filter
+            # **************************************************************************************************************************************************************
             if choice1 == "Edge Detection with filters":
 
-                #for Canny
+                # for Canny with filter
                 if choice2 == "Canny Edge Detection":
 
                     with col1:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist1 = cv2.calcHist([apply_image1],[2],None,[256],[0,500])
-                            st.line_chart(hist1)
+                        histogram(apply_image1)
 
                         if choice3 != "Select one":
 
@@ -1214,7 +1133,6 @@ if choice_img != "Select one":
 
                             edges1 = canny(image_result)
 
-                            # Display the hue image
                             st.subheader("Canny Edge Detection Image with filter")
                             st.image(edges1, caption = "CANNY EDGES NO LOAD Image")
                             st.write("Image dimensions:", edges1.shape)
@@ -1228,10 +1146,7 @@ if choice_img != "Select one":
                         
                     with col2:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist2 = cv2.calcHist([apply_image2],[2],None,[256],[0,500])
-                            st.line_chart(hist2)
+                        histogram(apply_image2)
 
                         if choice3 != "Select one":
 
@@ -1274,7 +1189,6 @@ if choice_img != "Select one":
 
                             edges2 = canny(image_result)
 
-                            # Display the hue image
                             st.subheader("Canny Edge Detection Image with filter")
                             st.image(edges2, caption = "CANNY EDGES 30% LOAD Image")
                             st.write("Image dimensions:", edges2.shape)
@@ -1289,10 +1203,7 @@ if choice_img != "Select one":
 
                     with col3:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist3 = cv2.calcHist([apply_image3],[2],None,[256],[0,500])
-                            st.line_chart(hist3)
+                        histogram(apply_image3)
 
                         if choice3 != "Select one":
 
@@ -1335,7 +1246,6 @@ if choice_img != "Select one":
 
                             edges3 = canny(image_result)
 
-                            # Display the hue image
                             st.subheader("Canny Edge Detection Image with filter")
                             st.image(edges3, caption = "CANNY EDGES 50% LOAD Image")
                             st.write("Image dimensions:", edges3.shape)
@@ -1347,7 +1257,7 @@ if choice_img != "Select one":
                             # mse_total = mse(edges3)
                             table()
 
-                #for otsu
+                # for otsu with filter
                 if choice2 == "Otsu Edge Detection":
 
                     #creating of columns
@@ -1355,10 +1265,7 @@ if choice_img != "Select one":
                     
                     with col1:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist1 = cv2.calcHist([apply_image1],[2],None,[256],[0,500])
-                            st.line_chart(hist1)
+                        histogram(apply_image1)
 
                         if choice3 != "Select one":
 
@@ -1401,7 +1308,6 @@ if choice_img != "Select one":
 
                             edges1 = otsu(image_result)
 
-                            # Display the hue image
                             st.subheader("Otsu Edge Detection Image with filter")
                             st.image(edges1, caption = "OTSU EDGES NO LOAD Image")
                             st.write("Image dimensions:", edges1.shape)
@@ -1415,10 +1321,7 @@ if choice_img != "Select one":
                         
                     with col2:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist2 = cv2.calcHist([apply_image2],[2],None,[256],[0,500])
-                            st.line_chart(hist2)
+                        histogram(apply_image2)
 
                         if choice3 != "Select one":
 
@@ -1461,7 +1364,6 @@ if choice_img != "Select one":
 
                             edges2 = otsu(image_result)
 
-                            # Display the hue image
                             st.subheader("Otsu Edge Detection Image with filter")
                             st.image(edges2, caption = "OTSU EDGES 30% LOAD Image")
                             st.write("Image dimensions:", edges2.shape)
@@ -1476,10 +1378,7 @@ if choice_img != "Select one":
 
                     with col3:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist3 = cv2.calcHist([apply_image3],[2],None,[256],[0,500])
-                            st.line_chart(hist3)
+                        histogram(apply_image3)
 
                         if choice3 != "Select one":
 
@@ -1522,7 +1421,6 @@ if choice_img != "Select one":
 
                             edges3 = otsu(image_result)
 
-                            # Display the hue image
                             st.subheader("Otsu Edge Detection Image with filter")
                             st.image(edges3, caption = "OTSU EDGES 50% LOAD Image")
                             st.write("Image dimensions:", edges3.shape)
@@ -1534,7 +1432,7 @@ if choice_img != "Select one":
                             # mse_total = mse(edges3)
                             table()
                     
-                #for prewitt
+                # for prewitt with filter
                 if choice2 == "Prewitt Edge Detection":
 
                     #creating of columns
@@ -1542,10 +1440,7 @@ if choice_img != "Select one":
                     
                     with col1:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist1 = cv2.calcHist([apply_image1],[2],None,[256],[0,500])
-                            st.line_chart(hist1)
+                        histogram(apply_image1)
 
                         if choice3 != "Select one":
 
@@ -1577,7 +1472,6 @@ if choice_img != "Select one":
 
                             edges1 = prewitt(image_result)
 
-                            # Display the hue image
                             st.subheader("Prewitt Edge Detection Image with filter")
                             st.image(edges1, caption = "PREWITT EDGES NO LOAD Image")
                             st.write("Image dimensions:", edges1.shape)
@@ -1591,10 +1485,7 @@ if choice_img != "Select one":
                         
                     with col2:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist2 = cv2.calcHist([apply_image2],[2],None,[256],[0,500])
-                            st.line_chart(hist2)
+                        histogram(apply_image2)
                         
                         if choice3 != "Select one":
 
@@ -1626,7 +1517,6 @@ if choice_img != "Select one":
 
                             edges2 = prewitt(image_result)
 
-                            # Display the hue image
                             st.subheader("Prewitt Edge Detection Image with filter")
                             st.image(edges2, caption = "PREWITT EDGES 30% LOAD Image")
                             st.write("Image dimensions:", edges2.shape)
@@ -1640,10 +1530,7 @@ if choice_img != "Select one":
 
                     with col3:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist3 = cv2.calcHist([apply_image3],[2],None,[256],[0,500])
-                            st.line_chart(hist3)
+                        histogram(apply_image3)
 
                         if choice3 != "Select one":
 
@@ -1686,7 +1573,6 @@ if choice_img != "Select one":
 
                             edges3 = prewitt(image_result)
 
-                            # Display the hue image
                             st.subheader("Prewitt Edge Detection Image with filter")
                             st.image(edges3, caption = "PREWITT EDGES 50% LOAD Image")
                             st.write("Image dimensions:", edges3.shape)
@@ -1698,7 +1584,7 @@ if choice_img != "Select one":
                             # mse_total = mse(edges3)
                             table()
                 
-                #for robert
+                # for robert with filter
                 if choice2 == "Robert Edge Detection":
 
                     #creating of columns
@@ -1706,10 +1592,7 @@ if choice_img != "Select one":
                     
                     with col1:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist1 = cv2.calcHist([apply_image1],[2],None,[256],[0,500])
-                            st.line_chart(hist1)
+                        histogram(apply_image1)
 
                         if choice3 != "Select one":
 
@@ -1757,7 +1640,6 @@ if choice_img != "Select one":
                             # edges1[edges1 > 0] = 255
                             # st.write(edges1)
 
-                            # Display the hue image
                             st.subheader("Robert Edge Detection Image with filter")
                             st.image(edges1, caption = "ROBERT EDGES NO LOAD Image")
                             st.write("Image dimensions:", edges1.shape)
@@ -1771,10 +1653,7 @@ if choice_img != "Select one":
                         
                     with col2:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist2 = cv2.calcHist([apply_image2],[2],None,[256],[0,500])
-                            st.line_chart(hist2)
+                        histogram(apply_image2)
 
                         if choice3 != "Select one":
 
@@ -1816,7 +1695,6 @@ if choice_img != "Select one":
 
                             edges2 = robert(image_result)
 
-                            # Display the hue image
                             st.subheader("Robert Edge Detection Image with filter")
                             st.image(edges2, caption = "ROBERT EDGES 30% LOAD Image")
                             st.write("Image dimensions:", edges2.shape)
@@ -1831,10 +1709,7 @@ if choice_img != "Select one":
 
                     with col3:
 
-                        if choice4 != "HUE Coloration":
-                            st.subheader("Histogram")
-                            hist3 = cv2.calcHist([apply_image3],[2],None,[256],[0,500])
-                            st.line_chart(hist3)
+                        histogram(apply_image3)
 
                         if choice3 != "Select one":
 
@@ -1876,7 +1751,6 @@ if choice_img != "Select one":
 
                             edges3 = robert(image_result)
 
-                            # Display the hue image
                             st.subheader("Robert Edge Detection Image with filter")
                             st.image(edges3, caption = "ROBERT EDGES 50% LOAD Image")
                             st.write("Image dimensions:", edges3.shape)
@@ -1888,4 +1762,4 @@ if choice_img != "Select one":
                             # mse_total = mse(edges3)
                             table()
 
-    # ****************************************************************************************************************************************
+# **************************************************************************************************************************************************************
