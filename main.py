@@ -210,7 +210,7 @@ with st.sidebar:
     choice_img = st.selectbox("Image set", ["Select one", "ImageSet1", "ImageSet2", "ImageSet3", "ImageSet4", "ImageSet5"])
 
     if choice_img != "Select one":
-        choice6 = st.selectbox("Image Transformation", ["Select one", "No Transformation", "Log Transformation", "Inverse Log Transformation"])
+        choice6 = st.selectbox("Image Transformation", ["Select one", "No Transformation", "Gamma Transformation", "Log Transformation", "Inverse Log Transformation"])
 
         if choice6 != "Select one":
             choice4 = st.selectbox("Image Coloration", ["Select one", "No Coloration Image", "Gray Coloration", "HUE Coloration", "Pseudo Coloration"])
