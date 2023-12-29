@@ -207,7 +207,7 @@ st.title("Simulation for Bearing Fault Detection")
 
 # Sidebar
 with st.sidebar:
-    choice_img = st.selectbox("Image set", ["Select one", "ImageSet1", "ImageSet2", "ImageSet3", "ImageSet4", "ImageSet5"])
+    choice_img = st.selectbox("Image Set", ["Select one", "Set1 - 30% Phase1, 50% Phase1", "Set2 - 30% Phase2, 50% Phase1", "Set3 - 30% Phase3, 50% Phase1", "Set4 - 30% Phase1, 50% Phase2", "Set5 - 30% Phase2, 50% Phase2", "Set6 - 30% Phase3, 50% Phase2"])
 
     if choice_img != "Select one":
         choice6 = st.selectbox("Image Transformation", ["Select one", "No Transformation", "Gamma Transformation", "Log Transformation", "Inverse Log Transformation"])
@@ -265,113 +265,135 @@ if choice_img != "Select one":
     st.header('', divider='rainbow')
 
     # Image sets
-    if choice_img == "ImageSet1":
+    if choice_img == "Set1 - 30% Phase1, 50% Phase1":
         with col1: 
             img1 = cv2.imread("Noload/004.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
-            st.subheader("No Load Image1")
+            st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("A&C30/175.bmp")
+            img2 = cv2.imread("A30/137.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
-            st.subheader("30% Load Image1")
+            st.subheader("30% Load Phase 1")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
             img3 = cv2.imread("A50/256.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
-            st.subheader("50% Load Image1")
+            st.subheader("50% Load Phase 1")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
 
-    if choice_img == "ImageSet2":
+    if choice_img == "Set2 - 30% Phase2, 50% Phase1":
         with col1:
             img1 = cv2.imread("Noload/005.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
-            st.subheader("No Load Image2")
+            st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
             img2 = cv2.imread("A&C30/177.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
-            st.subheader("30% Load Image2")
+            st.subheader("30% Load Phase 2")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
         
         with col3:
             img3 = cv2.imread("A50/258.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
-            st.subheader("50% Load Image2")
+            st.subheader("50% Load Phase 1")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
 
-    if choice_img == "ImageSet3":
+    if choice_img == "Set3 - 30% Phase3, 50% Phase1":
         with col1:
             img1 = cv2.imread("Noload/006.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
-            st.subheader("No Load Image3")
+            st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("A&C30/178.bmp")
+            img2 = cv2.imread("A&C&B30/217.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
-            st.subheader("30% Load Image3")
+            st.subheader("30% Load Phase 3")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
             img3 = cv2.imread("A50/259.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
-            st.subheader("50% Load Image3")
+            st.subheader("50% Load Phase 1")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
 
-    if choice_img == "ImageSet4":
+    if choice_img == "Set4 - 30% Phase1, 50% Phase2":
         with col1:
             img1 = cv2.imread("Noload/007.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
-            st.subheader("No Load Image4")
+            st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
-            img2 = cv2.imread("A&C30/179.bmp")
+            img2 = cv2.imread("A30/134.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
-            st.subheader("30% Load Image4")
+            st.subheader("30% Load Phase 1")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
-            img3 = cv2.imread("A50/260.bmp")
+            img3 = cv2.imread("A&B50/292.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
-            st.subheader("50% Load Image4")
+            st.subheader("50% Load Phase 2")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
 
-    if choice_img == "ImageSet5":
+    if choice_img == "Set5 - 30% Phase2, 50% Phase2":
         with col1:
             img1 = cv2.imread("Noload/008.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
-            st.subheader("No Load Image5")
+            st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
 
         with col2:
             img2 = cv2.imread("A&C30/180.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
-            st.subheader("30% Load Image5")
+            st.subheader("30% Load Phase 2")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
 
         with col3:
-            img3 = cv2.imread("A50/261.bmp")
+            img3 = cv2.imread("A&B50/293.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
-            st.subheader("50% Load Image5")
+            st.subheader("50% Load Phase 2")
+            st.image(img3, caption = "50% LOAD Image")
+            st.write("Image dimensions:", img3.shape)
+
+    if choice_img == "Set6 - 30% Phase3, 50% Phase2":
+        with col1:
+            img1 = cv2.imread("Noload/008.bmp")
+            img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
+            st.subheader("Healthy - No Load")
+            st.image(img1, caption = "NO LOAD Image")
+            st.write("Image dimensions:", img1.shape)
+
+        with col2:
+            img2 = cv2.imread("A&C&B30/215.bmp")
+            img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
+            st.subheader("30% Load Phase 3")
+            st.image(img2, caption = "30% LOAD Image")
+            st.write("Image dimensions:", img2.shape)
+
+        with col3:
+            img3 = cv2.imread("A&B50/293.bmp")
+            img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
+            st.subheader("50% Load Phase 2")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
 
@@ -546,7 +568,7 @@ if choice_img != "Select one":
 
                 # Display the image
                 st.subheader("Inverse Log Transformation - No Load Image")
-                st.image(inv_log_transformed_image, caption = "Inverse Log Transformation - No LOAD Image")
+                st.image(inv_log_transformed_image, caption = "Inverse Log Transformation - NO LOAD Image")
                 st.write("Image dimensions:", inv_log_transformed_image.shape)
                 img1 = inv_log_transformed_image
 
@@ -673,7 +695,7 @@ if choice_img != "Select one":
 
                 # Display the hue image
                 st.subheader("HUE Coloration - No Load Image")
-                st.image(hue_image1, caption = "HUE NO LOAD Image")
+                st.image(hue_image1, caption = "HUE NO LOAD Image", channels='HSV', use_column_width=True)
                 st.write("Image dimensions:", hue_image1.shape)
                 apply_image1 = hue_image1
 
@@ -687,7 +709,7 @@ if choice_img != "Select one":
 
                 # Display the hue image
                 st.subheader("HUE Coloration - 30% Load Image")
-                st.image(hue_image2, caption = "HUE 30% LOAD Image")
+                st.image(hue_image2, caption = "HUE 30% LOAD Image", channels='HSV', use_column_width=True)
                 st.write("Image dimensions:", hue_image2.shape)
                 apply_image2 = hue_image2
 
@@ -701,7 +723,7 @@ if choice_img != "Select one":
 
                 # Display the hue image
                 st.subheader("HUE Coloration - 50% Load Image")
-                st.image(hue_image3, caption = "HUE 50% LOAD Image")
+                st.image(hue_image3, caption = "HUE 50% LOAD Image", channels='HSV', use_column_width=True)
                 st.write("Image dimensions:", hue_image3.shape)
                 apply_image3 = hue_image3
 
