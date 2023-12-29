@@ -164,7 +164,7 @@ def histogram(image):
         st.line_chart(hist)
 
 def table():
-    if choice4 == "HUE Coloration" or choice2 == "Canny Edge Detection" or choice2 == "Otsu Edge Detection":
+    if choice4 == "HUE Coloration" or choice2 == "Canny Edge Detection" or choice2 == "Otsu Edge Detection" or (choice6 == "Gamma Transformation" and choice4 == "Gray Coloration"):
         # dictionary of lists 
         dict = {"Mean": avg_total, "STD": std_total, "Var": var_total, "RMS": rms_total} # "MSE": mse_total
         df = pd.DataFrame(dict)
@@ -404,6 +404,50 @@ if choice_img != "Select one":
                 st.write("Image dimensions:", img3.shape)
                 apply_image3 = img3
 
+        if choice6 == "Gamma Transformation":
+
+            with col1:
+
+                # Define the gamma value (adjust as needed)
+                gamma = 0.1
+
+                # Perform gamma correction
+                gamma_corrected = np.power(img1 / 255.0, gamma) * 255.0
+                gamma_corrected = np.clip(gamma_corrected, 0, 255).astype(np.uint8)
+
+                st.subheader("Gamma Transformation - No Load Image")
+                st.image(gamma_corrected, caption = "Gamma Transformation - NO LOAD Image")
+                st.write("Image dimensions:", gamma_corrected.shape)
+                img1 = gamma_corrected
+
+            with col2:
+
+                # Define the gamma value (adjust as needed)
+                gamma = 0.1
+
+                # Perform gamma correction
+                gamma_corrected = np.power(img2 / 255.0, gamma) * 255.0
+                gamma_corrected = np.clip(gamma_corrected, 0, 255).astype(np.uint8)
+
+                st.subheader("Gamma Transformation - 30% Load Image")
+                st.image(gamma_corrected, caption = "Gamma Transformation - 30% LOAD Image")
+                st.write("Image dimensions:", gamma_corrected.shape)
+                img2 = gamma_corrected
+
+            with col3:
+
+                # Define the gamma value (adjust as needed)
+                gamma = 0.1
+
+                # Perform gamma correction
+                gamma_corrected = np.power(img3 / 255.0, gamma) * 255.0
+                gamma_corrected = np.clip(gamma_corrected, 0, 255).astype(np.uint8)
+
+                st.subheader("Gamma Transformation - 50% Load Image")
+                st.image(gamma_corrected, caption = "Gamma Transformation - 50% LOAD Image")
+                st.write("Image dimensions:", gamma_corrected.shape)
+                img3 = gamma_corrected
+
         if choice6 == "Log Transformation":
 
             with col1:
@@ -424,7 +468,6 @@ if choice_img != "Select one":
                 # Merge the log-transformed color channels back into an image
                 log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
 
-                # Display the hue image
                 st.subheader("Log Transformation - No Load Image")
                 st.image(log_transformed_image, caption = "Log Transformation -- NO LOAD Image")
                 st.write("Image dimensions:", log_transformed_image.shape)
@@ -448,7 +491,6 @@ if choice_img != "Select one":
                 # Merge the log-transformed color channels back into an image
                 log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
 
-                # Display the hue image
                 st.subheader("Log Transformation - 30% Load Image")
                 st.image(log_transformed_image, caption = "Log Transformation - 30% LOAD Image")
                 st.write("Image dimensions:", log_transformed_image.shape)
@@ -472,7 +514,6 @@ if choice_img != "Select one":
                 # Merge the log-transformed color channels back into an image
                 log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
 
-                # Display the hue image
                 st.subheader("Log Transformation - 50% Load Image")
                 st.image(log_transformed_image, caption = "Log Transformation - 50% LOAD Image")
                 st.write("Image dimensions:", log_transformed_image.shape)
