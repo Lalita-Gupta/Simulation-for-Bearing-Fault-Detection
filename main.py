@@ -158,7 +158,6 @@ def rms(image):
     return rms_total
 
 def histogram(image):
-    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
         st.subheader("Histogram")
         hist = cv2.calcHist([image],[2],None,[256],[0,500])
         st.line_chart(hist)
@@ -210,48 +209,40 @@ with st.sidebar:
     choice_img = st.selectbox("Image Set", ["Select one", "Set1 - 30% Phase1, 50% Phase1", "Set2 - 30% Phase2, 50% Phase1", "Set3 - 30% Phase3, 50% Phase1", "Set4 - 30% Phase1, 50% Phase2", "Set5 - 30% Phase2, 50% Phase2", "Set6 - 30% Phase3, 50% Phase2"])
 
     if choice_img != "Select one":
+        on1 = st.toggle('Original Image Histogram')
         choice6 = st.selectbox("Image Transformation", ["Select one", "No Transformation", "Gamma Transformation", "Log Transformation", "Inverse Log Transformation"])
 
         if choice6 != "Select one":
+            on2 = st.toggle('Transformed Image Hsitogram')
             choice4 = st.selectbox("Image Coloration", ["Select one", "No Coloration Image", "Gray Coloration", "HUE Coloration", "Pseudo Coloration"])
 
             if choice4 != "Select one":
+
                 if choice4 == "Pseudo Coloration":
                     choice5 = st.selectbox("Types of Pseudo Coloration", ["Select one", "Spring", "Hot", "Cool", "Rainbow", "HSV", "JET"])
+                    on3 = st.toggle('Coloration Image Histogram')
 
                     if choice5 != "Select one":
-                        choice1 = st.selectbox("Bearing Fault Detection", ["Select one", "Edge Detection", "Edge Detection with filters"])
                         
-                        if choice1 == "Edge Detection":
-                            if choice4 == "HUE Coloration":
-                                choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                            else:
-                                choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
+                        choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
+                        if choice2 != 'Select one':
+                            choice3 = st.selectbox("Filters", ["Select one", "No Filter", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
+                            on4 = st.toggle('Edge Detection Histogram')
 
-                        if choice1 == "Edge Detection with filters":
-                            if choice4 == "HUE Coloration":
-                                choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                                choice3 = st.selectbox("Filters", ["Select one", "Adaptive", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
-                            else:
-                                choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                                choice3 = st.selectbox("Filters", ["Select one", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
+                else:
+                    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                        on3 = st.toggle('Coloration Image Histogram')
 
-                if choice4 != "Pseudo Coloration":
-                    choice1 = st.selectbox("Bearing Fault Detection", ["Select one", "Edge Detection", "Edge Detection with filters"])
-                    
-                    if choice1 == "Edge Detection":
-                        if choice4 == "HUE Coloration":
-                            choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                        else:
-                            choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-
-                    if choice1 == "Edge Detection with filters":
-                        if choice4 == "HUE Coloration":
-                            choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                            choice3 = st.selectbox("Filters", ["Select one", "Adaptive", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
-                        else:
-                            choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
-                            choice3 = st.selectbox("Filters", ["Select one", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])    
+                    if choice4 == "HUE Coloration":
+                        choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
+                        if choice2 != 'Select one':
+                            choice3 = st.selectbox("Filters", ["Select one", "No Filter", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"])
+                    else:
+                        choice2 = st.selectbox("Edge Detection", ["Select one", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
+                        if choice2 != 'Select one':
+                            choice3 = st.selectbox("Filters", ["Select one", "No Filter", "Median", "Gaussian", "Bilateral", "Morphological", "Averaging"]) 
+                            if choice4 != "Gray Coloration":
+                                on4 = st.toggle('Edge Detection Histogram')
 
         
 # Creating of Columns
@@ -272,6 +263,8 @@ if choice_img != "Select one":
             st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
+            if on1:
+                histogram(img1)
 
         with col2:
             img2 = cv2.imread("A30/137.bmp")
@@ -279,6 +272,8 @@ if choice_img != "Select one":
             st.subheader("30% Load Phase 1")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
+            if on1:
+                histogram(img2)
 
         with col3:
             img3 = cv2.imread("A50/256.bmp")
@@ -286,6 +281,8 @@ if choice_img != "Select one":
             st.subheader("50% Load Phase 1")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
+            if on1:
+                histogram(img3)
 
     if choice_img == "Set2 - 30% Phase2, 50% Phase1":
         with col1:
@@ -294,6 +291,8 @@ if choice_img != "Select one":
             st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
+            if on1:
+                histogram(img1)
 
         with col2:
             img2 = cv2.imread("A&C30/177.bmp")
@@ -301,6 +300,8 @@ if choice_img != "Select one":
             st.subheader("30% Load Phase 2")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
+            if on1:
+                histogram(img2)
         
         with col3:
             img3 = cv2.imread("A50/258.bmp")
@@ -308,6 +309,8 @@ if choice_img != "Select one":
             st.subheader("50% Load Phase 1")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
+            if on1:
+                histogram(img3)
 
     if choice_img == "Set3 - 30% Phase3, 50% Phase1":
         with col1:
@@ -316,6 +319,8 @@ if choice_img != "Select one":
             st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
+            if on1:
+                histogram(img1)
 
         with col2:
             img2 = cv2.imread("A&C&B30/217.bmp")
@@ -323,6 +328,8 @@ if choice_img != "Select one":
             st.subheader("30% Load Phase 3")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
+            if on1:
+                histogram(img2)
 
         with col3:
             img3 = cv2.imread("A50/259.bmp")
@@ -330,6 +337,8 @@ if choice_img != "Select one":
             st.subheader("50% Load Phase 1")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
+            if on1:
+                histogram(img3)
 
     if choice_img == "Set4 - 30% Phase1, 50% Phase2":
         with col1:
@@ -338,6 +347,8 @@ if choice_img != "Select one":
             st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
+            if on1:
+                histogram(img1)
 
         with col2:
             img2 = cv2.imread("A30/134.bmp")
@@ -345,6 +356,8 @@ if choice_img != "Select one":
             st.subheader("30% Load Phase 1")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
+            if on1:
+                histogram(img2)
 
         with col3:
             img3 = cv2.imread("A&B50/292.bmp")
@@ -352,6 +365,8 @@ if choice_img != "Select one":
             st.subheader("50% Load Phase 2")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
+            if on1:
+                histogram(img3)
 
     if choice_img == "Set5 - 30% Phase2, 50% Phase2":
         with col1:
@@ -360,6 +375,8 @@ if choice_img != "Select one":
             st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
+            if on1:
+                histogram(img1)
 
         with col2:
             img2 = cv2.imread("A&C30/180.bmp")
@@ -367,6 +384,8 @@ if choice_img != "Select one":
             st.subheader("30% Load Phase 2")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
+            if on1:
+                histogram(img2)
 
         with col3:
             img3 = cv2.imread("A&B50/293.bmp")
@@ -374,6 +393,8 @@ if choice_img != "Select one":
             st.subheader("50% Load Phase 2")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
+            if on1:
+                histogram(img3)
 
     if choice_img == "Set6 - 30% Phase3, 50% Phase2":
         with col1:
@@ -382,6 +403,8 @@ if choice_img != "Select one":
             st.subheader("Healthy - No Load")
             st.image(img1, caption = "NO LOAD Image")
             st.write("Image dimensions:", img1.shape)
+            if on1:
+                histogram(img1)
 
         with col2:
             img2 = cv2.imread("A&C&B30/215.bmp")
@@ -389,6 +412,8 @@ if choice_img != "Select one":
             st.subheader("30% Load Phase 3")
             st.image(img2, caption = "30% LOAD Image")
             st.write("Image dimensions:", img2.shape)
+            if on1:
+                histogram(img2)
 
         with col3:
             img3 = cv2.imread("A&B50/293.bmp")
@@ -396,6 +421,8 @@ if choice_img != "Select one":
             st.subheader("50% Load Phase 2")
             st.image(img3, caption = "50% LOAD Image")
             st.write("Image dimensions:", img3.shape)
+            if on1:
+                histogram(img3)
 
     # Image Transformation and Coloration
     # **************************************************************************************************************************************************************
@@ -630,6 +657,13 @@ if choice_img != "Select one":
                 st.write("Image dimensions:", inv_log_transformed_image.shape)
                 img3 = inv_log_transformed_image
 
+        if on2:
+                with col1:
+                    histogram(img1)
+                with col2:
+                    histogram(img2)
+                with col3:
+                    histogram(img3)
 
         if choice4 == "No Coloration Image":
 
@@ -903,6 +937,19 @@ if choice_img != "Select one":
                     st.write("Image dimensions:", pesudo_image3.shape)
                     apply_image3 = pesudo_image3
 
+        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice4 != "Select one":
+
+            if on3:
+                    if choice4 == 'Pseudo Coloration' and choice5 == "Select one":
+                        pass
+                    else:
+                        with col1:
+                            histogram(apply_image1)
+                        with col2:
+                            histogram(apply_image2)
+                        with col3:
+                            histogram(apply_image3)
+
     # After Image Transformation and Coloration
     # **************************************************************************************************************************************************************
     if choice_img != "Select one" and choice6 != "Select one" and choice4 != "Select one":
@@ -914,38 +961,125 @@ if choice_img != "Select one":
 
             # Edge Detection 
             # **************************************************************************************************************************************************************
-            if choice1 == "Edge Detection":
 
-                # for Canny
-                if choice2 == "Canny Edge Detection":
+            # for Canny
+            if choice2 == "Canny Edge Detection":
 
-                    with col1:
+                with col1:
 
-                        histogram(apply_image1)
+                    if choice3 != "Select one":
 
-                        edges1 = canny(apply_image1)
+                        if choice3 == "No Filter":
+                            image_result = apply_image1
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image1, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image1,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image1,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image1, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image1,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image1, 'haar')
+                        #     cA, image_result = coeffs
+
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     image_result = image_result / 255
+                        #     st.write(image_result)
+
+                        edges1 = canny(image_result)
 
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges1, caption = "CANNY EDGES NO LOAD Image")
                         st.write("Image dimensions:", edges1.shape)
 
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
+
                         avg_total = mean(edges1)
                         std_total = std(edges1)
                         var_total = var(edges1)
                         rms_total = rms(edges1)
                         # mse_total = mse(edges1)
                         table()
-                        
-                    with col2:
+                    
+                with col2:
 
-                        histogram(apply_image2)
+                    if choice3 != "Select one":
 
-                        edges2 = canny(apply_image2)
+                        if choice3 == "No Filter":
+                            image_result = apply_image2
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image2, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image2,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image2,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image2, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image2,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image2, 'haar')
+                        #     cA, image_result = coeffs
+
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     image_result = image_result / 255
+                        #     st.write(image_result)
+
+                        edges2 = canny(image_result)
 
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges2, caption = "CANNY EDGES 30% LOAD Image")
                         st.write("Image dimensions:", edges2.shape)
 
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
+
                         avg_total = mean(edges2)
                         std_total = std(edges2)
                         var_total = var(edges2)
@@ -954,16 +1088,60 @@ if choice_img != "Select one":
                         table()
 
 
-                    with col3:
+                with col3:
 
-                        histogram(apply_image3)
+                    if choice3 != "Select one":
 
-                        edges3 = canny(apply_image3)
+                        if choice3 == "No Filter":
+                            image_result = apply_image3
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image3, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image3,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image3,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image3, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image3,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image3, 'haar')
+                        #     cA, image_result = coeffs
+
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     image_result = image_result / 255
+                        #     st.write(image_result)
+
+                        edges3 = canny(image_result)
 
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges3, caption = "CANNY EDGES 50% LOAD Image")
                         st.write("Image dimensions:", edges3.shape)
 
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
+
                         avg_total = mean(edges3)
                         std_total = std(edges3)
                         var_total = var(edges3)
@@ -971,39 +1149,127 @@ if choice_img != "Select one":
                         # mse_total = mse(edges3)
                         table()
 
-                # for otsu
-                if choice2 == "Otsu Edge Detection":
+            # for otsu
+            if choice2 == "Otsu Edge Detection":
 
-                    #creating of columns
-                    col1, col2, col3 = st.columns([1,1,1])
-                    
-                    with col1:
-                        
-                        histogram(apply_image1)
+                #creating of columns
+                col1, col2, col3 = st.columns([1,1,1])
+                
+                with col1:
 
-                        edges1 = otsu(apply_image1)
+                    if choice3 != "Select one":
+
+                        if choice3 == "No Filter":
+                            image_result = apply_image1
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image1, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image1,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image1,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image1, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image1,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image1, 'haar')
+                        #     cA, image_result = coeffs
+
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     image_result = image_result / 255
+                        #     st.write(image_result)
+
+                        edges1 = otsu(image_result)
 
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges1, caption = "OTSU EDGES NO LOAD Image")
                         st.write("Image dimensions:", edges1.shape)
 
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
+
                         avg_total = mean(edges1)
                         std_total = std(edges1)
                         var_total = var(edges1)
                         rms_total = rms(edges1)
                         # mse_total = mse(edges1)
                         table()
+                    
+                with col2:
+
+                    if choice3 != "Select one":
+
+                        if choice3 == "No Filter":
+                            image_result = apply_image2
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image2, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image2,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image2,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image2, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image2,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image2, 'haar')
+                        #     cA, image_result = coeffs
+
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     image_result = image_result / 255
+                        #     st.write(image_result)
                         
-                    with col2:
-
-                        histogram(apply_image2)
-
-                        edges2 = otsu(apply_image2)
+                        edges2 = otsu(image_result)
 
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges2, caption = "OTSU EDGES 30% LOAD Image")
                         st.write("Image dimensions:", edges2.shape)
 
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
+
                         avg_total = mean(edges2)
                         std_total = std(edges2)
                         var_total = var(edges2)
@@ -1012,38 +1278,115 @@ if choice_img != "Select one":
                         table()
 
 
-                    with col3:
+                with col3:
 
-                        histogram(apply_image3)
+                    if choice3 != "Select one":
 
-                        edges3 = otsu(apply_image3)
+                        if choice3 == "No Filter":
+                            image_result = apply_image3
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image3, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image3,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image3,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image3, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image3,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image3, 'haar')
+                        #     cA, image_result = coeffs
+
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     image_result = image_result / 255
+                        #     st.write(image_result)
+
+                        edges3 = otsu(image_result)
 
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges3, caption = "OTSU EDGES 50% LOAD Image")
                         st.write("Image dimensions:", edges3.shape)
 
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
+
                         avg_total = mean(edges3)
                         std_total = std(edges3)
                         var_total = var(edges3)
                         rms_total = rms(edges3)
                         # mse_total = mse(edges3)
                         table()
-                    
-                # for prewitt
-                if choice2 == "Prewitt Edge Detection":
+                
+            # for prewitt
+            if choice2 == "Prewitt Edge Detection":
 
-                    #creating of columns
-                    col1, col2, col3 = st.columns([1,1,1])
-                    
-                    with col1:
+                #creating of columns
+                col1, col2, col3 = st.columns([1,1,1])
+                
+                with col1:
 
-                        histogram(apply_image1)
+                    if choice3 != "Select one":
 
-                        edges1 = prewitt(apply_image1)
-                       
+                        if choice3 == "No Filter":
+                            image_result = apply_image1
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image1, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image1,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image1,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image1, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image1,-1,kernel)
+
+                        edges1 = prewitt(image_result)
+
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges1, caption = "PREWITT EDGES NO LOAD Image")
                         st.write("Image dimensions:", edges1.shape)
+
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
 
                         avg_total = mean(edges1)
                         std_total = std(edges1)
@@ -1051,17 +1394,50 @@ if choice_img != "Select one":
                         rms_total = rms(edges1)
                         # mse_total = mse(edges1)
                         table()
+                    
+                with col2:
+                    
+                    if choice3 != "Select one":
+
+                        if choice3 == "No Filter":
+                            image_result = apply_image2
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image2, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image2,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image2,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image2, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image2,-1,kernel)
                         
-                    with col2:
-
-                        histogram(apply_image2)
-
-                        edges2 = prewitt(apply_image2)
+                        edges2 = prewitt(image_result)
 
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges2, caption = "PREWITT EDGES 30% LOAD Image")
                         st.write("Image dimensions:", edges2.shape)
 
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
+
                         avg_total = mean(edges2)
                         std_total = std(edges2)
                         var_total = var(edges2)
@@ -1069,15 +1445,59 @@ if choice_img != "Select one":
                         # mse_total = mse(edges2)
                         table()
 
-                    with col3:
+                with col3:
 
-                        histogram(apply_image3)
+                    if choice3 != "Select one":
 
-                        edges3 = prewitt(apply_image3)
+                        if choice3 == "No Filter":
+                            image_result = apply_image3
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image3, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image3,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image3,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image3, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image3,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image3, 'haar')
+                        #     cA, image_result = coeffs
+
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     image_result = image_result / 255
+                        #     st.write(image_result)
+                        
+                        edges3 = prewitt(image_result)
 
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges3, caption = "PREWITT EDGES 50% LOAD Image")
                         st.write("Image dimensions:", edges3.shape)
+
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
 
                         avg_total = mean(edges3)
                         std_total = std(edges3)
@@ -1085,22 +1505,71 @@ if choice_img != "Select one":
                         rms_total = rms(edges3)
                         # mse_total = mse(edges3)
                         table()
+            
+            # for robert
+            if choice2 == "Robert Edge Detection":
+
+                #creating of columns
+                col1, col2, col3 = st.columns([1,1,1])
                 
-                # for robert
-                if choice2 == "Robert Edge Detection":
+                with col1:
 
-                    #creating of columns
-                    col1, col2, col3 = st.columns([1,1,1])
-                    
-                    with col1:
+                    if choice3 != "Select one":
 
-                        histogram(apply_image1)
+                        if choice3 == "No Filter":
+                            image_result = apply_image1
+ 
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
 
-                        edges1 = robert(apply_image1)
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image1, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image1,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image1,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image1, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image1,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image1, 'haar')
+
+                        #     cA, image_result = coeffs
+                        #     st.write(image_result)
+
+                        #     image_result[image_result < 0] = 0
+                        #     image_result[image_result > 0] = 255
+                        #     # image_result = np.clip(image_result, 0, 1) 
+                        #     st.write(image_result)
+
+                        edges1 = robert(image_result)
+                        
+                        # edges1[edges1 < 0] = 0
+                        # edges1[edges1 > 0] = 255
+                        # st.write(edges1)
 
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges1, caption = "ROBERT EDGES NO LOAD Image")
                         st.write("Image dimensions:", edges1.shape)
+
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
 
                         avg_total = mean(edges1)
                         std_total = std(edges1)
@@ -1108,16 +1577,59 @@ if choice_img != "Select one":
                         rms_total = rms(edges1)
                         # mse_total = mse(edges1)
                         table()
+                    
+                with col2:
+
+                    if choice3 != "Select one":
+
+                        if choice3 == "No Filter":
+                            image_result = apply_image2
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image2, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image2,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image2,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image2, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image2,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image2, 'haar')
+
+                        #     cA, image_result = coeffs
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     st.write(image_result)
                         
-                    with col2:
-
-                        histogram(apply_image2)
-
-                        edges2 = robert(apply_image2)
+                        edges2 = robert(image_result)
 
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges2, caption = "ROBERT EDGES 30% LOAD Image")
                         st.write("Image dimensions:", edges2.shape)
+
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
 
                         avg_total = mean(edges2)
                         std_total = std(edges2)
@@ -1127,15 +1639,58 @@ if choice_img != "Select one":
                         table()
 
 
-                    with col3:
+                with col3:
 
-                        histogram(apply_image3)
+                    if choice3 != "Select one":
 
-                        edges3 = robert(apply_image3)
+                        if choice3 == "No Filter":
+                            image_result = apply_image3
+
+                        if choice3 == "Adaptive":
+                            # adaptive
+                            image_result = cv2.adaptiveThreshold(apply_image3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
+
+                        if choice3 == "Median":
+                            # median
+                            image_result = cv2.medianBlur(apply_image3, 3)
+
+                        if choice3 == "Gaussian":
+                            # gaussian filter
+                            image_result = cv2.GaussianBlur(apply_image3,(5,5),0)
+
+                        if choice3 == "Bilateral":
+                            # bilateral 
+                            image_result = cv2.bilateralFilter(apply_image3,9,75,75)
+
+                        if choice3 == "Morphological":
+                            # morphological operation
+                            kernel = np.ones((5, 5), np.uint8)
+                            image_result = cv2.morphologyEx(apply_image3, cv2.MORPH_OPEN, kernel)
+
+                        if choice3 == "Averaging":
+                            # averaging filter
+                            kernel = np.ones((5,5),np.float32)/25
+                            image_result = cv2.filter2D(apply_image3,-1,kernel)
+
+                        # if choice3 == "DWT":
+                        #     # DWT
+                        #     coeffs = pywt.dwt(apply_image3, 'haar')
+
+                        #     cA, image_result = coeffs
+                        #     st.write(image_result)
+
+                        #     image_result = np.clip(image_result, 0.0, 1.0) 
+                        #     st.write(image_result)
+
+                        edges3 = robert(image_result)
 
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges3, caption = "ROBERT EDGES 50% LOAD Image")
                         st.write("Image dimensions:", edges3.shape)
+
+                        if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+                            if on4:
+                                histogram(image_result)
 
                         avg_total = mean(edges3)
                         std_total = std(edges3)
@@ -1143,686 +1698,5 @@ if choice_img != "Select one":
                         rms_total = rms(edges3)
                         # mse_total = mse(edges3)
                         table()
-
-            # Edge Detection with filter
-            # **************************************************************************************************************************************************************
-            if choice1 == "Edge Detection with filters":
-
-                # for Canny with filter
-                if choice2 == "Canny Edge Detection":
-
-                    with col1:
-
-                        histogram(apply_image1)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image1, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image1,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image1,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image1, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image1,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image1, 'haar')
-                            #     cA, image_result = coeffs
-
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     image_result = image_result / 255
-                            #     st.write(image_result)
-
-                            edges1 = canny(image_result)
-
-                            st.subheader("Canny Edge Detection Image with filter")
-                            st.image(edges1, caption = "CANNY EDGES NO LOAD Image")
-                            st.write("Image dimensions:", edges1.shape)
-
-                            avg_total = mean(edges1)
-                            std_total = std(edges1)
-                            var_total = var(edges1)
-                            rms_total = rms(edges1)
-                            # mse_total = mse(edges1)
-                            table()
-                        
-                    with col2:
-
-                        histogram(apply_image2)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image2, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image2,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image2,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image2, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image2,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image2, 'haar')
-                            #     cA, image_result = coeffs
-
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     image_result = image_result / 255
-                            #     st.write(image_result)
-
-                            edges2 = canny(image_result)
-
-                            st.subheader("Canny Edge Detection Image with filter")
-                            st.image(edges2, caption = "CANNY EDGES 30% LOAD Image")
-                            st.write("Image dimensions:", edges2.shape)
-
-                            avg_total = mean(edges2)
-                            std_total = std(edges2)
-                            var_total = var(edges2)
-                            rms_total = rms(edges2)
-                            # mse_total = mse(edges2)
-                            table()
-
-
-                    with col3:
-
-                        histogram(apply_image3)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image3, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image3,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image3,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image3, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image3,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image3, 'haar')
-                            #     cA, image_result = coeffs
-
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     image_result = image_result / 255
-                            #     st.write(image_result)
-
-                            edges3 = canny(image_result)
-
-                            st.subheader("Canny Edge Detection Image with filter")
-                            st.image(edges3, caption = "CANNY EDGES 50% LOAD Image")
-                            st.write("Image dimensions:", edges3.shape)
-
-                            avg_total = mean(edges3)
-                            std_total = std(edges3)
-                            var_total = var(edges3)
-                            rms_total = rms(edges3)
-                            # mse_total = mse(edges3)
-                            table()
-
-                # for otsu with filter
-                if choice2 == "Otsu Edge Detection":
-
-                    #creating of columns
-                    col1, col2, col3 = st.columns([1,1,1])
-                    
-                    with col1:
-
-                        histogram(apply_image1)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image1, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image1,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image1,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image1, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image1,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image1, 'haar')
-                            #     cA, image_result = coeffs
-
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     image_result = image_result / 255
-                            #     st.write(image_result)
-
-                            edges1 = otsu(image_result)
-
-                            st.subheader("Otsu Edge Detection Image with filter")
-                            st.image(edges1, caption = "OTSU EDGES NO LOAD Image")
-                            st.write("Image dimensions:", edges1.shape)
-
-                            avg_total = mean(edges1)
-                            std_total = std(edges1)
-                            var_total = var(edges1)
-                            rms_total = rms(edges1)
-                            # mse_total = mse(edges1)
-                            table()
-                        
-                    with col2:
-
-                        histogram(apply_image2)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image2, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image2,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image2,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image2, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image2,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image2, 'haar')
-                            #     cA, image_result = coeffs
-
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     image_result = image_result / 255
-                            #     st.write(image_result)
-
-                            edges2 = otsu(image_result)
-
-                            st.subheader("Otsu Edge Detection Image with filter")
-                            st.image(edges2, caption = "OTSU EDGES 30% LOAD Image")
-                            st.write("Image dimensions:", edges2.shape)
-
-                            avg_total = mean(edges2)
-                            std_total = std(edges2)
-                            var_total = var(edges2)
-                            rms_total = rms(edges2)
-                            # mse_total = mse(edges2)
-                            table()
-
-
-                    with col3:
-
-                        histogram(apply_image3)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image3, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image3,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image3,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image3, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image3,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image3, 'haar')
-                            #     cA, image_result = coeffs
-
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     image_result = image_result / 255
-                            #     st.write(image_result)
-
-                            edges3 = otsu(image_result)
-
-                            st.subheader("Otsu Edge Detection Image with filter")
-                            st.image(edges3, caption = "OTSU EDGES 50% LOAD Image")
-                            st.write("Image dimensions:", edges3.shape)
-
-                            avg_total = mean(edges3)
-                            std_total = std(edges3)
-                            var_total = var(edges3)
-                            rms_total = rms(edges3)
-                            # mse_total = mse(edges3)
-                            table()
-                    
-                # for prewitt with filter
-                if choice2 == "Prewitt Edge Detection":
-
-                    #creating of columns
-                    col1, col2, col3 = st.columns([1,1,1])
-                    
-                    with col1:
-
-                        histogram(apply_image1)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image1, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image1,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image1,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image1, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image1,-1,kernel)
-
-                            edges1 = prewitt(image_result)
-
-                            st.subheader("Prewitt Edge Detection Image with filter")
-                            st.image(edges1, caption = "PREWITT EDGES NO LOAD Image")
-                            st.write("Image dimensions:", edges1.shape)
-
-                            avg_total = mean(edges1)
-                            std_total = std(edges1)
-                            var_total = var(edges1)
-                            rms_total = rms(edges1)
-                            # mse_total = mse(edges1)
-                            table()
-                        
-                    with col2:
-
-                        histogram(apply_image2)
-                        
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image2, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image2,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image2,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image2, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image2,-1,kernel)
-
-                            edges2 = prewitt(image_result)
-
-                            st.subheader("Prewitt Edge Detection Image with filter")
-                            st.image(edges2, caption = "PREWITT EDGES 30% LOAD Image")
-                            st.write("Image dimensions:", edges2.shape)
-
-                            avg_total = mean(edges2)
-                            std_total = std(edges2)
-                            var_total = var(edges2)
-                            rms_total = rms(edges2)
-                            # mse_total = mse(edges2)
-                            table()
-
-                    with col3:
-
-                        histogram(apply_image3)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image3, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image3,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image3,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image3, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image3,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image3, 'haar')
-                            #     cA, image_result = coeffs
-
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     image_result = image_result / 255
-                            #     st.write(image_result)
-
-                            edges3 = prewitt(image_result)
-
-                            st.subheader("Prewitt Edge Detection Image with filter")
-                            st.image(edges3, caption = "PREWITT EDGES 50% LOAD Image")
-                            st.write("Image dimensions:", edges3.shape)
-
-                            avg_total = mean(edges3)
-                            std_total = std(edges3)
-                            var_total = var(edges3)
-                            rms_total = rms(edges3)
-                            # mse_total = mse(edges3)
-                            table()
-                
-                # for robert with filter
-                if choice2 == "Robert Edge Detection":
-
-                    #creating of columns
-                    col1, col2, col3 = st.columns([1,1,1])
-                    
-                    with col1:
-
-                        histogram(apply_image1)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image1, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image1,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image1,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image1, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image1,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image1, 'haar')
-
-                            #     cA, image_result = coeffs
-                            #     st.write(image_result)
-
-                            #     image_result[image_result < 0] = 0
-                            #     image_result[image_result > 0] = 255
-                            #     # image_result = np.clip(image_result, 0, 1) 
-                            #     st.write(image_result)
-
-                            edges1 = robert(image_result)
-                            
-                            # edges1[edges1 < 0] = 0
-                            # edges1[edges1 > 0] = 255
-                            # st.write(edges1)
-
-                            st.subheader("Robert Edge Detection Image with filter")
-                            st.image(edges1, caption = "ROBERT EDGES NO LOAD Image")
-                            st.write("Image dimensions:", edges1.shape)
-
-                            avg_total = mean(edges1)
-                            std_total = std(edges1)
-                            var_total = var(edges1)
-                            rms_total = rms(edges1)
-                            # mse_total = mse(edges1)
-                            table()
-                        
-                    with col2:
-
-                        histogram(apply_image2)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image2,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image2, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image2,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image2,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image2, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image2,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image2, 'haar')
-
-                            #     cA, image_result = coeffs
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     st.write(image_result)
-
-                            edges2 = robert(image_result)
-
-                            st.subheader("Robert Edge Detection Image with filter")
-                            st.image(edges2, caption = "ROBERT EDGES 30% LOAD Image")
-                            st.write("Image dimensions:", edges2.shape)
-
-                            avg_total = mean(edges2)
-                            std_total = std(edges2)
-                            var_total = var(edges2)
-                            rms_total = rms(edges2)
-                            # mse_total = mse(edges2)
-                            table()
-
-
-                    with col3:
-
-                        histogram(apply_image3)
-
-                        if choice3 != "Select one":
-
-                            if choice3 == "Adaptive":
-                                # adaptive
-                                image_result = cv2.adaptiveThreshold(apply_image3,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,2)
-
-                            if choice3 == "Median":
-                                # median
-                                image_result = cv2.medianBlur(apply_image3, 3)
-
-                            if choice3 == "Gaussian":
-                                # gaussian filter
-                                image_result = cv2.GaussianBlur(apply_image3,(5,5),0)
-
-                            if choice3 == "Bilateral":
-                                # bilateral 
-                                image_result = cv2.bilateralFilter(apply_image3,9,75,75)
-
-                            if choice3 == "Morphological":
-                                # morphological operation
-                                kernel = np.ones((5, 5), np.uint8)
-                                image_result = cv2.morphologyEx(apply_image3, cv2.MORPH_OPEN, kernel)
-
-                            if choice3 == "Averaging":
-                                # averaging filter
-                                kernel = np.ones((5,5),np.float32)/25
-                                image_result = cv2.filter2D(apply_image3,-1,kernel)
-
-                            # if choice3 == "DWT":
-                            #     # DWT
-                            #     coeffs = pywt.dwt(apply_image3, 'haar')
-
-                            #     cA, image_result = coeffs
-                            #     st.write(image_result)
-
-                            #     image_result = np.clip(image_result, 0.0, 1.0) 
-                            #     st.write(image_result)
-
-                            edges3 = robert(image_result)
-
-                            st.subheader("Robert Edge Detection Image with filter")
-                            st.image(edges3, caption = "ROBERT EDGES 50% LOAD Image")
-                            st.write("Image dimensions:", edges3.shape)
-
-                            avg_total = mean(edges3)
-                            std_total = std(edges3)
-                            var_total = var(edges3)
-                            rms_total = rms(edges3)
-                            # mse_total = mse(edges3)
-                            table()
 
 # **************************************************************************************************************************************************************
