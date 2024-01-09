@@ -209,7 +209,7 @@ with st.sidebar:
     choice_img = st.selectbox("Image Set", ["Select one", "Set1 - 30% Phase1, 50% Phase1", "Set2 - 30% Phase2, 50% Phase1", "Set3 - 30% Phase3, 50% Phase1", "Set4 - 30% Phase1, 50% Phase2", "Set5 - 30% Phase2, 50% Phase2", "Set6 - 30% Phase3, 50% Phase2"])
 
     if choice_img != "Select one":
-        on1 = st.toggle('Original Image Histogram')
+        on1 = st.toggle('Object detected Image Histogram')
         choice6 = st.selectbox("Image Transformation", ["Select one", "No Transformation", "Gamma Transformation", "Log Transformation", "Inverse Log Transformation"])
 
         if choice6 != "Select one":
@@ -263,19 +263,20 @@ if choice_img != "Select one":
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
             st.image(img1, caption = "Original - NO LOAD Image")
-            st.write("Image dimensions:", img1.shape)
+            st.write("Image shape:", img1.shape)
 
-            cut1 = original_image1 
+            cut1 = original_image1
+
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (70,50,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
             st.subheader("Object - Healthy - No Load Image")
             st.image(img, caption = "OBJECT - NO LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img1 = img
 
@@ -288,19 +289,19 @@ if choice_img != "Select one":
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 1")
             st.image(img2, caption = "Original - 30% LOAD Image")
-            st.write("Image dimensions:", img2.shape)
+            st.write("Image shape:", img2.shape)
 
             cut2 = original_image2
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (80,50,200,166)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
             st.subheader("Object - 30% Load Phase 1 Image")
             st.image(img, caption = "OBJECT - 30% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img2 = img
 
@@ -313,19 +314,19 @@ if choice_img != "Select one":
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 1")
             st.image(img3, caption = "Original - 50% LOAD Image")
-            st.write("Image dimensions:", img3.shape)
+            st.write("Image shape:", img3.shape)
 
             cut3 = original_image3
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (15,40,257,170) # 170 or 172
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
             st.subheader("Object - 50% Load Phase 1 Image")
             st.image(img, caption = "OBJECT - 50% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img3 = img
 
@@ -339,19 +340,19 @@ if choice_img != "Select one":
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
             st.image(img1, caption = "Original - NO LOAD Image")
-            st.write("Image dimensions:", img1.shape)
+            st.write("Image shape:", img1.shape)
 
             cut1 = original_image1 
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (80,49,200,166) # 49 or 50
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
             st.subheader("Object - Healthy - No Load Image")
             st.image(img, caption = "OBJECT - NO LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img1 = img
 
@@ -364,19 +365,19 @@ if choice_img != "Select one":
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 2")
             st.image(img2, caption = "Original - 30% LOAD Image")
-            st.write("Image dimensions:", img2.shape)
+            st.write("Image shape:", img2.shape)
 
             cut2 = original_image2
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (90,53,170,185)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
             st.subheader("Object - 30% Load Phase 2 Image")
             st.image(img, caption = "OBJECT - 30% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img2 = img
 
@@ -389,19 +390,19 @@ if choice_img != "Select one":
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 1")
             st.image(img3, caption = "Original - 50% LOAD Image")
-            st.write("Image dimensions:", img3.shape)
+            st.write("Image shape:", img3.shape)
 
             cut3 = original_image3
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (25,40,258,180)
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
             st.subheader("Object - 50% Load Pase 1 Image")
             st.image(img, caption = "OBJECT - 50% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img3 = img
 
@@ -415,19 +416,19 @@ if choice_img != "Select one":
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
             st.image(img1, caption = "Original - NO LOAD Image")
-            st.write("Image dimensions:", img1.shape)
+            st.write("Image shape:", img1.shape)
 
             cut1 = original_image1 
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (80,50,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
             st.subheader("Object - Healthy - No Load Image")
             st.image(img, caption = "OBJECT - NO LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img1 = img
 
@@ -440,19 +441,19 @@ if choice_img != "Select one":
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 3")
             st.image(img2, caption = "Original - 30% LOAD Image")
-            st.write("Image dimensions:", img2.shape)
+            st.write("Image shape:", img2.shape)
 
             cut2 = original_image2
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (15,40,258,176)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
             st.subheader("Object - 30% Load Phase 3 Image")
             st.image(img, caption = "OBJECT - 30% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img2 = img
 
@@ -465,19 +466,19 @@ if choice_img != "Select one":
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 1")
             st.image(img3, caption = "Original - 50% LOAD Image")
-            st.write("Image dimensions:", img3.shape)
+            st.write("Image shape:", img3.shape)
 
             cut3 = original_image3
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (35,40,270,180)
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
             st.subheader("Object - 50% Load Phase 1 Image")
             st.image(img, caption = "OBJECT - 50% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img3 = img
 
@@ -491,19 +492,19 @@ if choice_img != "Select one":
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
             st.image(img1, caption = "Original - NO LOAD Image")
-            st.write("Image dimensions:", img1.shape)
+            st.write("Image shape:", img1.shape)
 
             cut1 = original_image1 
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (80,50,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
             st.subheader("Object - Healthy - No Load Image")
             st.image(img, caption = "OBJECT - NO LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img1 = img
 
@@ -516,19 +517,19 @@ if choice_img != "Select one":
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 1")
             st.image(img2, caption = "Original - 30% LOAD Image")
-            st.write("Image dimensions:", img2.shape)
+            st.write("Image shape:", img2.shape)
 
             cut2 = original_image2
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (80,50,200,166)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
             st.subheader("Object - 30% Load Phase 1 Image")
             st.image(img, caption = "OBJECT - 30% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img2 = img
 
@@ -541,19 +542,19 @@ if choice_img != "Select one":
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 2")
             st.image(img3, caption = "Original - 50% LOAD Image")
-            st.write("Image dimensions:", img3.shape)
+            st.write("Image shape:", img3.shape)
 
             cut3 = original_image3
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect =  (35,30,270,186)
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
             st.subheader("Object - 50% Load Phase 2 Image")
             st.image(img, caption = "OBJECT - 50% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img3 = img
 
@@ -567,19 +568,19 @@ if choice_img != "Select one":
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
             st.image(img1, caption = "Original - NO LOAD Image")
-            st.write("Image dimensions:", img1.shape)
+            st.write("Image shape:", img1.shape)
 
             cut1 = original_image1 
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (80,50,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
             st.subheader("Object - Healthy -  No Load Image")
             st.image(img, caption = "OBJECT - NO LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img1 = img
 
@@ -592,19 +593,19 @@ if choice_img != "Select one":
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 2")
             st.image(img2, caption = "Orignal - 30% LOAD Image")
-            st.write("Image dimensions:", img2.shape)
+            st.write("Image shape:", img2.shape)
 
             cut2 = original_image2
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (40,40,260,195)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
             st.subheader("Object - 30% Load Phase 2 Image")
             st.image(img, caption = "OBJECT - 30% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img2 = img
 
@@ -617,19 +618,19 @@ if choice_img != "Select one":
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 2")
             st.image(img3, caption = "Original - 50% LOAD Image")
-            st.write("Image dimensions:", img3.shape)
+            st.write("Image shape:", img3.shape)
 
             cut3 = original_image3
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (20,35,240,183)
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
             st.subheader("Object - 50% Load Phase 2 Image")
             st.image(img, caption = "OBJECT - 50% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img3 = img
 
@@ -643,19 +644,19 @@ if choice_img != "Select one":
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
             st.image(img1, caption = "Original - NO LOAD Image")
-            st.write("Image dimensions:", img1.shape)
+            st.write("Image shape:", img1.shape)
 
             cut1 = original_image1 
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (80,50,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
             st.subheader("Object - Healthy - No Load Image")
             st.image(img, caption = "OBJECT - NO LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img1 = img
 
@@ -668,19 +669,19 @@ if choice_img != "Select one":
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 3")
             st.image(img2, caption = "Original - 30% LOAD Image")
-            st.write("Image dimensions:", img2.shape)
+            st.write("Image shape:", img2.shape)
 
             cut2 = original_image2
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (20,20,250,196)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
             st.subheader("Object - 30% Load Phase 3 Image")
             st.image(img, caption = "OBJECT - 30% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img2 = img
 
@@ -693,19 +694,19 @@ if choice_img != "Select one":
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 2")
             st.image(img3, caption = "Original - 50% LOAD Image")
-            st.write("Image dimensions:", img3.shape)
+            st.write("Image shape:", img3.shape)
 
             cut3 = original_image3
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (50,50,450,290)
+            rect = (20,32,240,188)
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
             st.subheader("Object - 50% Load Phase 2 Image")
             st.image(img, caption = "OBJECT - 50% LOAD Image")
-            st.write("Image dimensions:", img.shape)
+            st.write("Image shape:", img.shape)
 
             img3 = img
 
@@ -722,7 +723,7 @@ if choice_img != "Select one":
                 # Display the hue image
                 st.subheader("No Transformation - No Load Image")
                 st.image(img1, caption = "No Transformation NO LOAD Image")
-                st.write("Image dimensions:", img1.shape)
+                st.write("Image shape:", img1.shape)
                 transformed_image1 = img1
 
             with col2:
@@ -730,7 +731,7 @@ if choice_img != "Select one":
                 # Display the hue image
                 st.subheader("No Transformation - 30% Load Image")
                 st.image(img2, caption = "No Transformation 30% LOAD Image")
-                st.write("Image dimensions:", img2.shape)
+                st.write("Image shape:", img2.shape)
                 transformed_image2 = img2
 
             with col3:
@@ -738,7 +739,7 @@ if choice_img != "Select one":
                 # Display the hue image
                 st.subheader("No Transformation - 50% Load Image")
                 st.image(img3, caption = "No Transformation 50% LOAD Image")
-                st.write("Image dimensions:", img3.shape)
+                st.write("Image shape:", img3.shape)
                 transformed_image3 = img3
 
         if choice6 == "Gamma Transformation":
@@ -754,7 +755,7 @@ if choice_img != "Select one":
 
                 st.subheader("Gamma Transformation - No Load Image")
                 st.image(gamma_corrected1, caption = "Gamma Transformation - NO LOAD Image")
-                st.write("Image dimensions:", gamma_corrected1.shape)
+                st.write("Image shape:", gamma_corrected1.shape)
                 transformed_image1 = gamma_corrected1
 
             with col2:
@@ -768,7 +769,7 @@ if choice_img != "Select one":
 
                 st.subheader("Gamma Transformation - 30% Load Image")
                 st.image(gamma_corrected2, caption = "Gamma Transformation - 30% LOAD Image")
-                st.write("Image dimensions:", gamma_corrected2.shape)
+                st.write("Image shape:", gamma_corrected2.shape)
                 transformed_image2 = gamma_corrected2
 
             with col3:
@@ -782,7 +783,7 @@ if choice_img != "Select one":
 
                 st.subheader("Gamma Transformation - 50% Load Image")
                 st.image(gamma_corrected3, caption = "Gamma Transformation - 50% LOAD Image")
-                st.write("Image dimensions:", gamma_corrected3.shape)
+                st.write("Image shape:", gamma_corrected3.shape)
                 transformed_image3 = gamma_corrected3
 
         if choice6 == "Log Transformation":
@@ -807,7 +808,7 @@ if choice_img != "Select one":
 
                 st.subheader("Log Transformation - No Load Image")
                 st.image(log_transformed_image1, caption = "Log Transformation -- NO LOAD Image")
-                st.write("Image dimensions:", log_transformed_image1.shape)
+                st.write("Image shape:", log_transformed_image1.shape)
                 transformed_image1 = log_transformed_image1
 
             with col2:
@@ -830,7 +831,7 @@ if choice_img != "Select one":
 
                 st.subheader("Log Transformation - 30% Load Image")
                 st.image(log_transformed_image2, caption = "Log Transformation - 30% LOAD Image")
-                st.write("Image dimensions:", log_transformed_image2.shape)
+                st.write("Image shape:", log_transformed_image2.shape)
                 transformed_image2 = log_transformed_image2
 
             with col3:
@@ -853,7 +854,7 @@ if choice_img != "Select one":
 
                 st.subheader("Log Transformation - 50% Load Image")
                 st.image(log_transformed_image3, caption = "Log Transformation - 50% LOAD Image")
-                st.write("Image dimensions:", log_transformed_image3.shape)
+                st.write("Image shape:", log_transformed_image3.shape)
                 transformed_image3 = log_transformed_image3
 
         if choice6 == "Inverse Log Transformation":
@@ -884,7 +885,7 @@ if choice_img != "Select one":
                 # Display the image
                 st.subheader("Inverse Log Transformation - No Load Image")
                 st.image(inv_log_transformed_image1, caption = "Inverse Log Transformation - NO LOAD Image")
-                st.write("Image dimensions:", inv_log_transformed_image1.shape)
+                st.write("Image shape:", inv_log_transformed_image1.shape)
                 transformed_image1 = inv_log_transformed_image1
 
             with col2:
@@ -913,7 +914,7 @@ if choice_img != "Select one":
                 # Display the image
                 st.subheader("Inverse Log Transformation - 30% Load Image")
                 st.image(inv_log_transformed_image2, caption = "Inverse Log Transformation - 30% LOAD Image")
-                st.write("Image dimensions:", inv_log_transformed_image2.shape)
+                st.write("Image shape:", inv_log_transformed_image2.shape)
                 transformed_image2 = inv_log_transformed_image2
 
             with col3:
@@ -942,7 +943,7 @@ if choice_img != "Select one":
                 # Display the image
                 st.subheader("Inverse Log Transformation - 50% Load Image")
                 st.image(inv_log_transformed_image3, caption = "Inverse Log Transformation - 50% LOAD Image")
-                st.write("Image dimensions:", inv_log_transformed_image3.shape)
+                st.write("Image shape:", inv_log_transformed_image3.shape)
                 transformed_image3 = inv_log_transformed_image3
 
         if on2:
@@ -959,21 +960,21 @@ if choice_img != "Select one":
 
                 st.subheader("No Coloration - No Load Image")
                 st.image(transformed_image1, caption = "No Coloration - NO LOAD Image")
-                st.write("Image dimensions:", transformed_image1.shape)
+                st.write("Image shape:", transformed_image1.shape)
                 apply_image1 = transformed_image1
 
             with col2:
 
                 st.subheader("No Coloration - 30% Load Image")
                 st.image(transformed_image2, caption = "No Coloration - 30% LOAD Image")
-                st.write("Image dimensions:", transformed_image2.shape)
+                st.write("Image shape:", transformed_image2.shape)
                 apply_image2 = transformed_image2
 
             with col3:
 
                 st.subheader("No Coloration - 50% Load Image")
                 st.image(transformed_image3, caption = "No Coloration - 50% LOAD Image")
-                st.write("Image dimensions:", transformed_image3.shape)
+                st.write("Image shape:", transformed_image3.shape)
                 apply_image3 = transformed_image3
 
         if choice4 == "Gray Coloration":
@@ -984,7 +985,7 @@ if choice_img != "Select one":
 
                 st.subheader("Gray Coloration - No Load Image")
                 st.image(gray_image1, caption = "Gray Coloration - NO LOAD Image")
-                st.write("Image dimensions:", gray_image1.shape)
+                st.write("Image shape:", gray_image1.shape)
                 apply_image1 = gray_image1
 
             with col2:
@@ -993,7 +994,7 @@ if choice_img != "Select one":
 
                 st.subheader("Gray Coloration - 30% Load Image")
                 st.image(gray_image2, caption = "Gray Coloration - 30% LOAD Image")
-                st.write("Image dimensions:", gray_image2.shape)
+                st.write("Image shape:", gray_image2.shape)
                 apply_image2 = gray_image2
 
             with col3:
@@ -1002,7 +1003,7 @@ if choice_img != "Select one":
 
                 st.subheader("Gray Coloration - 50% Load Image")
                 st.image(gray_image3, caption = "Gray Coloration - 50% LOAD Image")
-                st.write("Image dimensions:", gray_image3.shape)
+                st.write("Image shape:", gray_image3.shape)
                 apply_image3 = gray_image3
 
         if choice4 == "HUE Coloration":
@@ -1018,7 +1019,7 @@ if choice_img != "Select one":
                 # Display the hue image
                 st.subheader("HUE Coloration - No Load Image")
                 st.image(hue_image1, caption = "HUE NO LOAD Image", channels='HSV', use_column_width=True)
-                st.write("Image dimensions:", hue_image1.shape)
+                st.write("Image shape:", hue_image1.shape)
                 apply_image1 = hue_image1
 
             with col2:
@@ -1032,7 +1033,7 @@ if choice_img != "Select one":
                 # Display the hue image
                 st.subheader("HUE Coloration - 30% Load Image")
                 st.image(hue_image2, caption = "HUE 30% LOAD Image", channels='HSV', use_column_width=True)
-                st.write("Image dimensions:", hue_image2.shape)
+                st.write("Image shape:", hue_image2.shape)
                 apply_image2 = hue_image2
 
             with col3:
@@ -1046,7 +1047,7 @@ if choice_img != "Select one":
                 # Display the hue image
                 st.subheader("HUE Coloration - 50% Load Image")
                 st.image(hue_image3, caption = "HUE 50% LOAD Image", channels='HSV', use_column_width=True)
-                st.write("Image dimensions:", hue_image3.shape)
+                st.write("Image shape:", hue_image3.shape)
                 apply_image3 = hue_image3
 
         if choice4 == "Pseudo Coloration":
@@ -1059,7 +1060,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Spring Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                    st.write("Image dimensions:", pesudo_image1.shape)
+                    st.write("Image shape:", pesudo_image1.shape)
                     apply_image1 = pesudo_image1
 
                 with col2:
@@ -1068,7 +1069,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Spring Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image") 
-                    st.write("Image dimensions:", pesudo_image2.shape)
+                    st.write("Image shape:", pesudo_image2.shape)
                     apply_image2 = pesudo_image2
 
                 with col3:
@@ -1077,7 +1078,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Spring Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image3.shape)
+                    st.write("Image shape:", pesudo_image3.shape)
                     apply_image3 = pesudo_image3
 
             if choice5 == "Hot":
@@ -1088,7 +1089,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Hot Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                    st.write("Image dimensions:", pesudo_image1.shape)
+                    st.write("Image shape:", pesudo_image1.shape)
                     apply_image1 = pesudo_image1
 
                 with col2:
@@ -1097,7 +1098,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Hot Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image2.shape)
+                    st.write("Image shape:", pesudo_image2.shape)
                     apply_image2 = pesudo_image2
 
                 with col3:
@@ -1106,7 +1107,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Hot Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image3.shape)
+                    st.write("Image shape:", pesudo_image3.shape)
                     apply_image3 = pesudo_image3
 
             if choice5 == "Cool":
@@ -1117,7 +1118,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Cool Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                    st.write("Image dimensions:", pesudo_image1.shape)
+                    st.write("Image shape:", pesudo_image1.shape)
                     apply_image1 = pesudo_image1
 
                 with col2:
@@ -1126,7 +1127,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Cool Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image2.shape)
+                    st.write("Image shape:", pesudo_image2.shape)
                     apply_image2 = pesudo_image2
 
                 with col3:
@@ -1135,7 +1136,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Cool Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image3.shape)
+                    st.write("Image shape:", pesudo_image3.shape)
                     apply_image3 = pesudo_image3
 
             if choice5 == "Rainbow":
@@ -1146,7 +1147,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Rainbow Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                    st.write("Image dimensions:", pesudo_image1.shape)
+                    st.write("Image shape:", pesudo_image1.shape)
                     apply_image1 = pesudo_image1
 
                 with col2:
@@ -1155,7 +1156,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Rainbow Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image2.shape)
+                    st.write("Image shape:", pesudo_image2.shape)
                     apply_image2 = pesudo_image2
 
                 with col3:
@@ -1164,7 +1165,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo Rainbow Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image3.shape)
+                    st.write("Image shape:", pesudo_image3.shape)
                     apply_image3 = pesudo_image3
 
             if choice5 == "HSV":
@@ -1175,7 +1176,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo HSV Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                    st.write("Image dimensions:", pesudo_image1.shape)
+                    st.write("Image shape:", pesudo_image1.shape)
                     apply_image1 = pesudo_image1
 
                 with col2:
@@ -1184,7 +1185,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo HSV Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image2.shape)
+                    st.write("Image shape:", pesudo_image2.shape)
                     apply_image2 = pesudo_image2
 
                 with col3:
@@ -1193,7 +1194,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo HSV Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image3.shape)
+                    st.write("Image shape:", pesudo_image3.shape)
                     apply_image3 = pesudo_image3
 
             if choice5 == "JET":
@@ -1204,7 +1205,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo JET Coloration Image")
                     st.image(pesudo_image1, caption = "PESUDO NO LOAD Image")
-                    st.write("Image dimensions:", pesudo_image1.shape)
+                    st.write("Image shape:", pesudo_image1.shape)
                     apply_image1 = pesudo_image1
 
                 with col2:
@@ -1213,7 +1214,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo JET Coloration Image")
                     st.image(pesudo_image2, caption = "PESUDO 30% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image2.shape)
+                    st.write("Image shape:", pesudo_image2.shape)
                     apply_image2 = pesudo_image2
 
                 with col3:
@@ -1222,7 +1223,7 @@ if choice_img != "Select one":
 
                     st.subheader("Pesudo JET Coloration Image")
                     st.image(pesudo_image3, caption = "PESUDO 50% LOAD Image")
-                    st.write("Image dimensions:", pesudo_image3.shape)
+                    st.write("Image shape:", pesudo_image3.shape)
                     apply_image3 = pesudo_image3
 
         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice4 != "Select one":
@@ -1308,7 +1309,7 @@ if choice_img != "Select one":
 
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges1, caption = "CANNY EDGES NO LOAD Image")
-                        st.write("Image dimensions:", edges1.shape)
+                        st.write("Image shape:", edges1.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1371,7 +1372,7 @@ if choice_img != "Select one":
 
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges2, caption = "CANNY EDGES 30% LOAD Image")
-                        st.write("Image dimensions:", edges2.shape)
+                        st.write("Image shape:", edges2.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1435,7 +1436,7 @@ if choice_img != "Select one":
 
                         st.subheader("Canny Edge Detection Image")
                         st.image(edges3, caption = "CANNY EDGES 50% LOAD Image")
-                        st.write("Image dimensions:", edges3.shape)
+                        st.write("Image shape:", edges3.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1504,7 +1505,7 @@ if choice_img != "Select one":
 
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges1, caption = "OTSU EDGES NO LOAD Image")
-                        st.write("Image dimensions:", edges1.shape)
+                        st.write("Image shape:", edges1.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1565,7 +1566,7 @@ if choice_img != "Select one":
 
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges2, caption = "OTSU EDGES 30% LOAD Image")
-                        st.write("Image dimensions:", edges2.shape)
+                        st.write("Image shape:", edges2.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1627,7 +1628,7 @@ if choice_img != "Select one":
 
                         st.subheader("Otsu Edge Detection Image")
                         st.image(edges3, caption = "OTSU EDGES 50% LOAD Image")
-                        st.write("Image dimensions:", edges3.shape)
+                        st.write("Image shape:", edges3.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1683,7 +1684,7 @@ if choice_img != "Select one":
 
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges1, caption = "PREWITT EDGES NO LOAD Image")
-                        st.write("Image dimensions:", edges1.shape)
+                        st.write("Image shape:", edges1.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1733,7 +1734,7 @@ if choice_img != "Select one":
 
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges2, caption = "PREWITT EDGES 30% LOAD Image")
-                        st.write("Image dimensions:", edges2.shape)
+                        st.write("Image shape:", edges2.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1794,7 +1795,7 @@ if choice_img != "Select one":
 
                         st.subheader("Prewitt Edge Detection Image")
                         st.image(edges3, caption = "PREWITT EDGES 50% LOAD Image")
-                        st.write("Image dimensions:", edges3.shape)
+                        st.write("Image shape:", edges3.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1866,7 +1867,7 @@ if choice_img != "Select one":
 
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges1, caption = "ROBERT EDGES NO LOAD Image")
-                        st.write("Image dimensions:", edges1.shape)
+                        st.write("Image shape:", edges1.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1926,7 +1927,7 @@ if choice_img != "Select one":
 
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges2, caption = "ROBERT EDGES 30% LOAD Image")
-                        st.write("Image dimensions:", edges2.shape)
+                        st.write("Image shape:", edges2.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
@@ -1987,7 +1988,7 @@ if choice_img != "Select one":
 
                         st.subheader("Robert Edge Detection Image")
                         st.image(edges3, caption = "ROBERT EDGES 50% LOAD Image")
-                        st.write("Image dimensions:", edges3.shape)
+                        st.write("Image shape:", edges3.shape)
 
                         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
                             if on4:
