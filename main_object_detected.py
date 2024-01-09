@@ -256,6 +256,12 @@ if choice_img != "Select one":
     st.header('', divider='rainbow')
 
     # Image sets
+    # Healthy - (70,49,200,166)
+    # 30% Phase 1 - (70,49,200,166)
+    # 30% Phase 2 - (100,40,170,185)
+    # 30% Phase 3 - (15,40,257,176) 
+    # 50% Phase 1 - (15,40,257,170) 
+    # 50% Phase 2 - (20,35,260,183)  
     if choice_img == "Set1 - 30% Phase1, 50% Phase1":
         with col1: 
             img1 = cv2.imread("Noload/004.bmp")
@@ -270,7 +276,7 @@ if choice_img != "Select one":
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (70,50,200,166)
+            rect = (70,49,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
@@ -295,7 +301,7 @@ if choice_img != "Select one":
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (80,50,200,166)
+            rect = (70,49,200,166)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
@@ -346,7 +352,7 @@ if choice_img != "Select one":
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (80,49,200,166) # 49 or 50
+            rect = (70,49,200,166) # 49 or 50 
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
@@ -371,7 +377,7 @@ if choice_img != "Select one":
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (90,53,170,185)
+            rect = (100,40,170,185)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
@@ -396,7 +402,7 @@ if choice_img != "Select one":
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (25,40,258,180)
+            rect = (15,40,257,170) 
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
@@ -422,7 +428,7 @@ if choice_img != "Select one":
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (80,50,200,166)
+            rect = (70,49,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
@@ -447,7 +453,7 @@ if choice_img != "Select one":
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (15,40,258,176)
+            rect = (15,40,257,176) 
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
@@ -472,7 +478,7 @@ if choice_img != "Select one":
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (35,40,270,180)
+            rect = (15,40,257,170) 
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
@@ -498,7 +504,7 @@ if choice_img != "Select one":
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (80,50,200,166)
+            rect = (70,49,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
@@ -523,7 +529,7 @@ if choice_img != "Select one":
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (80,50,200,166)
+            rect = (70,49,200,166)
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
@@ -548,7 +554,7 @@ if choice_img != "Select one":
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect =  (35,30,270,186)
+            rect = (20,35,260,183) 
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
@@ -574,7 +580,7 @@ if choice_img != "Select one":
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (80,50,200,166)
+            rect = (70,49,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
@@ -599,7 +605,7 @@ if choice_img != "Select one":
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (40,40,260,195)
+            rect = (100,40,170,185) 
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
@@ -624,7 +630,7 @@ if choice_img != "Select one":
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (20,35,240,183)
+            rect = (20,35,260,183) 
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
@@ -639,7 +645,7 @@ if choice_img != "Select one":
 
     if choice_img == "Set6 - 30% Phase3, 50% Phase2":
         with col1:
-            img1 = cv2.imread("Noload/008.bmp")
+            img1 = cv2.imread("Noload/009.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
@@ -650,7 +656,7 @@ if choice_img != "Select one":
             edges1 = canny(cut1)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (80,50,200,166)
+            rect = (70,49,200,166)
             cv2.grabCut(cut1,edges1,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges1==2)|(edges1==0),0,1).astype('uint8')
             img = cut1*mask[:,:,np.newaxis]
@@ -675,7 +681,7 @@ if choice_img != "Select one":
             edges2 = canny(cut2)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (20,20,250,196)
+            rect = (15,40,257,176)  
             cv2.grabCut(cut2,edges2,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges2==2)|(edges2==0),0,1).astype('uint8')
             img = cut2*mask[:,:,np.newaxis]
@@ -700,7 +706,7 @@ if choice_img != "Select one":
             edges3 = canny(cut3)
             bgdModel = np.zeros((1,65),np.float64)
             fgdModel = np.zeros((1,65),np.float64)
-            rect = (20,32,240,188)
+            rect = (20,35,260,183) 
             cv2.grabCut(cut3,edges3,rect,bgdModel,fgdModel,5,cv2.GC_INIT_WITH_RECT)
             mask = np.where((edges3==2)|(edges3==0),0,1).astype('uint8')
             img = cut3*mask[:,:,np.newaxis]
