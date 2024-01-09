@@ -258,7 +258,7 @@ if choice_img != "Select one":
     # Image sets
     if choice_img == "Set1 - 30% Phase1, 50% Phase1":
         with col1: 
-            img1 = cv2.imread("Experiment11/Noload/004.bmp")
+            img1 = cv2.imread("Noload/004.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
@@ -283,7 +283,7 @@ if choice_img != "Select one":
                 histogram(img1)
 
         with col2:
-            img2 = cv2.imread("Experiment11/A30/137.bmp")
+            img2 = cv2.imread("A30/137.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 1")
@@ -308,7 +308,7 @@ if choice_img != "Select one":
                 histogram(img2)
 
         with col3:
-            img3 = cv2.imread("Experiment11/A50/256.bmp")
+            img3 = cv2.imread("A50/256.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 1")
@@ -334,7 +334,7 @@ if choice_img != "Select one":
 
     if choice_img == "Set2 - 30% Phase2, 50% Phase1":
         with col1:
-            img1 = cv2.imread("Experiment11/Noload/005.bmp")
+            img1 = cv2.imread("Noload/005.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
@@ -359,7 +359,7 @@ if choice_img != "Select one":
                 histogram(img1)
 
         with col2:
-            img2 = cv2.imread("Experiment11/A&C30/177.bmp")
+            img2 = cv2.imread("A&C30/177.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 2")
@@ -384,7 +384,7 @@ if choice_img != "Select one":
                 histogram(img2)
         
         with col3:
-            img3 = cv2.imread("Experiment11/A50/258.bmp")
+            img3 = cv2.imread("A50/258.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 1")
@@ -410,7 +410,7 @@ if choice_img != "Select one":
 
     if choice_img == "Set3 - 30% Phase3, 50% Phase1":
         with col1:
-            img1 = cv2.imread("Experiment11/Noload/006.bmp")
+            img1 = cv2.imread("Noload/006.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
@@ -435,7 +435,7 @@ if choice_img != "Select one":
                 histogram(img1)
 
         with col2:
-            img2 = cv2.imread("Experiment11/A&C&B30/217.bmp")
+            img2 = cv2.imread("A&C&B30/217.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 3")
@@ -460,7 +460,7 @@ if choice_img != "Select one":
                 histogram(img2)
 
         with col3:
-            img3 = cv2.imread("Experiment11/A50/259.bmp")
+            img3 = cv2.imread("A50/259.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 1")
@@ -486,7 +486,7 @@ if choice_img != "Select one":
 
     if choice_img == "Set4 - 30% Phase1, 50% Phase2":
         with col1:
-            img1 = cv2.imread("Experiment11/Noload/007.bmp")
+            img1 = cv2.imread("Noload/007.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
@@ -511,7 +511,7 @@ if choice_img != "Select one":
                 histogram(img1)
 
         with col2:
-            img2 = cv2.imread("Experiment11/A30/134.bmp")
+            img2 = cv2.imread("A30/134.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 1")
@@ -536,7 +536,7 @@ if choice_img != "Select one":
                 histogram(img2)
 
         with col3:
-            img3 = cv2.imread("Experiment11/A&B50/292.bmp")
+            img3 = cv2.imread("A&B50/292.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 2")
@@ -562,7 +562,7 @@ if choice_img != "Select one":
 
     if choice_img == "Set5 - 30% Phase2, 50% Phase2":
         with col1:
-            img1 = cv2.imread("Experiment11/Noload/008.bmp")
+            img1 = cv2.imread("Noload/008.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
@@ -587,7 +587,7 @@ if choice_img != "Select one":
                 histogram(img1)
 
         with col2:
-            img2 = cv2.imread("Experiment11/A&C30/180.bmp")
+            img2 = cv2.imread("A&C30/180.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 2")
@@ -612,7 +612,7 @@ if choice_img != "Select one":
                 histogram(img2)
 
         with col3:
-            img3 = cv2.imread("Experiment11/A&B50/293.bmp")
+            img3 = cv2.imread("A&B50/293.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 2")
@@ -638,7 +638,7 @@ if choice_img != "Select one":
 
     if choice_img == "Set6 - 30% Phase3, 50% Phase2":
         with col1:
-            img1 = cv2.imread("Experiment11/Noload/008.bmp")
+            img1 = cv2.imread("Noload/008.bmp")
             img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
             original_image1 = img1
             st.subheader("Original - Healthy - No Load Image")
@@ -663,7 +663,7 @@ if choice_img != "Select one":
                 histogram(img1)
 
         with col2:
-            img2 = cv2.imread("Experiment11/A&C&B30/215.bmp")
+            img2 = cv2.imread("A&C&B30/215.bmp")
             img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
             original_image2 = img2
             st.subheader("Original - 30% Load Phase 3")
@@ -688,7 +688,7 @@ if choice_img != "Select one":
                 histogram(img2)
 
         with col3:
-            img3 = cv2.imread("Experiment11/A&B50/293.bmp")
+            img3 = cv2.imread("A&B50/293.bmp")
             img3 = cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)
             original_image3 = img3
             st.subheader("Original - 50% Load Phase 2")
