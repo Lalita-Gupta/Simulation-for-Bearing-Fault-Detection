@@ -174,7 +174,7 @@ def table(image):
 
     d = image.shape[1] - 1
     
-    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
         st.subheader("Total Mean:")
         st.write(sum(avg_total)/d)
         st.subheader("Total STD:")
