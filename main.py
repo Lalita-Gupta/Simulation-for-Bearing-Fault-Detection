@@ -174,14 +174,24 @@ def table(image):
 
     d = image.shape[1] - 1
     
-    st.subheader("Total Mean:")
-    st.write(sum(avg_total)/d)
-    st.subheader("Total STD:")
-    st.write(sum(std_total)/d)
-    st.subheader("Total Variance:")
-    st.write(sum(var_total)/d)
-    st.subheader("Total RMS:")
-    st.write(sum(rms_total)/d)
+    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+        st.subheader("Total Mean:")
+        st.write(sum(avg_total)/d)
+        st.subheader("Total STD:")
+        st.write(sum(sum(std_total))/d)
+        st.subheader("Total Variance:")
+        st.write(sum(sum(var_total))/d)
+        st.subheader("Total RMS:")
+        st.write(sum(sum(rms_total))/d)
+    else:
+        st.subheader("Total Mean:")
+        st.write(sum(avg_total)/d)
+        st.subheader("Total STD:")
+        st.write(sum(std_total)/d)
+        st.subheader("Total Variance:")
+        st.write(sum(var_total)/d)
+        st.subheader("Total RMS:")
+        st.write(sum(rms_total)/d)
 
 # All Edge Detection Functions
 # **************************************************************************************************************************************************************
