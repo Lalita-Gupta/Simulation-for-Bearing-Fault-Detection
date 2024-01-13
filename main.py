@@ -162,15 +162,36 @@ def histogram(image):
         hist = cv2.calcHist([image],[2],None,[256],[0,500])
         st.line_chart(hist)
 
-def table():
+def table(image):
+    # dictionary of lists 
+    dict = {"Mean": avg_total, "STD": std_total, "Var": var_total, "RMS": rms_total} # "MSE": mse_total
+    df = pd.DataFrame(dict)
+    st.subheader("Table")
+    st.dataframe(df)
     if choice4 == "HUE Coloration" or choice2 == "Canny Edge Detection" or choice2 == "Otsu Edge Detection" or (choice6 == "Gamma Transformation" and choice4 == "Gray Coloration"):
-        # dictionary of lists 
-        dict = {"Mean": avg_total, "STD": std_total, "Var": var_total, "RMS": rms_total} # "MSE": mse_total
-        df = pd.DataFrame(dict)
-        st.subheader("Table")
-        st.dataframe(df)
         st.subheader("Combined Graph")
         st.line_chart(df)
+
+    d = image.shape[1] - 1
+    
+    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration":
+        st.subheader("Total Mean:")
+        st.write(sum(avg_total)/d)
+        st.subheader("Total STD:")
+        st.write(sum(sum(std_total))/d)
+        st.subheader("Total Variance:")
+        st.write(sum(sum(var_total))/d)
+        st.subheader("Total RMS:")
+        st.write(sum(sum(rms_total))/d)
+    else:
+        st.subheader("Total Mean:")
+        st.write(sum(avg_total)/d)
+        st.subheader("Total STD:")
+        st.write(sum(std_total)/d)
+        st.subheader("Total Variance:")
+        st.write(sum(var_total)/d)
+        st.subheader("Total RMS:")
+        st.write(sum(rms_total)/d)
 
 # All Edge Detection Functions
 # **************************************************************************************************************************************************************
@@ -213,7 +234,7 @@ with st.sidebar:
         choice6 = st.selectbox("Image Transformation", ["Select one", "No Transformation", "Gamma Transformation", "Log Transformation", "Inverse Log Transformation"])
 
         if choice6 != "Select one":
-            on2 = st.toggle('Transformed Image Hsitogram')
+            on2 = st.toggle('Transformed Image Histogram')
             choice4 = st.selectbox("Image Coloration", ["Select one", "No Coloration Image", "Gray Coloration", "HUE Coloration", "Pseudo Coloration"])
 
             if choice4 != "Select one":
@@ -1024,7 +1045,7 @@ if choice_img != "Select one":
                         var_total = var(edges1)
                         rms_total = rms(edges1)
                         # mse_total = mse(edges1)
-                        table()
+                        table(edges1)
                     
                 with col2:
 
@@ -1085,7 +1106,7 @@ if choice_img != "Select one":
                         var_total = var(edges2)
                         rms_total = rms(edges2)
                         # mse_total = mse(edges2)
-                        table()
+                        table(edges2)
 
 
                 with col3:
@@ -1147,7 +1168,7 @@ if choice_img != "Select one":
                         var_total = var(edges3)
                         rms_total = rms(edges3)
                         # mse_total = mse(edges3)
-                        table()
+                        table(edges3)
 
             # for otsu
             if choice2 == "Otsu Edge Detection":
@@ -1214,7 +1235,7 @@ if choice_img != "Select one":
                         var_total = var(edges1)
                         rms_total = rms(edges1)
                         # mse_total = mse(edges1)
-                        table()
+                        table(edges1)
                     
                 with col2:
 
@@ -1275,7 +1296,7 @@ if choice_img != "Select one":
                         var_total = var(edges2)
                         rms_total = rms(edges2)
                         # mse_total = mse(edges2)
-                        table()
+                        table(edges2)
 
 
                 with col3:
@@ -1337,7 +1358,7 @@ if choice_img != "Select one":
                         var_total = var(edges3)
                         rms_total = rms(edges3)
                         # mse_total = mse(edges3)
-                        table()
+                        table(edges3)
                 
             # for prewitt
             if choice2 == "Prewitt Edge Detection":
@@ -1393,7 +1414,7 @@ if choice_img != "Select one":
                         var_total = var(edges1)
                         rms_total = rms(edges1)
                         # mse_total = mse(edges1)
-                        table()
+                        table(edges1)
                     
                 with col2:
                     
@@ -1443,7 +1464,7 @@ if choice_img != "Select one":
                         var_total = var(edges2)
                         rms_total = rms(edges2)
                         # mse_total = mse(edges2)
-                        table()
+                        table(edges2)
 
                 with col3:
 
@@ -1504,7 +1525,7 @@ if choice_img != "Select one":
                         var_total = var(edges3)
                         rms_total = rms(edges3)
                         # mse_total = mse(edges3)
-                        table()
+                        table(edges3)
             
             # for robert
             if choice2 == "Robert Edge Detection":
@@ -1576,7 +1597,7 @@ if choice_img != "Select one":
                         var_total = var(edges1)
                         rms_total = rms(edges1)
                         # mse_total = mse(edges1)
-                        table()
+                        table(edges1)
                     
                 with col2:
 
@@ -1636,7 +1657,7 @@ if choice_img != "Select one":
                         var_total = var(edges2)
                         rms_total = rms(edges2)
                         # mse_total = mse(edges2)
-                        table()
+                        table(edges2)
 
 
                 with col3:
@@ -1697,6 +1718,6 @@ if choice_img != "Select one":
                         var_total = var(edges3)
                         rms_total = rms(edges3)
                         # mse_total = mse(edges3)
-                        table()
+                        table(edges3)
 
 # **************************************************************************************************************************************************************
