@@ -158,9 +158,35 @@ def rms(image):
     return rms_total
 
 def histogram(image):
-        st.subheader("Histogram")
-        hist = cv2.calcHist([image],[2],None,[256],[0,500])
-        st.line_chart(hist)
+    st.subheader("Histogram")
+    hist = cv2.calcHist([image],[2],None,[256],[0,500])
+    st.line_chart(hist)
+
+    # Split the image into its color channels
+    b, g, r = cv2.split(image)
+
+    # Compute histograms for each channel
+    hist_b = cv2.calcHist([b], [0], None, [256], [0, 256])
+    hist_g = cv2.calcHist([g], [0], None, [256], [0, 256])
+    hist_r = cv2.calcHist([r], [0], None, [256], [0, 256])
+
+    # Create a figure for the histograms
+    fig, ax = plt.subplots()
+
+    # Plot all histograms together
+    ax.plot(hist_b, color='blue', label='Blue')
+    ax.plot(hist_g, color='green', label='Green')
+    ax.plot(hist_r, color='red', label='Red')
+    ax.set_xlabel('Pixel Value')
+    ax.set_ylabel('Frequency')
+    ax.set_title('Color Histograms')
+    ax.legend()
+
+    # Display the figure in Streamlit
+    st.pyplot(fig)
+
+
+        
 
 def table(image):
     # dictionary of lists 
