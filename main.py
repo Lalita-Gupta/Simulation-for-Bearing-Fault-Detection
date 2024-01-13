@@ -158,10 +158,8 @@ def rms(image):
     return rms_total
 
 def histogram(image):
-    st.subheader("Histogram")
-    hist = cv2.calcHist([image],[2],None,[256],[0,500])
-    st.line_chart(hist)
-
+    st.subheader("Histogram of each channel")
+    
     # Split the image into its color channels
     b, g, r = cv2.split(image)
 
@@ -185,7 +183,10 @@ def histogram(image):
     # Display the figure in Streamlit
     st.pyplot(fig)
 
-
+    st.subheader("Histogram Cumulative")
+    
+    hist = cv2.calcHist([image],[2],None,[256],[0,500])
+    st.line_chart(hist)
         
 
 def table(image):
