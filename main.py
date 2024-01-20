@@ -1761,30 +1761,30 @@ if choice_img != "Select one":
 
                                 pseudo_jet_image9 = pseudo_jet(transformed_image9, message9)
                                 apply_image9 = pseudo_jet_image9
-                                                    
-                if on3:
-                    if choice4 == "Hue Coloration" or choice4 == "Gray Coloration":
-                        flag = 0
-                    else:
-                        flag = 1
-
-                    with col1:
-                        histogram(apply_image1,flag)
-                        histogram(apply_image2,flag)
-                        histogram(apply_image3,flag)
-                    with col2:
-                        histogram(apply_image4,flag)
-                        histogram(apply_image5,flag)
-                        histogram(apply_image6,flag)
-                    with col3:
-                        histogram(apply_image7,flag)
-                        histogram(apply_image8,flag)
-                        histogram(apply_image9,flag)
-
-                if choice4 == 'Pseudo Coloration' and choice5 == "Select one":
+                                
+                if choice4 == "Pseudo Coloration" and choice5 == "Select one":
                     pass
-                        
+
                 else:
+                    
+                    if on3:
+                        if choice4 == "Hue Coloration" or choice4 == "Gray Coloration":
+                            flag = 0
+                        else:
+                            flag = 1
+    
+                        with col1:
+                            histogram(apply_image1,flag)
+                            histogram(apply_image2,flag)
+                            histogram(apply_image3,flag)
+                        with col2:
+                            histogram(apply_image4,flag)
+                            histogram(apply_image5,flag)
+                            histogram(apply_image6,flag)
+                        with col3:
+                            histogram(apply_image7,flag)
+                            histogram(apply_image8,flag)
+                            histogram(apply_image9,flag)
                     
                     if choice2 != "Select one":
 
