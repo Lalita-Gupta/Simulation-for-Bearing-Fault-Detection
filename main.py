@@ -244,7 +244,7 @@ def skew(image):
 
     d = (count * ((total)**3))
 
-    skew_total = (total/d) * 10**15
+    skew_total = (total/d) * 10**30
 
     return skew_total
 
@@ -270,7 +270,7 @@ def kur(image):
 
     d = (count * ((total)**4))
 
-    kur_total = float(total/d) * 10**19
+    kur_total = float(total/d) * 10**50
 
     return kur_total
 
