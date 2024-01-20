@@ -6,17 +6,14 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import pandas as pd
 import streamlit as st 
-# import csv
 
 # Input 
 # **********************************************************************************************************************************************************************************
 
 def input(image, message):
     
-    # st.subheader(message)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     st.image(image, caption = message)
-    # st.write("Image shape:", image.shape)
 
     return image
 
@@ -41,7 +38,6 @@ def mean(image,flag,message):
             total = total / count
             avg_total.append(total)
 
-        # st.subheader("Mean Line Chart")
         avg_total_chart = pd.DataFrame(avg_total)
         st.line_chart(avg_total_chart)
         st.write(message)
@@ -52,14 +48,12 @@ def mean(image,flag,message):
     if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                # if (image[r:r+1,c:c+1,0] + image[r:r+1,c:c+1,1] + image[r:r+1,c:c+1,2])!= 0:
                 total = total + float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2]) 
                 count = count + 3
 
     else:
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                # if (image[r:r+1,c:c+1]) != 0:
                 total = total + float(image[r:r+1,c:c+1])
                 count = count + 1
 
@@ -74,7 +68,6 @@ def std(image,flag,message):
         std_total = []
 
         for c in range (0,image.shape[1]-mask_size+1):
-            # std = []
             total = 0
             count = 0
             for r in range (0,image.shape[0]-mask_size+1):
@@ -84,22 +77,13 @@ def std(image,flag,message):
                 temp2 = 0
                 for i in range(0,mask_size):
                     for j in range(0,mask_size): 
-                        # pixel_b, pixel_g, pixel_r = image[r+i][c+j]
-                        # t = (pixel_b + pixel_g + pixel_r) / 3
                         t = image[r+i][c+j]
                         temp2 = temp2 + (t-avg)**2
                 temp = np.sqrt(temp2/d)
                 total = total + temp
                 count = count + 1
-                # std.append(temp)
             total = total / count
             std_total.append(total)
-            # std.append(total)
-            # with open("std.csv", 'a', newline='') as file:
-            #     writer = csv.writer(file)
-            #     writer.writerow(std)
-
-        # st.subheader("Standard Deviation Line Chart")
 
         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection":
             std_total_chart = pd.DataFrame(std_total,columns=["Blue", "Green", "Red"])
@@ -116,7 +100,6 @@ def std(image,flag,message):
     if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                # if (image[r:r+1,c:c+1,0] + image[r:r+1,c:c+1,1] + image[r:r+1,c:c+1,2]) != 0:
                 total = ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**2
                 count = count + 3
         count = count - 3
@@ -124,7 +107,6 @@ def std(image,flag,message):
     else:
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                #if (image[r:r+1,c:c+1]) != 0:
                 total = ((float(image[r:r+1,c:c+1])) - avg_total)**2
                 count = count + 1
         count = count - 1
@@ -141,7 +123,6 @@ def var(image,flag,message):
         var_total = []
 
         for c in range (0,image.shape[1]-mask_size+1):
-            # var = []
             total = 0
             count = 0
             for r in range (0,image.shape[0]-mask_size+1):
@@ -151,22 +132,13 @@ def var(image,flag,message):
                 temp2 = 0
                 for i in range(0,mask_size):
                     for j in range(0,mask_size): 
-                        #pixel_b, pixel_g, pixel_r = image[r+i][c+j]
-                        #t = (pixel_b + pixel_g + pixel_r) / 3
                         t = image[r+i][c+j]
                         temp2 = temp2 + (t-avg)**2
                 temp = temp2/d
                 total = total + temp
                 count = count + 1
-                # var.append(temp)
             total = total / count
             var_total.append(total)
-            # var.append(total)
-            # with open("var.csv", 'a', newline='') as file:
-            #     writer = csv.writer(file)
-            #     writer.writerow(var)
-        
-        # st.subheader("Variance Line Chart")
 
         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection":
             var_total_chart = pd.DataFrame(var_total,columns=["Blue", "Green", "Red"])
@@ -187,7 +159,6 @@ def rms(image,flag,message):
         rms_total = []
 
         for c in range (0,image.shape[1]-mask_size+1):
-            # rms = []
             total = 0
             count = 0
             for r in range (0,image.shape[0]-mask_size+1):
@@ -197,22 +168,13 @@ def rms(image,flag,message):
                 temp2 = 0
                 for i in range(0,mask_size):
                     for j in range(0,mask_size): 
-                        #pixel_b, pixel_g, pixel_r = image[r+i][c+j]
-                        #t = (pixel_b + pixel_g + pixel_r) / 3
                         t = image[r+i][c+j]
                         temp2 = temp2 + t*t
                 temp = np.sqrt(temp2/d)
                 total = total + temp
                 count = count + 1
-                # rms.append(temp)
             total = total / count
             rms_total.append(total)
-            # rms.append(total)
-            # with open("rms.csv", 'a', newline='') as file:
-            #     writer = csv.writer(file)
-            #     writer.writerow(rms)
-
-        # st.subheader("Root Mean Square Line Chart")
         
         if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection":
             rms_total_chart = pd.DataFrame(rms_total,columns=["Blue", "Green", "Red"])
@@ -230,14 +192,12 @@ def rms(image,flag,message):
     if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                # if (image[r:r+1,c:c+1,0] + image[r:r+1,c:c+1,1] + image[r:r+1,c:c+1,2]) != 0:
                 total = total + ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])))**2
                 count = count + 3
 
     else:
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                # if (image[r:r+1,c:c+1]) != 0:
                 total = total + (float(image[r:r+1,c:c+1]))**2
                 count = count + 1
 
@@ -253,7 +213,6 @@ def skew(image):
     if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                # if (image[r:r+1,c:c+1,0] + image[r:r+1,c:c+1,1] + image[r:r+1,c:c+1,2]) != 0:
                 total = ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**3
                 count = count + 3
         count = count - 3
@@ -261,7 +220,6 @@ def skew(image):
     else:
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                #if (image[r:r+1,c:c+1]) != 0:
                 total = ((float(image[r:r+1,c:c+1])) - avg_total)**3
                 count = count + 1
         count = count - 1
@@ -281,7 +239,6 @@ def kur(image):
     if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                # if (image[r:r+1,c:c+1,0] + image[r:r+1,c:c+1,1] + image[r:r+1,c:c+1,2]) != 0:
                 total = ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**4
                 count = count + 3
         count = count - 3
@@ -289,7 +246,6 @@ def kur(image):
     else:
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                #if (image[r:r+1,c:c+1]) != 0:
                 total = ((float(image[r:r+1,c:c+1])) - avg_total)**3
                 count = count + 1
         count = count - 1
@@ -333,9 +289,9 @@ def entropy(image):
 
     return entropy_total
 
-def histogram(image):
+def histogram(image,flag):
 
-    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":
+    if flag == 1:
 
         st.subheader("Histogram of each channel")
         
@@ -440,6 +396,7 @@ def summary_single_table(message1,avg_total1,std_total1,var_total1,rms_total1,sk
                     st.dataframe(df)
 
 def object(image,x,y,width,height,message):
+
     cut = image
     edges = cv2.Canny(cut,100,200)
     bgdModel = np.zeros((1,65),np.float64)
@@ -473,9 +430,7 @@ def object(image,x,y,width,height,message):
 
 def notransformation(image, message):
 
-    # st.subheader(message)
     st.image(image, caption = message)
-    # st.write("Image shape:", image.shape)
 
     return image
 
@@ -488,9 +443,7 @@ def gamma(image,message):
     gamma_corrected = np.power(image / 255.0, gamma) * 255.0
     gamma_corrected = np.clip(gamma_corrected, 0, 255).astype(np.uint8)
 
-    # st.subheader(message)
     st.image(gamma_corrected, caption = message)
-    # st.write("Image shape:", gamma_corrected.shape)
 
     return gamma_corrected
 
@@ -512,9 +465,7 @@ def log(image, message):
     # Merge the log-transformed color channels back into an image
     log_transformed_image = cv2.merge((log_transformed_b, log_transformed_g, log_transformed_r))
 
-    # st.subheader(message)
     st.image(log_transformed_image, caption = message)
-    # st.write("Image shape:", log_transformed_image.shape)
 
     return log_transformed_image
 
@@ -542,9 +493,7 @@ def inverselog(image, message):
     inv_log_transformed_image = cv2.merge((inv_log_transformed_b, inv_log_transformed_g, inv_log_transformed_r))
 
     # Display the image
-    # st.subheader(message)
     st.image(inv_log_transformed_image, caption = message)
-    # st.write("Image shape:", inv_log_transformed_image.shape)
 
     return inv_log_transformed_image
 
@@ -552,18 +501,15 @@ def inverselog(image, message):
 # *************************************************************************************************************************************************************
 
 def nocoloration(image, message):
-    st.subheader(message)
+
     st.image(image, caption = message)
-    # st.write("Image shape:", image.shape)
+
     return image
 
 def gray(image, message):
 
     gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-
-    # st.subheader(message)
     st.image(gray_image, caption = message)
-    # st.write("Image shape:", gray_image.shape)
 
     return gray_image
 
@@ -575,63 +521,49 @@ def hue(image, message):
     hue_image = hsv_image[:, :, 0]  # Hue channel is the first channel in HSV
 
     # Display the hue image
-    # st.subheader(message)
     st.image(hue_image, caption = message, channels='HSV', use_column_width=True)
-    # st.write("Image shape:", hue_image.shape)
 
     return hue_image
 
 def pseudo_spring(image,message):
-    pseudo_spring_image = cv2.applyColorMap(image, cv2.COLORMAP_SPRING)
 
-    # st.subheader(message)
+    pseudo_spring_image = cv2.applyColorMap(image, cv2.COLORMAP_SPRING)
     st.image(pseudo_spring_image, caption = message)
-    # st.write("Image shape:", pseudo_spring_image.shape)
 
     return pseudo_spring_image
 
 def pseudo_hot(image,message):
-    pseudo_hot_image = cv2.applyColorMap(image, cv2.COLORMAP_HOT)
 
-    # st.subheader(message)
+    pseudo_hot_image = cv2.applyColorMap(image, cv2.COLORMAP_HOT)
     st.image(pseudo_hot_image, caption = message)
-    # st.write("Image shape:", pseudo_hot_image.shape)
 
     return pseudo_hot_image
 
 def pseudo_cool(image,message):
-    pseudo_cool_image = cv2.applyColorMap(image, cv2.COLORMAP_COOL)
 
-    # st.subheader(message)
+    pseudo_cool_image = cv2.applyColorMap(image, cv2.COLORMAP_COOL)
     st.image(pseudo_cool_image, caption = message)
-    # st.write("Image shape:", pseudo_cool_image.shape)
 
     return pseudo_cool_image
 
 def pseudo_rainbow(image,message):
-    pseudo_rainbow_image = cv2.applyColorMap(image, cv2.COLORMAP_RAINBOW)
 
-    # st.subheader(message)
+    pseudo_rainbow_image = cv2.applyColorMap(image, cv2.COLORMAP_RAINBOW)
     st.image(pseudo_rainbow_image, caption = message)
-    # st.write("Image shape:", pseudo_rainbow_image.shape)
 
     return pseudo_rainbow_image
 
 def pseudo_hsv(image,message):
-    pseudo_hsv_image = cv2.applyColorMap(image, cv2.COLORMAP_HSV)
 
-    # st.subheader(message)
+    pseudo_hsv_image = cv2.applyColorMap(image, cv2.COLORMAP_HSV)
     st.image(pseudo_hsv_image, caption = message)
-    # st.write("Image shape:", pseudo_hsv_image.shape)
 
     return pseudo_hsv_image
 
 def pseudo_jet(image,message):
-    pseudo_jet_image = cv2.applyColorMap(image, cv2.COLORMAP_JET)
 
-    # st.subheader(message)
+    pseudo_jet_image = cv2.applyColorMap(image, cv2.COLORMAP_JET)
     st.image(pseudo_jet_image, caption = message)
-    # st.write("Image shape:", pseudo_jet_image.shape)
 
     return pseudo_jet_image
 
@@ -641,16 +573,12 @@ def pseudo_jet(image,message):
 def canny(image,message):
 
     edges = cv2.Canny(image,100,200)
-    # st.subheader("Canny Edge Detection Image")
     st.image(edges, caption = message)
-    st.write("Image dimensions:", edges.shape)
     return edges
 
 def otsu(image,message):
     edges = cv2.adaptiveThreshold(image,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
-    # st.subheader("Otsu Edge Detection Image")
     st.image(edges, caption = message)
-    st.write("Image dimensions:", edges.shape)
     return edges
 
 def prewitt(image,message):
@@ -659,9 +587,7 @@ def prewitt(image,message):
     img_prewittx = cv2.filter2D(image, -1, kernelx)
     img_prewitty = cv2.filter2D(image, -1, kernely)
     edges = cv2.addWeighted(img_prewittx, 0.5, img_prewitty, 0.5, 0)
-    # st.subheader("Prewitt Edge Detection Image")
     st.image(edges, caption = message)
-    st.write("Image dimensions:", edges.shape)
     return edges
 
 def robert(image,message):
@@ -670,9 +596,7 @@ def robert(image,message):
     img_robertx = cv2.filter2D(image, -1, kernelx)
     img_roberty = cv2.filter2D(image, -1, kernely)
     edges = cv2.addWeighted(img_robertx, 0.5, img_roberty, 0.5, 0)
-    # st.subheader("Robert Edge Detection Image")
     st.image(edges, caption = message)
-    st.write("Image dimensions:", edges.shape)
     return edges
 
 # Streamlit Simulation
@@ -767,22 +691,16 @@ if choice_img != "Select one":
             img1 = cv2.imread("A10/035.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
-            if on5:
-                histogram(img1)
 
             # 30% 
             img2 = cv2.imread("A30/137.bmp")
             original_image2 = input(img2,message2)
             img2 = original_image2
-            if on5:
-                histogram(img2)
 
             # 50 
             img3 = cv2.imread("A50/262.bmp")
             original_image3 = input(img3, message3)
             img3 = original_image3
-            if on5:
-                histogram(img3)
 
         with col2:
 
@@ -790,22 +708,16 @@ if choice_img != "Select one":
             img4 = cv2.imread("A&C10/071.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
-            if on5:
-                histogram(img4)
 
             # 30% 
             img5 = cv2.imread("A&C30/176.bmp")
             original_image5 = input(img5,message5)
             img5 = original_image5
-            if on5:
-                histogram(img5)
 
             # 50 
             img6 = cv2.imread("A&B50/296.bmp")
             original_image6 = input(img6,message6)
             img6 = original_image6
-            if on5:
-                histogram(img6)
                 
         with col3:
 
@@ -813,22 +725,16 @@ if choice_img != "Select one":
             img7 = cv2.imread("A&C&B10/106.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
-            if on5:
-                histogram(img7)
 
             # 30% 
             img8 = cv2.imread("A&C&B30/221.bmp")
             original_image8 = input(img8,message8)
             img8 = original_image8
-            if on5:
-                histogram(img8)
 
             # healthy 
             img9 = cv2.imread("Noload/010.bmp")
             original_image9 = input(img9,message9)
             img9 = original_image9
-            if on5:
-                histogram(img9)
 
     if choice_img == "Set2":
         with col1:
@@ -837,22 +743,18 @@ if choice_img != "Select one":
             img1 = cv2.imread("A10/036.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
-            if on5:
-                histogram(img1)
 
             # 30% 
             img2 = cv2.imread("A30/138.bmp")
             original_image2 = input(img2,message2)
             img2 = original_image2
-            if on5:
-                histogram(img2)
 
             # 50 
             img3 = cv2.imread("A50/263.bmp")
             original_image3 = input(img3,message3)
             img3 = original_image3
             if on5:
-                histogram(img3)
+                histogram(img3,1)
 
         with col2:
 
@@ -860,22 +762,16 @@ if choice_img != "Select one":
             img4 = cv2.imread("A&C10/072.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
-            if on5:
-                histogram(img4)
 
             # 30% 
             img5 = cv2.imread("A&C30/177.bmp")
             original_image5 = input(img5,message5)
             img5 = original_image5
-            if on5:
-                histogram(img5)
 
             # 50 
             img6 = cv2.imread("A&B50/297.bmp")
             original_image6 = input(img6,message6)
             img6 = original_image6
-            if on5:
-                histogram(img6)
                 
         with col3:
 
@@ -883,22 +779,16 @@ if choice_img != "Select one":
             img7 = cv2.imread("A&C&B10/107.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
-            if on5:
-                histogram(img7)
 
             # 30% 
             img8 = cv2.imread("A&C&B30/222.bmp")
             original_image8 = input(img8,message8)
             img8 = original_image8
-            if on5:
-                histogram(img8)
 
             # healthy 
             img9 = cv2.imread("Noload/011.bmp")
             original_image9 = input(img9,message9)
             img9 = original_image9
-            if on5:
-                histogram(img9)
 
     if choice_img == "Set3":
         with col1:
@@ -908,22 +798,16 @@ if choice_img != "Select one":
             img1 = cv2.imread("A10/037.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
-            if on5:
-                histogram(img1)
 
             # 30% 
             img2 = cv2.imread("A30/139.bmp")
             original_image2 = input(img2,message2)
             img2 = original_image2
-            if on5:
-                histogram(img2)
 
             # 50 
             img3 = cv2.imread("A50/264.bmp")
             original_image3 = input(img3, message3)
             img3 = original_image3
-            if on5:
-                histogram(img3)
 
         with col2:
 
@@ -932,22 +816,16 @@ if choice_img != "Select one":
             img4 = cv2.imread("A&C10/073.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
-            if on5:
-                histogram(img4)
 
             # 30% 
             img5 = cv2.imread("A&C30/178.bmp")
             original_image5 = input(img5,message5)
             img5 = original_image5
-            if on5:
-                histogram(img5)
 
             # 50 
             img6 = cv2.imread("A&B50/298.bmp")
             original_image6 = input(img6,message6)
             img6 = original_image6
-            if on5:
-                histogram(img6)
                 
         with col3:
 
@@ -956,22 +834,16 @@ if choice_img != "Select one":
             img7 = cv2.imread("A&C&B10/108.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
-            if on5:
-                histogram(img7)
 
             # 30% 
             img8 = cv2.imread("A&C&B30/223.bmp")
             original_image8 = input(img8,message8)
             img8 = original_image8
-            if on5:
-                histogram(img8)
 
             # healthy 
             img9 = cv2.imread("Noload/012.bmp")
             original_image9 = input(img9,message9)
             img9 = original_image9
-            if on5:
-                histogram(img9)
 
     if choice_img == "Set4":
         with col1:
@@ -981,22 +853,16 @@ if choice_img != "Select one":
             img1 = cv2.imread("A10/038.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
-            if on5:
-                histogram(img1)
 
             # 30% 
             img2 = cv2.imread("A30/140.bmp")
             original_image2 = input(img2,message2)
             img2 = original_image2
-            if on5:
-                histogram(img2)
 
             # 50 
             img3 = cv2.imread("A50/265.bmp")
             original_image3 = input(img3, message3)
             img3 = original_image3
-            if on5:
-                histogram(img3)
 
         with col2:
 
@@ -1005,22 +871,16 @@ if choice_img != "Select one":
             img4 = cv2.imread("A&C10/074.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
-            if on5:
-                histogram(img4)
 
             # 30% 
             img5 = cv2.imread("A&C30/179.bmp")
             original_image5 = input(img5,message5)
             img5 = original_image5
-            if on5:
-                histogram(img5)
 
             # 50 
             img6 = cv2.imread("A&B50/299.bmp")
             original_image6 = input(img6,message6)
             img6 = original_image6
-            if on5:
-                histogram(img6)
                 
         with col3:
 
@@ -1029,22 +889,16 @@ if choice_img != "Select one":
             img7 = cv2.imread("A&C&B10/109.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
-            if on5:
-                histogram(img7)
 
             # 30% 
             img8 = cv2.imread("A&C&B30/223.bmp")
             original_image8 = input(img8,message8)
             img8 = original_image8
-            if on5:
-                histogram(img8)
 
             # healthy 
             img9 = cv2.imread("Noload/013.bmp")
             original_image9 = input(img9,message9)
             img9 = original_image9
-            if on5:
-                histogram(img9)
 
     if choice_img == "Set5":
         with col1:
@@ -1054,22 +908,16 @@ if choice_img != "Select one":
             img1 = cv2.imread("A10/039.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
-            if on5:
-                histogram(img1)
 
             # 30% 
             img2 = cv2.imread("A30/141.bmp")
             original_image2 = input(img2,message2)
             img2 = original_image2
-            if on5:
-                histogram(img2)
 
             # 50 
             img3 = cv2.imread("A50/266.bmp")
             original_image3 = input(img3, message3)
             img3 = original_image3
-            if on5:
-                histogram(img3)
 
         with col2:
 
@@ -1078,22 +926,16 @@ if choice_img != "Select one":
             img4 = cv2.imread("A&C10/075.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
-            if on5:
-                histogram(img4)
 
             # 30% 
             img5 = cv2.imread("A&C30/180.bmp")
             original_image5 = input(img5,message5)
             img5 = original_image5
-            if on5:
-                histogram(img5)
 
             # 50 
             img6 = cv2.imread("A&B50/300.bmp")
             original_image6 = input(img6,message6)
             img6 = original_image6
-            if on5:
-                histogram(img6)
                 
         with col3:
 
@@ -1109,15 +951,11 @@ if choice_img != "Select one":
             img8 = cv2.imread("A&C&B30/224.bmp")
             original_image8 = input(img8,message8)
             img8 = original_image8
-            if on5:
-                histogram(img8)
 
             # healthy 
             img9 = cv2.imread("Noload/014.bmp")
             original_image9 = input(img9,message9)
             img9 = original_image9
-            if on5:
-                histogram(img9)
 
     if choice_img == "Set6":
         with col1:
@@ -1127,22 +965,16 @@ if choice_img != "Select one":
             img1 = cv2.imread("A10/040.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
-            if on5:
-                histogram(img1)
 
             # 30% 
             img2 = cv2.imread("A30/142.bmp")
             original_image2 = input(img2,message2)
             img2 = original_image2
-            if on5:
-                histogram(img2)
 
             # 50 
             img3 = cv2.imread("A50/267.bmp")
             original_image3 = input(img3, message3)
             img3 = original_image3
-            if on5:
-                histogram(img3)
 
         with col2:
 
@@ -1151,22 +983,16 @@ if choice_img != "Select one":
             img4 = cv2.imread("A&C10/076.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
-            if on5:
-                histogram(img4)
 
             # 30% 
             img5 = cv2.imread("A&C30/181.bmp")
             original_image5 = input(img5,message5)
             img5 = original_image5
-            if on5:
-                histogram(img5)
 
             # 50 
             img6 = cv2.imread("A&B50/301.bmp")
             original_image6 = input(img6,message6)
             img6 = original_image6
-            if on5:
-                histogram(img6)
                 
         with col3:
 
@@ -1175,23 +1001,32 @@ if choice_img != "Select one":
             img7 = cv2.imread("A&C&B10/109.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
-            if on5:
-                histogram(img7)
 
             # 30% 
             img8 = cv2.imread("A&C&B30/225.bmp")
             original_image8 = input(img8,message8)
             img8 = original_image8
-            if on5:
-                histogram(img8)
 
             # healthy 
             img9 = cv2.imread("Noload/015.bmp")
             original_image9 = input(img9,message9)
             img9 = original_image9
-            if on5:
-                histogram(img9)
 
+    if on5:
+
+        with col1:
+            histogram(img1,1)
+            histogram(img2,1)
+            histogram(img3,1)
+        with col2:
+            histogram(img4,1)
+            histogram(img5,1)
+            histogram(img6,1)
+        with col3:
+            histogram(img7,1)
+            histogram(img8,1)
+            histogram(img9,1)
+      
     if choice7 != "Select one":
 
         if choice7 == "Whole Image":
@@ -1200,24 +1035,19 @@ if choice_img != "Select one":
         if choice7 == "Object without background":
 
             if choice_img == "Set1" or choice_img == "Set2" or choice_img == "Set3" or choice_img == "Set4" or choice_img == "Set5" or choice_img == "Set6":
+
                 with col1:
 
                     st.header("Object Image")
 
                     cut1 = original_image1
                     img1 = object(cut1,0,0,319,240,message1)
-                    if on1:
-                        histogram(img1)
 
                     cut2 = original_image2
                     img2 = object(cut2,70,49,200,166,message2)
-                    if on1:
-                        histogram(img3)
 
                     cut3 = original_image3
                     img3 = object(cut3,15,40,257,170,message3)
-                    if on1:
-                        histogram(img3)
 
                 with col2:
 
@@ -1225,18 +1055,12 @@ if choice_img != "Select one":
 
                     cut4 = original_image4
                     img4 = object(cut4,0,0,319,240,message4)
-                    if on1:
-                        histogram(img4)
 
                     cut5 = original_image5
                     img5 = object(cut5,100,40,170,185,message5)
-                    if on1:
-                        histogram(img5)
 
                     cut6 = original_image6
                     img6 = object(cut6,20,35,260,182,message6)
-                    if on1:
-                        histogram(img6)
 
                 with col3:
 
@@ -1244,18 +1068,26 @@ if choice_img != "Select one":
 
                     cut7 = original_image7
                     img7 = object(cut7,0,0,259,223,message7)
-                    if on1:
-                        histogram(img7)
 
                     cut8 = original_image8
                     img8 = object(cut8,15,40,257,175,message8)
-                    if on1:
-                        histogram(img8)
 
                     cut9 = original_image9
                     img9 = object(cut9,70,49,200,166,message9)
-                    if on1:
-                        histogram(img9)
+
+                if on1:
+                    with col1:
+                        histogram(img1,1)
+                        histogram(img2,1)
+                        histogram(img3,1)
+                    with col2:
+                        histogram(img4,1)
+                        histogram(img5,1)
+                        histogram(img6,1)
+                    with col3:
+                        histogram(img7,1)
+                        histogram(img8,1)
+                        histogram(img9,1)
     
         if choice6 != "Select one":
 
@@ -1269,18 +1101,12 @@ if choice_img != "Select one":
 
                     img1 = notransformation(img1, message1)
                     transformed_image1 = img1
-                    if on2:
-                        histogram(transformed_image1)
 
                     img2 = notransformation(img2, message2)
                     transformed_image2 = img2
-                    if on2:
-                        histogram(transformed_image2)
 
                     img3 = notransformation(img3, message3)
                     transformed_image3 = img3
-                    if on2:
-                        histogram(transformed_image3)
 
                 with col2:
 
@@ -1288,18 +1114,12 @@ if choice_img != "Select one":
 
                     img4 = notransformation(img4, message4)
                     transformed_image4 = img4
-                    if on2:
-                        histogram(transformed_image4)
 
                     img5 = notransformation(img5, message5)
                     transformed_image5 = img5
-                    if on2:
-                        histogram(transformed_image5)
 
                     img6 = notransformation(img6, message6)
                     transformed_image6 = img6
-                    if on2:
-                        histogram(transformed_image7)
 
                 with col3:
 
@@ -1307,18 +1127,12 @@ if choice_img != "Select one":
 
                     img7 = notransformation(img7, message7)
                     transformed_image7 = img7
-                    if on2:
-                        histogram(transformed_image7)
 
                     img8 = notransformation(img8, message8)
                     transformed_image8 = img8
-                    if on2:
-                        histogram(transformed_image8)
 
                     img1 = notransformation(img9, message9)
                     transformed_image9 = img9
-                    if on2:
-                        histogram(transformed_image9)
 
             if choice6 == "Gamma Transformation":
 
@@ -1328,18 +1142,12 @@ if choice_img != "Select one":
 
                     gamma_corrected1 = gamma(img1, message1)
                     transformed_image1 = gamma_corrected1
-                    if on2:
-                        histogram(transformed_image1)
 
                     gamma_corrected2 = gamma(img2, message2)
                     transformed_image2 = gamma_corrected2
-                    if on2:
-                        histogram(transformed_image2)
 
                     gamma_corrected3 = gamma(img3, message3)
                     transformed_image3 = gamma_corrected3
-                    if on2:
-                        histogram(transformed_image3)
 
                 with col2:
 
@@ -1348,18 +1156,13 @@ if choice_img != "Select one":
                     # Perform gamma correction
                     gamma_corrected4 = gamma(img4, message4)
                     transformed_image4 = gamma_corrected4
-                    if on2:
-                        histogram(transformed_image4)
 
                     gamma_corrected5 = gamma(img5, message5)
                     transformed_image5 = gamma_corrected5
-                    if on2:
-                        histogram(transformed_image5)
 
                     gamma_corrected6 = gamma(img6, message6)
                     transformed_image6 = gamma_corrected6
-                    if on2:
-                        histogram(transformed_image6)
+                    
 
                 with col3:
 
@@ -1367,19 +1170,15 @@ if choice_img != "Select one":
 
                     gamma_corrected7 = gamma(img7, message7)
                     transformed_image7 = gamma_corrected7
-                    if on2:
-                        histogram(transformed_image7)
+                    
 
                     gamma_corrected8 = gamma(img8, message8)
                     transformed_image8 = gamma_corrected8
-                    if on2:
-                        histogram(transformed_image8)
+                    
 
                     gamma_corrected9 = gamma(img9, message9)
                     transformed_image9 = gamma_corrected9
-                    if on2:
-                        histogram(transformed_image9)
-                    
+                                     
             if choice6 == "Log Transformation":
 
                 with col1:
@@ -1388,18 +1187,15 @@ if choice_img != "Select one":
 
                     log_transformed_image1 = log(img1, message1)          
                     transformed_image1 = log_transformed_image1
-                    if on2:
-                        histogram(transformed_image1)
+                    
 
                     log_transformed_image2 = log(img2, message2)          
                     transformed_image2 = log_transformed_image2
-                    if on2:
-                        histogram(transformed_image2)
+                    
 
                     log_transformed_image3 = log(img3, message3)          
                     transformed_image3 = log_transformed_image3
-                    if on2:
-                        histogram(transformed_image3)
+                    
 
                 with col2:
 
@@ -1407,18 +1203,15 @@ if choice_img != "Select one":
                     
                     log_transformed_image4 = log(img4, message4)
                     transformed_image4 = log_transformed_image4
-                    if on2:
-                        histogram(transformed_image4)
+                    
 
                     log_transformed_image5 = log(img5, message5)          
                     transformed_image5 = log_transformed_image5
-                    if on2:
-                        histogram(transformed_image5)
+                    
 
                     log_transformed_image6 = log(img6, message6)          
                     transformed_image6 = log_transformed_image6
-                    if on2:
-                        histogram(transformed_image6)
+                    
 
                 with col3:
 
@@ -1426,19 +1219,15 @@ if choice_img != "Select one":
                     
                     log_transformed_image7 = log(img7, message7)
                     transformed_image7 = log_transformed_image7
-                    if on2:
-                        histogram(transformed_image7)
+    
 
                     log_transformed_image8 = log(img8, message8)          
                     transformed_image8 = log_transformed_image8
-                    if on2:
-                        histogram(transformed_image8)
+                    
 
                     log_transformed_image9 = log(original_image9,message9)          
                     transformed_image9 = log_transformed_image9
-                    if on2:
-                        histogram(transformed_image9)
-
+                    
             if choice6 == "Inverse Log Transformation":
                 
                 with col1:
@@ -1447,18 +1236,15 @@ if choice_img != "Select one":
 
                     inv_log_transformed_image1 = inverselog(img1, message1)
                     transformed_image1 = inv_log_transformed_image1
-                    if on2:
-                        histogram(transformed_image1)
+                    
 
                     inv_log_transformed_image2 = inverselog(img2, message2)
                     transformed_image2 = inv_log_transformed_image2
-                    if on2:
-                        histogram(transformed_image2)
+                    
 
                     inv_log_transformed_image3 = inverselog(img3, message3)
                     transformed_image3 = inv_log_transformed_image3
-                    if on2:
-                        histogram(transformed_image3)
+                    
 
                 with col2:
 
@@ -1466,18 +1252,15 @@ if choice_img != "Select one":
                     
                     inv_log_transformed_image4 = inverselog(img4,message4)
                     transformed_image4 = inv_log_transformed_image4
-                    if on2:
-                        histogram(transformed_image4)
+                    
 
                     inv_log_transformed_image5 = inverselog(img5,message5)
                     transformed_image5 = inv_log_transformed_image5
-                    if on2:
-                        histogram(transformed_image5)
+                    
 
                     inv_log_transformed_image6 = inverselog(img6,message6)
                     transformed_image6 = inv_log_transformed_image6
-                    if on2:
-                        histogram(transformed_image6)
+                    
 
                 with col3:
 
@@ -1485,19 +1268,29 @@ if choice_img != "Select one":
                     
                     inv_log_transformed_image7 = inverselog(img7,message7)
                     transformed_image7 = inv_log_transformed_image7
-                    if on2:
-                        histogram(transformed_image7)
+                    
 
                     inv_log_transformed_image8 = inverselog(img8,message8)
                     transformed_image8 = inv_log_transformed_image8
-                    if on2:
-                        histogram(transformed_image8)
+                    
 
                     inv_log_transformed_image9 = inverselog(img9,message9)
                     transformed_image9 = inv_log_transformed_image9
-                    if on2:
-                        histogram(transformed_image9)
-
+                    
+            if on2:
+                with col1:
+                    histogram(transformed_image1,1)
+                    histogram(transformed_image2,1)
+                    histogram(transformed_image3,1)
+                with col2:
+                    histogram(transformed_image4,1)
+                    histogram(transformed_image5,1)
+                    histogram(transformed_image6,1)
+                with col3:
+                    histogram(transformed_image7,1)
+                    histogram(transformed_image8,1)
+                    histogram(transformed_image9,1)
+                    
             # Image Coloration
             # **************************************************************************************************************************************************************
                         
@@ -1509,53 +1302,43 @@ if choice_img != "Select one":
 
                         transformed_image1 = nocoloration(transformed_image1, message1)
                         apply_image1 = transformed_image1
-                        if on3:
-                            histogram(apply_image1)
+                        
 
                         transformed_image2 = nocoloration(transformed_image2, message2)
                         apply_image2 = transformed_image2
-                        if on3:
-                            histogram(apply_image2)
+                        
 
                         transformed_image3 = nocoloration(transformed_image3, message3)
                         apply_image3 = transformed_image3
-                        if on3:
-                            histogram(apply_image3)
+                        
 
                     with col2:
 
                         transformed_image4 = nocoloration(transformed_image4, message4)
                         apply_image4 = transformed_image4
-                        if on3:
-                            histogram(apply_image4)
+                        
 
                         transformed_image5 = nocoloration(transformed_image5, message5)
                         apply_image5 = transformed_image5
-                        if on3:
-                            histogram(apply_image5)
+                        
 
                         transformed_image6 = nocoloration(transformed_image6, message6)
                         apply_image6 = transformed_image6
-                        if on3:
-                            histogram(apply_image6)
+                        
 
                     with col3:
 
                         transformed_image7 = nocoloration(transformed_image7, message7)
                         apply_image7 = transformed_image7
-                        if on3:
-                            histogram(apply_image7)
+                        
 
                         transformed_image8 = nocoloration(transformed_image8, message8)
                         apply_image8 = transformed_image8
-                        if on3:
-                            histogram(apply_image8)
+                        
 
                         transformed_image9 = nocoloration(transformed_image9, message9)
                         apply_image9 = transformed_image9
-                        if on3:
-                            histogram(apply_image9)
-
+                        
                 if choice4 == "Gray Coloration":
 
                     with col1:
@@ -1564,18 +1347,15 @@ if choice_img != "Select one":
 
                         gray_image1 = gray(transformed_image1, message1)
                         apply_image1 = gray_image1
-                        if on3:
-                            histogram(apply_image1)
+                        
 
                         gray_image2 = gray(transformed_image2, message2)
                         apply_image2 = gray_image2
-                        if on3:
-                            histogram(apply_image2)
+                        
 
                         gray_image3 = gray(transformed_image3, message3)
                         apply_image3 = gray_image3
-                        if on3:
-                            histogram(apply_image3)
+                        
 
                     with col2:
 
@@ -1583,18 +1363,15 @@ if choice_img != "Select one":
 
                         gray_image4 = gray(transformed_image4, message4)
                         apply_image4 = gray_image4
-                        if on3:
-                            histogram(apply_image4)
+                        
 
                         gray_image5 = gray(transformed_image5, message5)
                         apply_image5 = gray_image5
-                        if on3:
-                            histogram(apply_image5)
+                        
 
                         gray_image6 = gray(transformed_image6, message6)
                         apply_image6 = gray_image6
-                        if on3:
-                            histogram(apply_image6)
+                        
 
                     with col3:
 
@@ -1602,18 +1379,14 @@ if choice_img != "Select one":
 
                         gray_image7 = gray(transformed_image7, message7)
                         apply_image7 = gray_image7
-                        if on3:
-                            histogram(apply_image7)
+                        
 
                         gray_image8 = gray(transformed_image8, message8)
                         apply_image8 = gray_image8
-                        if on3:
-                            histogram(apply_image8)
+                        
 
                         gray_image9 = gray(transformed_image9, message9)
                         apply_image9 = gray_image9
-                        if on3:
-                            histogram(apply_image9)
 
                 if choice4 == "HUE Coloration":
                         
@@ -1623,18 +1396,15 @@ if choice_img != "Select one":
 
                         hue_image1 = hue(transformed_image1, message1)
                         apply_image1 = hue_image1
-                        if on3:
-                            histogram(apply_image1)
+                        
 
                         hue_image2 = hue(transformed_image2,message2)
                         apply_image2 = hue_image2
-                        if on3:
-                            histogram(apply_image2)
+                        
 
                         hue_image3 = hue(transformed_image3, message3)
                         apply_image3 = hue_image3
-                        if on3:
-                            histogram(apply_image3)
+                        
 
                     with col2:
 
@@ -1642,18 +1412,15 @@ if choice_img != "Select one":
 
                         hue_image4 = hue(transformed_image4, message4)
                         apply_image4 = hue_image4
-                        if on3:
-                            histogram(apply_image4)
+                        
 
                         hue_image5 = hue(transformed_image5, message5)
                         apply_image5 = hue_image5
-                        if on3:
-                            histogram(apply_image5)
+                        
 
                         hue_image6 = hue(transformed_image6, message6)
                         apply_image6 = hue_image6
-                        if on3:
-                            histogram(apply_image6)
+                        
 
                     with col3:
 
@@ -1661,18 +1428,14 @@ if choice_img != "Select one":
                     
                         hue_image7 = hue(transformed_image7, message7)
                         apply_image7 = hue_image7
-                        if on3:
-                            histogram(apply_image7)
+                        
 
                         hue_image8 = hue(transformed_image8, message8)
                         apply_image8 = hue_image8
-                        if on3:
-                            histogram(apply_image8)
+                        
 
                         hue_image9 = hue(transformed_image9, message9)
                         apply_image9 = hue_image9
-                        if on3:
-                            histogram(apply_image9)
 
                 if choice4 == "Pseudo Coloration":
 
@@ -1686,18 +1449,15 @@ if choice_img != "Select one":
 
                                 pseudo_spring_image1 = pseudo_spring(transformed_image1, message1)
                                 apply_image1 = pseudo_spring_image1
-                                if on3:
-                                    histogram(apply_image1)
+                                
 
                                 pseudo_spring_image2 = pseudo_spring(transformed_image2, message2)
                                 apply_image2 = pseudo_spring_image2
-                                if on3:
-                                    histogram(apply_image2)
+                                
 
                                 pseudo_spring_image3 = pseudo_spring(transformed_image3, message3)
                                 apply_image3 = pseudo_spring_image3
-                                if on3:
-                                    histogram(apply_image3)
+                                
 
                             with col2:
 
@@ -1705,18 +1465,15 @@ if choice_img != "Select one":
 
                                 pseudo_spring_image4 = pseudo_spring(transformed_image4, message4)
                                 apply_image4 = pseudo_spring_image4
-                                if on3:
-                                    histogram(apply_image4)
+                                
 
                                 pseudo_spring_image5 = pseudo_spring(transformed_image5, message5)
                                 apply_image5 = pseudo_spring_image5
-                                if on3:
-                                    histogram(apply_image5)
+                                
 
                                 pseudo_spring_image6 = pseudo_spring(transformed_image6, message6)
                                 apply_image6 = pseudo_spring_image6
-                                if on3:
-                                    histogram(apply_image6)
+                                
 
                             with col3:
 
@@ -1724,18 +1481,15 @@ if choice_img != "Select one":
                             
                                 pseudo_spring_image7 = pseudo_spring(transformed_image7, message7)
                                 apply_image7 = pseudo_spring_image7
-                                if on3:
-                                    histogram(apply_image7)
+                                
 
                                 pseudo_spring_image8 = pseudo_spring(transformed_image8, message8)
                                 apply_image8 = pseudo_spring_image8
-                                if on3:
-                                    histogram(apply_image8)
+                                
 
                                 pseudo_spring_image9 = pseudo_spring(transformed_image9, message9)
                                 apply_image9 = pseudo_spring_image9
-                                if on3:
-                                    histogram(apply_image9)
+                                
 
                         if choice5 == "Hot":
 
@@ -1745,18 +1499,15 @@ if choice_img != "Select one":
 
                                 pseudo_hot_image1 = pseudo_hot(transformed_image1, message1)
                                 apply_image1 = pseudo_hot_image1
-                                if on3:
-                                    histogram(apply_image1)
+                                
 
                                 pseudo_hot_image2 = pseudo_hot(transformed_image2, message2)
                                 apply_image2 = pseudo_hot_image2
-                                if on3:
-                                    histogram(apply_image2)
+                                
 
                                 pseudo_hot_image3 = pseudo_hot(transformed_image3, message3)
                                 apply_image3 = pseudo_hot_image3
-                                if on3:
-                                    histogram(apply_image3)
+                                
 
                             with col2:
 
@@ -1764,18 +1515,15 @@ if choice_img != "Select one":
 
                                 pseudo_hot_image4 = pseudo_hot(transformed_image4, message4)
                                 apply_image4 = pseudo_hot_image4
-                                if on3:
-                                    histogram(apply_image4)
+                                
 
                                 pseudo_hot_image5 = pseudo_hot(transformed_image5, message5)
                                 apply_image5 = pseudo_hot_image5
-                                if on3:
-                                    histogram(apply_image5)
+                                
 
                                 pseudo_hot_image6 = pseudo_hot(transformed_image6, message6)
                                 apply_image6 = pseudo_hot_image6
-                                if on3:
-                                    histogram(apply_image6)
+                                
 
                             with col3:
 
@@ -1783,18 +1531,15 @@ if choice_img != "Select one":
                             
                                 pseudo_hot_image7 = pseudo_hot(transformed_image7, message7)
                                 apply_image7 = pseudo_hot_image7
-                                if on3:
-                                    histogram(apply_image7)
+                                
 
                                 pseudo_hot_image8 = pseudo_hot(transformed_image8, message8)
                                 apply_image8 = pseudo_hot_image8
-                                if on3:
-                                    histogram(apply_image8)
+                                
 
                                 pseudo_hot_image9 = pseudo_hot(transformed_image9, message9)
                                 apply_image9 = pseudo_hot_image9
-                                if on3:
-                                    histogram(apply_image9)
+                                
 
                         if choice5 == "Cool":
 
@@ -1804,18 +1549,15 @@ if choice_img != "Select one":
 
                                 pseudo_cool_image1 = pseudo_cool(transformed_image1, message1)
                                 apply_image1 = pseudo_cool_image1
-                                if on3:
-                                    histogram(apply_image1)
+                                
 
                                 pseudo_cool_image2 = pseudo_cool(transformed_image2, message2)
                                 apply_image2 = pseudo_cool_image2
-                                if on3:
-                                    histogram(apply_image2)
+                                
 
                                 pseudo_cool_image3 = pseudo_cool(transformed_image3, message3)
                                 apply_image3 = pseudo_cool_image3
-                                if on3:
-                                    histogram(apply_image3)
+                                
 
                             with col2:
 
@@ -1823,18 +1565,15 @@ if choice_img != "Select one":
 
                                 pseudo_cool_image4 = pseudo_cool(transformed_image4, message4)
                                 apply_image4 = pseudo_cool_image4
-                                if on3:
-                                    histogram(apply_image4)
+                                
 
                                 pseudo_cool_image5 = pseudo_cool(transformed_image5, message5)
                                 apply_image5 = pseudo_cool_image5
-                                if on3:
-                                    histogram(apply_image5)
+                                
 
                                 pseudo_cool_image6 = pseudo_cool(transformed_image6, message6)
                                 apply_image6 = pseudo_cool_image6
-                                if on3:
-                                    histogram(apply_image6)
+                                
 
                             with col3:
 
@@ -1842,18 +1581,15 @@ if choice_img != "Select one":
                             
                                 pseudo_cool_image7 = pseudo_cool(transformed_image7, message7)
                                 apply_image7 = pseudo_cool_image7
-                                if on3:
-                                    histogram(apply_image7)
+                                
 
                                 pseudo_cool_image8 = pseudo_cool(transformed_image8, message8)
                                 apply_image8 = pseudo_cool_image8
-                                if on3:
-                                    histogram(apply_image8)
+                                
 
                                 pseudo_cool_image9 = pseudo_cool(transformed_image9, message9)
                                 apply_image9 = pseudo_cool_image9
-                                if on3:
-                                    histogram(apply_image9)
+                                
 
                         if choice5 == "Rainbow":
 
@@ -1863,18 +1599,15 @@ if choice_img != "Select one":
 
                                 pseudo_rainbow_image1 = pseudo_rainbow(transformed_image1, message1)
                                 apply_image1 = pseudo_rainbow_image1
-                                if on3:
-                                    histogram(apply_image1)
+                                
 
                                 pseudo_rainbow_image2 = pseudo_rainbow(transformed_image2, message2)
                                 apply_image2 = pseudo_rainbow_image2
-                                if on3:
-                                    histogram(apply_image2)
+                                
 
                                 pseudo_rainbow_image3 = pseudo_rainbow(transformed_image3, message3)
                                 apply_image3 = pseudo_rainbow_image3
-                                if on3:
-                                    histogram(apply_image3)
+                                
 
                             with col2:
 
@@ -1882,18 +1615,15 @@ if choice_img != "Select one":
 
                                 pseudo_rainbow_image4 = pseudo_rainbow(transformed_image4, message4)
                                 apply_image4 = pseudo_rainbow_image4
-                                if on3:
-                                    histogram(apply_image4)
+                                
 
                                 pseudo_rainbow_image5 = pseudo_rainbow(transformed_image5, message5)
                                 apply_image5 = pseudo_rainbow_image5
-                                if on3:
-                                    histogram(apply_image5)
+                                
 
                                 pseudo_rainbow_image6 = pseudo_rainbow(transformed_image6, message6)
                                 apply_image6 = pseudo_rainbow_image6
-                                if on3:
-                                    histogram(apply_image6)
+                                
 
                             with col3:
 
@@ -1901,18 +1631,15 @@ if choice_img != "Select one":
                             
                                 pseudo_rainbow_image7 = pseudo_rainbow(transformed_image7, message7)
                                 apply_image7 = pseudo_rainbow_image7
-                                if on3:
-                                    histogram(apply_image7)
+                                
 
                                 pseudo_rainbow_image8 = pseudo_rainbow(transformed_image8, message8)
                                 apply_image8 = pseudo_rainbow_image8
-                                if on3:
-                                    histogram(apply_image8)
+                                
 
                                 pseudo_rainbow_image9 = pseudo_rainbow(transformed_image9, message9)
                                 apply_image9 = pseudo_rainbow_image9
-                                if on3:
-                                    histogram(apply_image9)
+                                
 
                         if choice5 == "HSV":
                             
@@ -1922,18 +1649,15 @@ if choice_img != "Select one":
 
                                 pseudo_hsv_image1 = pseudo_hsv(transformed_image1, message1)
                                 apply_image1 = pseudo_hsv_image1
-                                if on3:
-                                    histogram(apply_image1)
+                                
 
                                 pseudo_hsv_image2 = pseudo_hsv(transformed_image2, message2)
                                 apply_image2 = pseudo_hsv_image2
-                                if on3:
-                                    histogram(apply_image2)
+                                
 
                                 pseudo_hsv_image3 = pseudo_hsv(transformed_image3, message3)
                                 apply_image3 = pseudo_hsv_image3
-                                if on3:
-                                    histogram(apply_image3)
+                                
 
                             with col2:
 
@@ -1941,18 +1665,15 @@ if choice_img != "Select one":
 
                                 pseudo_hsv_image4 = pseudo_hsv(transformed_image4, message4)
                                 apply_image4 = pseudo_hsv_image4
-                                if on3:
-                                    histogram(apply_image4)
+                                
 
                                 pseudo_hsv_image5 = pseudo_hsv(transformed_image5, message5)
                                 apply_image5 = pseudo_hsv_image5
-                                if on3:
-                                    histogram(apply_image5)
+                                
 
                                 pseudo_hsv_image6 = pseudo_hsv(transformed_image6, message6)
                                 apply_image6 = pseudo_hsv_image6
-                                if on3:
-                                    histogram(apply_image6)
+                                
 
                             with col3:
 
@@ -1960,18 +1681,15 @@ if choice_img != "Select one":
                             
                                 pseudo_hsv_image7 = pseudo_hsv(transformed_image7, message7)
                                 apply_image7 = pseudo_hsv_image7
-                                if on3:
-                                    histogram(apply_image7)
+                                
 
                                 pseudo_hsv_image8 = pseudo_hsv(transformed_image8, message8)
                                 apply_image8 = pseudo_hsv_image8
-                                if on3:
-                                    histogram(apply_image8)
+                                
 
                                 pseudo_hsv_image9 = pseudo_hsv(transformed_image9, message9)
                                 apply_image9 = pseudo_hsv_image9
-                                if on3:
-                                    histogram(apply_image9)
+                                
 
                         if choice5 == "JET":
 
@@ -1981,18 +1699,15 @@ if choice_img != "Select one":
 
                                 pseudo_jet_image1 = pseudo_jet(transformed_image1, message1)
                                 apply_image1 = pseudo_jet_image1
-                                if on3:
-                                    histogram(apply_image1)
+                                
 
                                 pseudo_jet_image2 = pseudo_jet(transformed_image2, message2)
                                 apply_image2 = pseudo_jet_image2
-                                if on3:
-                                    histogram(apply_image2)
+                                
 
                                 pseudo_jet_image3 = pseudo_jet(transformed_image3, message3)
                                 apply_image3 = pseudo_jet_image3
-                                if on3:
-                                    histogram(apply_image3)
+                                
 
                             with col2:
 
@@ -2000,18 +1715,15 @@ if choice_img != "Select one":
 
                                 pseudo_jet_image4 = pseudo_jet(transformed_image4, message4)
                                 apply_image4 = pseudo_jet_image4
-                                if on3:
-                                    histogram(apply_image4)
+                                
 
                                 pseudo_jet_image5 = pseudo_jet(transformed_image5, message5)
                                 apply_image5 = pseudo_jet_image5
-                                if on3:
-                                    histogram(apply_image5)
+                                
 
                                 pseudo_jet_image6 = pseudo_jet(transformed_image6, message6)
                                 apply_image6 = pseudo_jet_image6
-                                if on3:
-                                    histogram(apply_image6)
+                                
 
                             with col3:
 
@@ -2019,19 +1731,34 @@ if choice_img != "Select one":
                             
                                 pseudo_jet_image7 = pseudo_jet(transformed_image7, message7)
                                 apply_image7 = pseudo_jet_image7
-                                if on3:
-                                    histogram(apply_image7)
+                                
 
                                 pseudo_jet_image8 = pseudo_jet(transformed_image8, message8)
                                 apply_image8 = pseudo_jet_image8
-                                if on3:
-                                    histogram(apply_image8)
+                                
 
                                 pseudo_jet_image9 = pseudo_jet(transformed_image9, message9)
                                 apply_image9 = pseudo_jet_image9
-                                if on3:
-                                    histogram(apply_image9)
-                    
+                                                    
+                if on3:
+                    if choice4 == "Hue Coloration" or choice4 == "Gray Coloration":
+                        flag = 0
+                    else:
+                        flag = 1
+
+                    with col1:
+                        histogram(apply_image1,flag)
+                        histogram(apply_image2,flag)
+                        histogram(apply_image3,flag)
+                    with col2:
+                        histogram(apply_image4,flag)
+                        histogram(apply_image5,flag)
+                        histogram(apply_image6,flag)
+                    with col3:
+                        histogram(apply_image7,flag)
+                        histogram(apply_image8,flag)
+                        histogram(apply_image9,flag)
+
                 if choice4 == 'Pseudo Coloration' and choice5 == "Select one":
                     pass
                         
@@ -2204,18 +1931,23 @@ if choice_img != "Select one":
 
                         else:
                             if on4:
+                                if choice4 == "Hue Coloration" or choice4 == "Gray Coloration" or choice2 == "Canny Edge Detection" or choice2 == "Otsu Edge Detection":
+                                    flag = 0
+                                else:
+                                    flag = 1
+
                                 with col1:
-                                    histogram(apply_image1)
-                                    histogram(apply_image2)
-                                    histogram(apply_image3)
+                                    histogram(apply_image1,flag)
+                                    histogram(apply_image2,flag)
+                                    histogram(apply_image3,flag)
                                 with col2:
-                                    histogram(apply_image4)
-                                    histogram(apply_image5)
-                                    histogram(apply_image6)
+                                    histogram(apply_image4,flag)
+                                    histogram(apply_image5,flag)
+                                    histogram(apply_image6,flag)
                                 with col3:
-                                    histogram(apply_image7)
-                                    histogram(apply_image8)
-                                    histogram(apply_image9)
+                                    histogram(apply_image7,flag)
+                                    histogram(apply_image8,flag)
+                                    histogram(apply_image9,flag)
 
                         if choice2 != "No Edge Detection" and choice3 == "Select one":
                             pass
