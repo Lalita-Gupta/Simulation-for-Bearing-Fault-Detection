@@ -629,7 +629,7 @@ with st.sidebar:
 
     if choice_img != "Select one":
         on5 = st.toggle('Original Image Histogram')
-        choice7 = st.selectbox("Operations on", ["Select one", "With background", "Object without background"])
+        choice7 = st.selectbox("Operations on", ["Select one", "Object With Background", "Object Without Background"])
         if choice7 != "Select one":
             if choice7 == "Object without background":
                 on1 = st.toggle('Original Object Detected Image Histogram')
