@@ -1768,7 +1768,7 @@ if choice_img != "Select one":
                 else:
                     
                     if on3:
-                        if choice4 == "Hue Coloration" or choice4 == "Gray Coloration":
+                        if choice4 == "HUE Coloration" or choice4 == "Gray Coloration":
                             flag = 0
                         else:
                             flag = 1
