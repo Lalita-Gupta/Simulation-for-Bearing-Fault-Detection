@@ -100,14 +100,14 @@ def std(image,flag,message):
     if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                total = ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**2
+                total = total + ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**2
                 count = count + 3
         count = count - 3
     
     else:
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                total = ((float(image[r:r+1,c:c+1])) - avg_total)**2
+                total = total + ((float(image[r:r+1,c:c+1])) - avg_total)**2
                 count = count + 1
         count = count - 1
 
@@ -148,7 +148,25 @@ def var(image,flag,message):
         st.line_chart(var_total_chart)
         st.write(message)
         
-    var_total = (float(std_total) * float(std_total))
+    var_total = 0.0
+    total = 0.0
+    count = 0
+    
+    if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
+        for c in range (0,image.shape[1]):
+            for r in range (0,image.shape[0]):
+                total = total + ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**2
+                count = count + 3
+        count = count - 3
+    
+    else:
+        for c in range (0,image.shape[1]):
+            for r in range (0,image.shape[0]):
+                total = total + ((float(image[r:r+1,c:c+1])) - avg_total)**2
+                count = count + 1
+        count = count - 1
+
+    var_total = (total/(count)) * 10000
     
     return var_total
 
@@ -213,14 +231,14 @@ def skew(image):
     if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                total = ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**3
+                total = total + ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**3
                 count = count + 3
         count = count - 3
     
     else:
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                total = ((float(image[r:r+1,c:c+1])) - avg_total)**3
+                total = total +((float(image[r:r+1,c:c+1])) - avg_total)**3
                 count = count + 1
         count = count - 1
 
@@ -239,14 +257,14 @@ def kur(image):
     if choice4 != "HUE Coloration" and choice4 != "Gray Coloration" and choice2 != "Canny Edge Detection" and choice2 != "Otsu Edge Detection":  
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                total = ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**4
+                total = total + ((float(image[r:r+1,c:c+1,0]) + float(image[r:r+1,c:c+1,1]) + float(image[r:r+1,c:c+1,2])) - avg_total)**4
                 count = count + 3
         count = count - 3
     
     else:
         for c in range (0,image.shape[1]):
             for r in range (0,image.shape[0]):
-                total = ((float(image[r:r+1,c:c+1])) - avg_total)**3
+                total = total + ((float(image[r:r+1,c:c+1])) - avg_total)**3
                 count = count + 1
         count = count - 1
 
@@ -1299,6 +1317,7 @@ if choice_img != "Select one":
                 if choice4 == "No Coloration Image":
 
                     with col1:
+                        st.header("No Coloration Image")
 
                         transformed_image1 = nocoloration(transformed_image1, message1)
                         apply_image1 = transformed_image1
@@ -1313,6 +1332,7 @@ if choice_img != "Select one":
                         
 
                     with col2:
+                        st.header("No Coloration Image")
 
                         transformed_image4 = nocoloration(transformed_image4, message4)
                         apply_image4 = transformed_image4
@@ -1327,6 +1347,7 @@ if choice_img != "Select one":
                         
 
                     with col3:
+                        st.header("No Coloration Image")
 
                         transformed_image7 = nocoloration(transformed_image7, message7)
                         apply_image7 = transformed_image7
