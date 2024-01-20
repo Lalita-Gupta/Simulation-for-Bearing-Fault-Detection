@@ -431,13 +431,13 @@ def object(image,x,y,width,height,message):
 
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     _, binary_image = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY)
-    # st.image(binary_image, caption = "Binary image")
+    st.image(binary_image, caption = "Binary image")
     # st.write("Image shape:", binary_image.shape)
     kernel = np.ones((5,5),np.uint8)
     closing = cv2.morphologyEx(binary_image, cv2.MORPH_CLOSE, kernel)
     final = cv2.bitwise_and(cut, cut, mask=closing)
     
-    # st.image(closing, caption = "Morphological image")
+    st.image(closing, caption = "Morphological image")
     # st.write("Image shape:", closing.shape)
     st.image(final, caption = message)
     # st.write("Image shape:", final.shape)
@@ -629,7 +629,7 @@ with st.sidebar:
 
     if choice_img != "Select one":
         on5 = st.toggle('Original Image Histogram')
-        choice7 = st.selectbox("Operations on", ["Select one", "Whole image", "Object without background"])
+        choice7 = st.selectbox("Operations on", ["Select one", "With background", "Object without background"])
         if choice7 != "Select one":
             if choice7 == "Object without background":
                 on1 = st.toggle('Original Object Detected Image Histogram')
