@@ -640,14 +640,15 @@ with st.sidebar:
                 choice4 = st.selectbox("Image Coloration", ["Select one", "No Coloration Image", "Gray Coloration", "HUE Coloration", "Pseudo Coloration"])
 
                 if choice4 != "Select one":
-                    on3 = st.toggle('Coloration Image Histogram')
 
                     if choice4 == "Pseudo Coloration":
                         choice5 = st.selectbox("Types of Pseudo Coloration", ["Select one", "Spring", "Hot", "Cool", "Rainbow", "HSV", "JET"])
                         if choice5 != "Select one":
+                            on3 = st.toggle('Coloration Image Histogram')
                             choice2 = st.selectbox("Edge Detection", ["Select one", "No Edge Detection", "Canny Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
 
                     else:
+                        on3 = st.toggle('Coloration Image Histogram')
                         if choice4 == "HUE Coloration":
                             choice2 = st.selectbox("Edge Detection", ["Select one", "No Edge Detection", "Canny Edge Detection", "Otsu Edge Detection", "Prewitt Edge Detection", "Robert Edge Detection"])
                             
