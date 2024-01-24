@@ -631,7 +631,7 @@ with st.sidebar:
         on5 = st.toggle('Original Image Histogram')
         choice7 = st.selectbox("Operations on", ["Select one", "Object With Background", "Object Without Background"])
         if choice7 != "Select one":
-            if choice7 == "Object without background":
+            if choice7 == "Object Without Background":
                 on1 = st.toggle('Original Object Detected Image Histogram')
             choice6 = st.selectbox("Image Transformation", ["Select one", "No Transformation", "Gamma Transformation", "Log Transformation", "Inverse Log Transformation"])
 
