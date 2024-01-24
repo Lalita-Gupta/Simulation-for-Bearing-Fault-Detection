@@ -424,7 +424,7 @@ def object(image,x,y,width,height,message):
     mask = np.where((edges==2)|(edges==0),0,1).astype('uint8')
     img = cut*mask[:,:,np.newaxis]
     # st.subheader("Object Image")
-    st.image(img, caption = "Object Image After GrabCut")
+    # st.image(img, caption = "Object Image After GrabCut")
     # st.write("Image shape:", img.shape)
 
     cut = image
