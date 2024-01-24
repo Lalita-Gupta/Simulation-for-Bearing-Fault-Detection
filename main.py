@@ -1048,10 +1048,10 @@ if choice_img != "Select one":
       
     if choice7 != "Select one":
 
-        if choice7 == "Whole Image":
+        if choice7 == "Object With Background":
             pass
 
-        if choice7 == "Object without background":
+        if choice7 == "Object Without Background":
 
             if choice_img == "Set1" or choice_img == "Set2" or choice_img == "Set3" or choice_img == "Set4" or choice_img == "Set5" or choice_img == "Set6":
 
