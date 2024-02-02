@@ -696,19 +696,6 @@ if choice_img != "Select one":
     message9 = "No Load - Healthy Image"
 
     st.header('', divider='rainbow')
-
-    # Image sets
-    # No Load - (70,49,200,166)
-    # 10 Phase 1 - (0,0,319,240)
-    # 10 Phase 2 - (0,0,319,240)
-    # 10 Phase 3 - (0,0,259,223)
-    # 30% Phase 1 - (70,49,200,166)
-    # 30% Phase 2 - (100,40,170,185)
-    # 30% Phase 3 - (15,40,257,175) 
-    # 50% Phase 1 - (15,40,257,170) 
-    # 50% Phase 2 - (20,35,260,182)
-    # Fan - (100,80,250,150)
-    # Rotor - (100,80,250,130)
     
     if choice_img == "Set1":
         with col1:
@@ -1058,6 +1045,19 @@ if choice_img != "Select one":
         if choice7 == "Object With Background":
             pass
 
+        # Image sets
+        # No Load - (70,49,200,166)
+        # 10 Phase 1 - (0,0,319,240)
+        # 10 Phase 2 - (0,0,319,240)
+        # 10 Phase 3 - (0,0,259,223)
+        # 30% Phase 1 - (70,49,200,166)
+        # 30% Phase 2 - (100,40,170,185)
+        # 30% Phase 3 - (15,40,257,175) 
+        # 50% Phase 1 - (15,40,257,170) 
+        # 50% Phase 2 - (20,35,260,182)
+        # Fan - (100,80,250,150)
+        # Rotor - (100,80,250,130)
+
         if choice7 == "Object Without Background":
 
             if choice_img == "Set1" or choice_img == "Set2" or choice_img == "Set3" or choice_img == "Set4" or choice_img == "Set5" or choice_img == "Set6":
@@ -1067,7 +1067,7 @@ if choice_img != "Select one":
                     st.header("Object Image")
 
                     cut1 = original_image1
-                    img1 = object(cut1,0,0,319,240,message1)
+                    img1 = object(cut1,0,0,259,223,message1)
 
                     cut2 = original_image2
                     img2 = object(cut2,70,49,200,166,message2)
@@ -1080,7 +1080,7 @@ if choice_img != "Select one":
                     st.header("Object Image")
 
                     cut4 = original_image4
-                    img4 = object(cut4,0,0,319,240,message4)
+                    img4 = object(cut4,100,80,250,150,message4)
 
                     cut5 = original_image5
                     img5 = object(cut5,100,40,170,185,message5)
@@ -1093,7 +1093,7 @@ if choice_img != "Select one":
                     st.header("Object Image")
 
                     cut7 = original_image7
-                    img7 = object(cut7,0,0,259,223,message7)
+                    img7 = object(cut7,100,80,250,130,message7)
 
                     cut8 = original_image8
                     img8 = object(cut8,15,40,257,175,message8)
