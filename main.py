@@ -826,7 +826,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img4 = cv2.imread("Fan/f075.bmp")
+            img4 = cv2.imread("Fan/f080.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
 
@@ -993,7 +993,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img4 = cv2.imread("Fan/f078.bmp")
+            img4 = cv2.imread("Fan/f079.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
 
@@ -1011,7 +1011,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img7 = cv2.imread("Rotor-0/r040.bmp")
+            img7 = cv2.imread("Rotor-0/r042.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
 
@@ -1093,7 +1093,7 @@ if choice_img != "Select one":
                     st.header("Object Image")
 
                     cut7 = original_image7
-                    img7 = object(cut7,100,80,250,130,message7)
+                    img7 = object(cut7,100,75,250,139,message7)
 
                     cut8 = original_image8
                     img8 = object(cut8,15,40,257,175,message8)
