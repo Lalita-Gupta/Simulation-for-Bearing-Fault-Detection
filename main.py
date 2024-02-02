@@ -381,15 +381,19 @@ def histogram_mean(image):
 def summary_single_table(message1,avg_total1,std_total1,var_total1,rms_total1,skew_total1,kur_total1,entropy_total1,hist_total1, message2,avg_total2,std_total2,var_total2,rms_total2,hist_total2,skew_total2,kur_total2,entropy_total2, message3,avg_total3,std_total3,var_total3,rms_total3,skew_total3,kur_total3,entropy_total3,hist_total3, message4,avg_total4,std_total4,var_total4,rms_total4,skew_total4,kur_total4,entropy_total4,hist_total4, message5,avg_total5,std_total5,var_total5,rms_total5,skew_total5,kur_total5,entropy_total5,hist_total5, message6,avg_total6,std_total6,var_total6,rms_total6,skew_total6,kur_total6,entropy_total6,hist_total6,message7,avg_total7,std_total7,var_total7,rms_total7,skew_total7,kur_total7,entropy_total7,hist_total7, message8,avg_total8,std_total8,var_total8,rms_total8,skew_total8,kur_total8,entropy_total8,hist_total8, message9,avg_total9,std_total9,var_total9,rms_total9,skew_total9,kur_total9,entropy_total9,hist_total9):
     
     if choice_img != "Select one":
-        message1 = "10% P1"
+        message1 = "10% P3"
         message2 = "30% P1"
         message3 = "50% P1"
-        message4 = "10% P2"
+        message4 = "Fan"
         message5 = "30% P2"
         message6 = "50% P2"
-        message7 = "10% P3"
+        message7 = "Rotor"
         message8 = "30% P3"
         message9 = "No Load"
+
+        
+            
+            
 
         if choice7 != "Select one" and choice6 != "Select one" and choice4 != "Select one":
                 if choice4 == "Pseudo Coloration" and choice5 == "Select one":
@@ -681,13 +685,13 @@ col1, col2, col3 = st.columns([1,1,1])
 
 if choice_img != "Select one":
 
-    message1 = "10% Load Phase 1 Image"
+    message1 = "10% Load Phase 3 Image"
     message2 = "30% Load Phase 1 Image"
     message3 = "50% Load Phase 1 Image"
-    message4 = "10% Load Phase 2 Image"
+    message4 = "Fan Image"
     message5 = "30% Load Phase 2 Image" 
     message6 = "50% Load Phase 2 Image"
-    message7 = "10% Load Phase 3 Image"
+    message7 = "Rotor Image"
     message8 = "30% Load Phase 3 Image"
     message9 = "No Load - Healthy Image"
 
@@ -703,11 +707,14 @@ if choice_img != "Select one":
     # 30% Phase 3 - (15,40,257,175) 
     # 50% Phase 1 - (15,40,257,170) 
     # 50% Phase 2 - (20,35,260,182)
+    # Fan - (100,80,250,150)
+    # Rotor - (100,80,250,130)
+    
     if choice_img == "Set1":
         with col1:
 
             st.header("Original Image")
-            img1 = cv2.imread("A10/035.bmp")
+            img1 = cv2.imread("A&C&B10/109.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
 
@@ -724,7 +731,7 @@ if choice_img != "Select one":
         with col2:
 
             st.header("Original Image")
-            img4 = cv2.imread("A&C10/071.bmp")
+            img4 = cv2.imread("Fan/f073.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
 
@@ -741,7 +748,7 @@ if choice_img != "Select one":
         with col3:
 
             st.header("Original Image")
-            img7 = cv2.imread("A&C&B10/106.bmp")
+            img7 = cv2.imread("Rotor-0/r035.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
 
@@ -759,7 +766,7 @@ if choice_img != "Select one":
         with col1:
 
             st.header("Original Image")
-            img1 = cv2.imread("A10/036.bmp")
+            img1 = cv2.imread("A&C&B10/110.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
 
@@ -778,7 +785,7 @@ if choice_img != "Select one":
         with col2:
 
             st.header("Original Image")
-            img4 = cv2.imread("A&C10/072.bmp")
+            img4 = cv2.imread("Fan/f074.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
 
@@ -795,7 +802,7 @@ if choice_img != "Select one":
         with col3:
 
             st.header("Original Image")
-            img7 = cv2.imread("A&C&B10/107.bmp")
+            img7 = cv2.imread("Rotor-0/r036.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
 
@@ -814,7 +821,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img1 = cv2.imread("A10/037.bmp")
+            img1 = cv2.imread("A&C&B10/111.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
 
@@ -832,7 +839,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img4 = cv2.imread("A&C10/073.bmp")
+            img4 = cv2.imread("Fan/f075.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
 
@@ -850,7 +857,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img7 = cv2.imread("A&C&B10/108.bmp")
+            img7 = cv2.imread("Rotor-0/r037.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
 
@@ -869,7 +876,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img1 = cv2.imread("A10/038.bmp")
+            img1 = cv2.imread("A&C&B10/112.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
 
@@ -887,7 +894,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img4 = cv2.imread("A&C10/074.bmp")
+            img4 = cv2.imread("Fan/f076.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
 
@@ -905,7 +912,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img7 = cv2.imread("A&C&B10/109.bmp")
+            img7 = cv2.imread("Rotor-0/r038.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
 
@@ -924,7 +931,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img1 = cv2.imread("A10/039.bmp")
+            img1 = cv2.imread("A&C&B10/113.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
 
@@ -942,7 +949,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img4 = cv2.imread("A&C10/075.bmp")
+            img4 = cv2.imread("Fan/f077.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
 
@@ -960,7 +967,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img7 = cv2.imread("A&C&B10/110.bmp")
+            img7 = cv2.imread("Rotor-0/r039.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
             if on5:
@@ -981,7 +988,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img1 = cv2.imread("A10/040.bmp")
+            img1 = cv2.imread("A&C&B10/114.bmp")
             original_image1 = input(img1,message1)
             img1 = original_image1 
 
@@ -999,7 +1006,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img4 = cv2.imread("A&C10/076.bmp")
+            img4 = cv2.imread("Fan/f078.bmp")
             original_image4 = input(img4,message4)
             img4 = original_image4
 
@@ -1017,7 +1024,7 @@ if choice_img != "Select one":
 
             st.header("Original Image")
 
-            img7 = cv2.imread("A&C&B10/109.bmp")
+            img7 = cv2.imread("Rotor-0/r040.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
 
