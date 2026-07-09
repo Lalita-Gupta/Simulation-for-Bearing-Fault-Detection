@@ -959,8 +959,6 @@ if choice_img != "Select one":
             img7 = cv2.imread("Rotor-0/r039.bmp")
             original_image7 = input(img7,message7)
             img7 = original_image7
-            if on5:
-                histogram(img7)
 
             # 30% 
             img8 = cv2.imread("A&C&B30/224.bmp")
